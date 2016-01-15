@@ -11,25 +11,45 @@ run_setup <- function() {
 }
 
 .load_packages <- function() {
+    # May need to run this function another time if a package needs to be
+    # installed.
+    #
     # Add your packages you want to use here, using the following format:
     # if (!require(package)) install.packages('package')
+    if (!require(fdrtool)) install.packages('fdrtool')
+    if (!require(dplyr)) install.packages('dplyr')
+    if (!require(tidyr)) install.packages('tidyr')
+    if (!require(ggplot2)) install.packages('ggplot2')
+    if (!require(pander)) install.packages('pander')
+    if (!require(knitr)) install.packages('knitr')
+    if (!require(DiagrammeR)) install.packages('DiagrammeR')
     # Or, for github packages:
     # if (!require(package)) packrat::install_github('username/package')
+    if (!require(mason)) {
+        if (!require(curl)) install.packages('curl')
+        packrat::install_github('lwjohnst86/mason')
+    }
+    if (!require(seer)) {
+        if (!require(curl)) install.packages('curl')
+        packrat::install_github('lwjohnst86/seer')
+    }
+    # How to manage local? Not sure.
+    library(carpenter)
 }
 
 .set_options <- function() {
     # Set the options here for individual packages
 
     # For tables (pander)
-#     panderOptions('table.split.table', Inf)
-#     panderOptions('table.style', 'rmarkdown')
-#     panderOptions('table.alignment.default',
-#                   function(df)
-#                       ifelse(sapply(df, is.numeric), 'center', 'left'))
+    panderOptions('table.split.table', Inf)
+    panderOptions('table.style', 'rmarkdown')
+    panderOptions('table.alignment.default',
+                  function(df)
+                      ifelse(sapply(df, is.numeric), 'center', 'left'))
 
     # For the document (knitr)
-#     knitr::opts_chunk$set(
-#         warning = FALSE, message = FALSE, collapse = TRUE
-#     )
+    knitr::opts_chunk$set(
+        warning = FALSE, message = FALSE, collapse = TRUE
+    )
 }
 
