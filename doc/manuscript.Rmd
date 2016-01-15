@@ -1,9 +1,12 @@
 ---
-bibliography: path/to/bib/file
-csl: path/to/bib/style/file
+bibliography: 
+    - /home/luke/Documents/bibliography/bib/bib-db/myrefs.bib
+    - /home/luke/Documents/bibliography/bib/bib-db/nefaDiabetes.bib
+csl:
+    - /home/luke/Documents/bibliography/styles/american-medical-association-no-et-al.csl
 output:
     word_document:
-      reference_docx: path/to/ref/doc
+      reference_docx: /home/luke/Templates/journal-templates/ajcn-template.docx
       fig_height: 6 
       fig_width: 5 
       fig_caption: true
@@ -25,18 +28,70 @@ Funding support:
 
 # Abstract #
 
-# Background #
+<!-- outline
 
-# Subjects and Methods #
+Overall story: while nefa are known risk factors for diabetes, not sure about
+the composition. we find that the composition doesn't matter so much as the
+overall pool, specific to BCD. however, 16:0, etc, are the only two fa that have
+an assoc, suggesting that irrespective of other fa increases or decreases, these
+two fa are the fa that contribute to the harm seen in the overall nefa. using
+cluster analysis, we see that those with low bcd have a pattern of fa that skews
+to higher amounts of 16:0 etc and marginally less in other fa (maybe not enough
+to observe on an individual scale). while other studies have seen a role of nefa
+in ir, we do not. while this warrants further longitudinal research, this may
+suggest that given prev studies on ir have been acute in nature, over the long
+term the role of nefa on ir may not be substantial. this duality in nefa is also
+seen in bcd, where acutely it improves bc, but chronically no.
+
+Possible reason why IR is not shown... other studies have been cross-sectional..
+Thus a potential confounder is the role that obesity plays in IR and IR on FFA
+release... So, longitudinally, FFA would not predict IR since it is IR that is
+suppressing NEFA.
+
+total nefa evidence, well-studied. but there is diversity. no studies on it.
+
+Some evidence to suggest that FFA delivery may be higher in obese, but that conc
+may or may not be. Also that research on increasing FFA and IR comes from
+experimental (probably fairly short term) research.
+
+methods -> gee, then lda (or similar) to confirm the role of 16:0 etc rather
+than any individual FA
+
+- as GEE results suggest that % does nothing, but in conc 16:0 etc has assoc...
+is it that 16:0 is harmful or is it the pool? is it that as 16:0 inc, there is
+harm, irrespective of whether other FA increase or decrease as well?
+- need to do LDA or some such to id the pattern of why... (don't show this in
+paper, but examine PCA of it too)
+
+figs/tabs: 
+- tab:basic char
+- fig:distr
+- fig:nefaCorr (sup?)
+- fig:varCorr (sup?)
+- fig:geeconc%
+- fig:lda
+
+supfigs/tabs:
+- tab:geeconc%
+- tab:distr
+
+THOUGHTS:
+
+- sleep restriction can impact NEFA, but only higher during night and a bit
+during early-morning. Should keep this in mind.
+- Adjust for TAG in IR models?
+
+-->
 
 <!--
 ## Load data ##
 -->
 
 ```{r setup, message = FALSE, echo = FALSE}
-sapply(list.files('R', pattern = '*.R'), source, .GlobalEnv)
+invisible(sapply(list.files('R', pattern = '*.R', full.names = TRUE), source))
 run_setup()
-load_data(master.dataset = '/path/to/master/dataset')
+load_data()
+dim(ds)
 ```
 
 ```{r caption_setup}
@@ -47,6 +102,155 @@ tabNums <- captioner(prefix = 'Table')
 supTabNums <- captioner(prefix = 'Supplementary Table')
 ```
 
+# Background #
+
+Three paragraphs:
+
+1. Total NEFA on diabetes, pathology, evidence
+2. NEFA diverse, individual NEFA on pathology, bit more evidence from total, go
+into experimental of species
+3. Limitations, gaps, inconsistencies, objectives and hypotheses
+
+# Subjects and Methods #
+
+The Prospective Metabolism and Islet cell Evaluation (PROMISE) cohort is a longitudinal observational study of
+participants with one or more risk factors for type 2 diabetes
+mellitus, including obesity, hypertension, family history of diabetes,
+and/or a history of gestational diabetes or birth of a macrosomic
+infant.  Participants aged 30 years and older were recruited for the baseline visit from Toronto and London, Ontario, Canada into the PROMISE cohort (n=736)
+between 2004-2006.  Follow-up examinations occur every
+three years, with currently three examination visits completed to date
+(2004-2006, 2007-2009, and 2010-2013).  The current study used data on
+participants who did not have diabetes at baseline, who returned for
+one or more follow-up examinations, and who had samples available for
+fatty acid measurements (n=477).  A diagram of the sample size at each
+visit is shown in `r supFigRef('flow')`.  At each examination,
+participants undergo extensive metabolic characterization,
+anthropometric measurements, and structured questionnaires on
+lifestyle and sociodemographics.  Research ethics approval was
+obtained from Mount Sinai Hospital and the University of Western
+Ontario.  Data collection methods were standardized across the 2
+centres and research nurses were centrally trained.  <!--Over the
+6-yrs, {{n return each visit}} returned for the 6-yr clinic visit
+({{pct loss to followup}}% loss to follow-up).  By the 6-yr visit, {{n
+converted to IFG}} converted into IFG, {{n converted to IGT}}
+converted into IGT, and {{n converted to DM}} into diabetes.-->
+
+## Blood measure assessment
+
+At each clinic examination, participants had an 7-12 hour fasting blood sample 
+taken and then had a 75g oral glucose tolerance test (OGTT) with a 30 minute and
+2 hour blood draw. All blood samples were processed and frozen at -70°C. 
+Alanine
+aminotransferase (ALT) was measured using standard laboratory
+procedures.  Cholesterol, HDL, and triacylglycerols (TAG) were
+measured using Roche Modular's enzymatic colometric tests
+(Mississauga, ON).  Both specific insulin and glucose were derived
+from the OGTT at fasting, 30 minute, and 2 hour time points.  Specific
+insulin was measured using the Elecsys 1010 (Roche Diagnostics, Basel,
+Switzerland) immunoassay analyzer and electrochemiluminescence
+immunoassay.  This assay shows 0.05% cross-reactivity to intact human
+pro-insulin and the Des 31,32 circulating split form (Linco Res. Inc),
+and has a CV of 9.3%.  Glucose was determined using an enzymatic
+hexokinase (Roche Modular, Roche Diagnostics) with a detection range
+of 0.11 (2 mg/dL) to 41.6 mmol/L.  The inter-assay %CV is <1.1% and
+intra-assay %CV is < 1.9%.  All assays were performed at the Banting
+and Best Diabetes Centre Core Lab at the University of Toronto.
+Impaired fasting glucose (IFG), impaired glucose tolerance (IGT), and
+diabetes were categorized using the 2006 WHO criteria [@WHO2006].
+
+NEFA composition was quantified using stored fasting serum samples from the
+baseline visit, which had been frozen at -70°C for 4-6 years and had not been
+exposed to any freeze-thaw cycles.  Serum fatty acids have been documented to be
+stable at these temperatures for up to 10 years [@Matthan2010a]. A known amount
+of {{internal standard name}} (17:0) was added to the serum as an internal 
+standard prior to extracting total lipids according to the method of Folch
+[@Folch1957a].  Each serum lipid fraction was isolated using thin layer 
+chromatography, which were  visualized under UV light after lightly spraying 
+with 8-anilino-1-naphthalene sulfonic acid (0.1% wt/vol) and then converted to
+fatty acid methyl esters with 14% boron trifluoride in methanol at 100°C for 1
+h.  Fatty acid methyl esters were separated and quantified using a Varian-430
+gas chromatograph (Varian, Lake Forest, CA, USA) equipped with a Varian Factor
+Four capillary column (VF-23ms; 30 m × 0.25 mm i.d. × 0.25 μm film thickness)
+and a flame ionization detector, which were injected in splitless mode. Fatty
+acid concentrations (nmol/ml) were calculated by proportional comparison of gas
+chromatography peak areas to that of the internal standards [@Nishi2014a;
+@Chen2011a].  There were 22 fatty acids measured in the NEFA fraction.
+
+## Outcome variables
+
+Insulin sensitivity and beta-cell function indices were computed using the OGTT
+glucose and insulin.  Insulin sensitivity was assessed using the inverted
+homeostasis model assessment of insulin resistance (1/HOMA-IR) [@Matthews1985]
+and the Insulin Sensitivity Index (ISI) [@Matsuda1999]. HOMA-IR largely reflects
+hepatic insulin resistance, while ISI reflects whole-body insulin sensitivity
+[@AbdulGhani2007].  Beta-cell function was assessed using the Insulinogenic
+Index [@Wareham1995] over HOMA-IR (IGI/IR) and the Insulin Secretion-Sensitivity
+Index-2 (ISSI-2) [@Retnakaran2009]. IGI/IR is a measure of the first phase
+insulin secretion while ISSI-2 is analogous to the disposition index. Each index
+has been validated against gold standard measures [@Matthews1985; @Matsuda1999;
+@Retnakaran2009].
+
+## Anthropometrics and sociodemographics
+
+Height, weight, and waist circumference (WC) were measured at all clinic
+examinations using standard procedures.  WC was measured at the natural waist,
+defined as the narrowest part of the torso between the umbilicus and the xiphoid
+process.  Height was measured using a stadiometer and weight was measured on a 
+medical balance beam scale. BMI was calculated by dividing weight (kg) by height
+(m) squared. Sociodemographic information, such as age, sex, and ethnicity, were
+determined using standardized questionnaires administered at each examination
+visit.
+
+## Statistical analysis
+
+The primary outcome variables for the PROMISE cohort and this analyses were 
+1/HOMA-IR, ISI, IGI/IR, and ISSI-2; outcome variables were log-transformed for
+the statistical modeling. The primary predictor variables for this study were
+the 22 NEFA as a mole percent (mol%) of the total fraction and as a 
+concentration (nmol/mL). 
+
+Pearson correlation coefficients were computed for the PL and CE fatty acids
+with other continuous variables. {{keep??}}
+
+For the primary analysis, generalized estimating equation (GEE) models 
+[@Zeger1986a] were used to determine the longitudinal associations between the 
+outcome variables and the predictor variables.  Given the longitudinal design
+and auto-regressive (AR1) correlation matrix was chosen for the GEE models,
+though other matrices (eg. exchangeable) had similar fit (data not shown)
+{{confirm}}. GEE is well suited to cohort studies given it's capacity to handle
+missed visits. The predictor variables and continuous covariates were scaled 
+(mean centered and standardized). The NEFA variables were classified as 
+*time-independent* (held constant) as they were measured only at the baseline 
+visit, while the outcome variables and covariates were set as *time-dependent*. 
+No imputation was conducted on missing values.
+
+Covariates selection was based on previous literature, suggestions from directed
+acyclic graph modeling [@Greenland1999a], and the quasi-likelihood information
+criterion (QIC). Various models compared using QIC are shown in **`r supTabRef('tabQIC')`**.  
+The final GEE model (M#) we selected had time, sex,
+ethnicity, baseline age, waist circumference, {{...}}, and family history of
+diabetes as covariates.  GEE parameter estimates were exponentiated.
+<!--(exponentiated, minus 1, and multiplied by 100)--> After scaling,
+log-transforming, and exponentiating, the GEE parameter estimates are
+interpreted as an expected percent difference in the outcome variable for every
+SD increase in the predictor variable given the covariates are held constant. 
+An time by predictor term was included in each of the GEE models to test for
+time interactions.
+
+After running the GEE models for the longitudinal analysis, linear discriminant
+analysis (LDA) {{or QDA}} was used to identify the patterns of NEFA composition for
+tertiles of the metabolic disorders. Jacknifed cross-validation method used in
+the LDA analysis. Only the baseline visit data was used for the LDA analysis and
+only the outcome and predictor variables could be included in the analysis.
+
+All statistical tests were computed using R `r getRversion()`
+[@Rbase], along with the R packages geepack `r packageVersion('geepack')` for
+the GEE modeling [@Hoejsgaard2006a] and MASS `r packageVersion('MASS')` for LDA.
+The R code for this manuscript is available at {{link}}. Results were
+statistically significance at p<0.05, after adjusting for the False Discovery
+Rate [@Benjamini1995a] for multiple testing.
+
 # Results #
 
 # Discussion #
@@ -54,3 +258,152 @@ supTabNums <- captioner(prefix = 'Supplementary Table')
 ## Acknowledgements ##
 
 # References #
+
+# Tables #
+
+```{r tabBasic}
+# table(ds$Ethnicity, ds$f.VN)
+# table(ds$f.VN)
+summary(ds$Sex)
+ds %>%
+    outline_table(c('ne_Total', 'HOMA', 'ISI', 'IGIIR', 'ISSI2',
+                    'TAG', 'Chol', 'BMI', 'Waist', 'HDL', 'FamHistDiab',
+                    'Age', 'Ethnicity', 'Sex', 'MET', 'IFG', 'IGT',
+                    'DM'), 'f.VN') %>% 
+#     add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'), stat_medianIQR, digits = 1) %>% 
+#     add_rows(c('TAG', 'Chol', 'HDL', 'ne_Total', 'BMI', 'Waist', 'Age'), 
+#              stat_meanSD, digits = 1) %>% 
+    add_rows(c('Ethnicity', 'Sex')) %>% 
+    rename_rows(renaming_table_rows) %>%
+    rename_columns('Measure', 'Baseline', '3-yr', '6-yr') %>%
+    construct_table()
+
+```
+
+
+# Figures #
+
+```{r figDist}
+ds %>%
+    filter(VN == 0) %>%
+    select(SID, matches('^ne\\d')) %>%
+    filter(complete.cases(.)) %>% 
+    gather(Measure, Value, -SID) %>% 
+    mutate(Measure = renaming_fa(Measure) %>% 
+               gsub('ne_', '', .) %>%
+               factor(., levels = unique(.))) %>% 
+    spread(Measure, Value) %>% 
+    select(-SID) %>% 
+    trance('boxes_dots') %>% 
+    visualize(dots = FALSE,
+              xlab = 'Concentration (nmol/mL)',
+              ylab = 'Non-esterified fatty acid') %>% 
+    vision_simple(base_size = 10)
+```
+
+```{r geeData}
+
+outcomes <- c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')
+ne_pct <- grep('^pct_ne', names(ds), value = TRUE)
+ne_conc <- c('ne_Total', grep('^ne\\d\\d', names(ds), value = TRUE))
+covariates <- c('Waist', 'VN', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'FamHistDiab')
+
+gee_df <- full_join(
+    ds %>%
+        select(-matches('pct_ne|^ne'),-ne_Total),
+    ## Scale all the fatty acids
+    ds %>%
+        filter(VN == 0) %>%
+        select(SID, ne_Total, matches('pct_ne|^ne')) %>%
+        mutate_each(funs(as.numeric(scale(.))),-SID),
+    by = 'SID') %>%
+    group_by(VN) %>%
+    mutate(
+        Waist = as.numeric(scale(Waist)),
+        ALT = as.numeric(scale(ALT)),
+        BaseAge = as.numeric(scale(BaseAge))
+        ) %>% 
+    ungroup() %>%
+    arrange(SID, VN)
+
+gee_results <- bind_rows(
+    analyze_gee(gee_df, outcomes, ne_pct, covariates, 'mol%'),
+    analyze_gee(gee_df, outcomes, ne_conc, covariates, 'nmol/mL')
+    ) %>% 
+    mutate()
+
+gee_results_unadj <- bind_rows(
+    analyze_gee(gee_df, outcomes, ne_pct, covariates, 'mol%'),
+    analyze_gee(gee_df, outcomes, ne_conc, covariates, 'nmol/mL')
+    )
+
+```
+
+```{r figGee}
+gee_results %>%
+    trance('main_effect') %>%
+    visualize(groups = 'unit~Yterms',
+              xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
+              ylab = 'Non-esterified fatty acids') %>% 
+    vision_simple(legend_position = 'bottom') +
+    theme(
+        axis.text.y = element_text(face = ifelse(
+        gee_results$Xterms == 'Total', "bold", "plain"
+        )),
+        legend.key.width = grid::unit(0.75, "line"),
+        legend.key.height = grid::unit(0.75, "line"),
+        panel.margin = grid::unit(0.75, "lines")
+        ) +
+    scale_alpha_discrete(name = 'P-value', range = c(0.4, 1.0))
+```
+
+# Supplemental Material #
+
+```{r supTabQIC}
+
+subds <- ds %>%
+  select(SID, VN, lISSI2, pl_Total, Sex, Ethnicity, MET, ALT,
+         BaseAge, Waist, BMI, AlcoholPerWk, TobaccoUse, SelfEdu,
+         Occupation, totalNE, FamHistDiab) %>%
+  mutate(SelfEdu = as.factor(SelfEdu),
+         Occupation = as.factor(Occupation),
+         TobaccoUse = as.factor(TobaccoUse),
+         AlcoholPerWk = as.factor(AlcoholPerWk)) %>%
+  filter(complete.cases(.))
+
+levels(subds$SelfEdu)[1:2] <- c('2', '2')
+subds$SelfEdu <- droplevels(subds$SelfEdu)
+
+M0 <- geeglm(lISSI2 ~ pl_Total + VN, data = subds,
+                id = SID, family = gaussian,
+                corstr = 'exchangeable')
+M1 <- update(M0, . ~ . + Sex + Ethnicity + BaseAge)
+M2 <- update(M0, . ~ . + Sex + Ethnicity + BaseAge + Waist)
+M3 <- update(M0, . ~ . + Sex + Ethnicity + BaseAge + BMI)
+M4 <- update(M0, . ~ . + Sex + Ethnicity + BaseAge + Waist + MET +
+               AlcoholPerWk + TobaccoUse + SelfEdu + Occupation +
+               FamHistDiab)
+M5 <- update(M0, . ~ . + Sex + Ethnicity + BaseAge + MET + Waist +
+               AlcoholPerWk + TobaccoUse + SelfEdu + Occupation +
+               FamHistDiab + totalNE + ALT)
+M6 <- update(M0, . ~ . + Sex + Ethnicity + Waist + totalNE)
+M7 <- update(M0, . ~ . + Sex + Ethnicity + Waist + totalNE + ALT)
+M8 <- update(M0, . ~ . + Sex + Ethnicity + Waist + totalNE + ALT + BaseAge)
+M9 <- update(M0, . ~ . + Sex + Ethnicity + Waist + totalNE + ALT + BaseAge + FamHistDiab)
+
+set.caption(supTabRef('tabQIC', 'Comparing generalized estimating equation
+models adjusting for different covariates using
+Quasi-Likelihood Information Criterion.'))
+MuMIn::model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9,
+          rank = QIC) %>%
+  tableModelSelection()
+
+tableModelSelection <- function(selection.data) {
+    selection.data %>%
+      add_rownames() %>%
+      select(Model = rowname, QIC, Delta = delta) %>%
+      pander(digits = 2)
+}
+
+```
+
