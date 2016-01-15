@@ -7,10 +7,98 @@
 #'
 .fetch_data <- function(master.dataset) {
     # Load the master dataset,
-    ds.prep <- read.table(master.dataset, na = "")
+    ds.prep <- read.table(master.dataset,
+                          header = TRUE, na = "",
+                          sep = ",") %>%
+        filter(VN %in% c(1, 3, 6)) %>%
+        ## Kick out Canoers
+        filter(is.na(Canoe)) %>%
+        tbl_df()
+
+    print(paste('Dimensions are:', dim(ds.prep)))
+
+    ##' Munge and wrangle the data into the final version.
+    ds <-
+        full_join(ds.prep,
+                  ds.prep %>%
+                      filter(VN == 1) %>%
+                      select(SID, BaseAge = Age)) %>%
+        select(
+            SID, VN, BMI, Waist, HOMA, ISI, IGIIR, ISSI2, TAG, LDL, HDL, Chol,
+            ALT, CRP, FamHistDiab, matches('meds'), Age, Sex, Ethnicity,
+            IFG, IGT, DM, MET, BaseAge
+        ) %>%
+        mutate(
+            FamHistDiab =
+                plyr::mapvalues(FamHistDiab, c(0, 1:12),
+                                c('No', rep('Yes', 12))) %>%
+                as.factor(),
+            invHOMA = (1 / HOMA),
+            linvHOMA = log(invHOMA),
+            lISI = log(ISI),
+            lIGIIR = log(IGIIR),
+            lISSI2 = log(ISSI2)
+        ) %>%
+        full_join(
+            .,
+            ## Merge in the FA dataset so it is time-independent.
+            full_join(
+                ds.prep %>%
+                    filter(VN == 1) %>%
+                    select(SID, totalNE, matches('^ne\\d+')) %>%
+                    filter(complete.cases(.)),
+                ## Create percent of total fatty acid values.
+                ds.prep %>%
+                    filter(VN == 1) %>%
+                    select(SID, totalNE, matches('^ne\\d+')) %>%
+                    gather(Total, TotConc, totalNE) %>%
+                    gather(Fat, FatConc,-SID,-Total,-TotConc) %>%
+                    mutate(
+                        Total = gsub('total', '', Total),
+                        FatPool = toupper(gsub('\\d.*$', '', Fat)) %>% factor(),
+                        Pct = (FatConc / TotConc) * 100,
+                        Fat = gsub('^', 'pct_', Fat)
+                    ) %>%
+                    filter(complete.cases(.), Total == FatPool) %>%
+                    select(SID, Fat, Pct) %>%
+                    spread(Fat, Pct)
+            ),
+            by = 'SID'
+        ) %>%
+        mutate(
+            VN = plyr::mapvalues(VN, c(1, 3, 6), c(0, 1, 2)),
+            f.VN = factor(VN, c(0, 1, 2), c('yr0', 'yr3', 'yr6')),
+            Dysgly = IFG + IGT + DM,
+            Sex = plyr::mapvalues(Sex, c('F', ))
+            Ethnicity =
+                plyr::mapvalues(
+                    Ethnicity,
+                    c(
+                        'African', 'European', 'First Nations',
+                        'Latino/a', 'Other', 'South Asian'
+                    ),
+                    c('Other', 'European', 'Other', 'Latino/a',
+                      'Other', 'South Asian')
+                )
+        ) %>%
+        select(
+            SID, VN, ne_Total = totalNE,
+            matches('(pct_ne|^ne).*0$'),
+            matches('(pct_ne|^ne).*n9'),
+            matches('(pct_ne|^ne).*n7'),
+            matches('(pct_ne|^ne).*n6'),
+            matches('(pct_ne|^ne).*n3'),
+            everything()
+        ) %>%
+        arrange(SID, VN)
+
+    print(paste0('Dimensions of working dataset: ',dim(ds)))
+
+    # There are no duplicate rows
+    if(any(duplicated(ds[c('SID', 'VN')])))
+        message('There are duplicate values.')
 
     # Final dataset object
     # Save the dataset as an RData file.
-    ds <- ds.prep
     save(ds, file = file.path('data', 'ds.RData'))
 }
