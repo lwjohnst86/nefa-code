@@ -15,7 +15,7 @@
         filter(is.na(Canoe)) %>%
         tbl_df()
 
-    print(paste('Dimensions are:', dim(ds.prep)))
+    print(paste0('Original dataset rows are ', dim(ds.prep)[1], ' and columns are ', dim(ds.prep)[2]))
 
     ##' Munge and wrangle the data into the final version.
     ds <-
@@ -26,7 +26,7 @@
         select(
             SID, VN, BMI, Waist, HOMA, ISI, IGIIR, ISSI2, TAG, LDL, HDL, Chol,
             ALT, CRP, FamHistDiab, matches('meds'), Age, Sex, Ethnicity,
-            IFG, IGT, DM, MET, BaseAge
+            IFG, IGT, DM, MET, BaseAge, AlcoholPerWk, TobaccoUse, SelfEdu, Occupation
         ) %>%
         mutate(
             FamHistDiab =
@@ -37,7 +37,8 @@
             linvHOMA = log(invHOMA),
             lISI = log(ISI),
             lIGIIR = log(IGIIR),
-            lISSI2 = log(ISSI2)
+            lISSI2 = log(ISSI2),
+            MedsLipidsChol = ifelse(is.na(MedsLipidsChol), 0, MedsLipidsChol)
         ) %>%
         full_join(
             .,
@@ -68,8 +69,8 @@
         mutate(
             VN = plyr::mapvalues(VN, c(1, 3, 6), c(0, 1, 2)),
             f.VN = factor(VN, c(0, 1, 2), c('yr0', 'yr3', 'yr6')),
-            Dysgly = IFG + IGT + DM,
-            Sex = plyr::mapvalues(Sex, c('F', ))
+            Dysgly = plyr::mapvalues(as.character(IFG + IGT + DM), c('0', '1'), c('No', 'Yes')),
+            Sex = plyr::mapvalues(Sex, c('F', 'M'), c('Female', 'Male')),
             Ethnicity =
                 plyr::mapvalues(
                     Ethnicity,
@@ -92,7 +93,7 @@
         ) %>%
         arrange(SID, VN)
 
-    print(paste0('Dimensions of working dataset: ',dim(ds)))
+    print(paste0('Working dataset rows are ', dim(ds)[1], ' and columns are ', dim(ds)[2]))
 
     # There are no duplicate rows
     if(any(duplicated(ds[c('SID', 'VN')])))
