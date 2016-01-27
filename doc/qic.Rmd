@@ -1,0 +1,234 @@
+---
+title: "QIC Model Comparisons"
+author: "Luke W. Johnston"
+date: "January 15, 2016"
+output: 
+    rmarkdown::html_vignette:
+        toc: true
+---
+
+# Load up packages and data
+
+```{r setup, collapse=TRUE}
+knitr::opts_knit$set(root.dir = '../')
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+```{r loadData, message=FALSE}
+source('.Rprofile')
+suppressMessages(run_setup())
+load_data()
+dim(ds)
+summary(as.factor(ds$AlcoholPerWk))
+summary(as.factor(ds$TobaccoUse))
+summary(as.factor(ds$SelfEdu))
+summary(as.factor(ds$FamHistDiab))
+summary(as.factor(ds$Occupation))
+summary(as.factor(ds$MedsLipidsChol))
+```
+
+# Get the data prepared for QIC comparisons
+
+```{r qicData}
+ds.prep <- ds %>%
+  select(SID, VN, lISSI2, lISI, ne_Total, Sex, Ethnicity, MET, ALT,
+         BaseAge, Waist, BMI, AlcoholPerWk, TobaccoUse, SelfEdu,
+         Occupation, FamHistDiab, TAG) %>%
+    mutate(
+        SelfEdu = plyr::mapvalues(as.factor(SelfEdu), c('1', '2', '3', '4', '5', '6'),
+                                  c('0', '0', '0', '0', '1', '0')),
+        AlcoholPerWk = plyr::mapvalues(
+            as.factor(AlcoholPerWk), c('1', '2', '3', '4', '5', '6', '7'),
+            c('1', '2', '3', '3', '3', '3', '3')
+            ) %>%
+            as.factor(),
+        Occupation = as.factor(Occupation),
+        TobaccoUse = as.factor(TobaccoUse)
+        ) 
+dim(ds.prep)
+summary(as.factor(ds.prep$SelfEdu))
+
+# QIC data for IS, but without TAG
+qic_is <- ds.prep %>%
+    select(-lISSI2, -TAG) %>% 
+    na.omit()
+dim(qic_is)
+
+# QIC data for BCF, without TAG
+qic_bcf <- ds.prep %>% 
+    select(-lISI, -TAG) %>% 
+    na.omit()
+dim(qic_bcf)
+
+# QIC data for IS with TAG
+qic_is_TAG <- ds.prep %>%
+    select(-lISSI2) %>% 
+    na.omit()
+dim(qic_is_TAG)
+
+# QIC data for BCF with TAG
+qic_bcf_TAG <- ds.prep %>% 
+    select(-lISI) %>% 
+    na.omit()
+dim(qic_bcf_TAG)
+```
+
+# QIC for insulin sensitivity via ISI
+
+```{r qicIS_0}
+M0 <- geepack::geeglm(
+    lISI ~ ne_Total + VN, data = qic_is,
+    id = SID, family = gaussian,
+    corstr = 'ar1'
+    )
+M1 <- update(M0, . ~ . + Sex)
+M2 <- update(M0, . ~ . + BaseAge) # Nearly same as M0
+M3 <- update(M0, . ~ . + Ethnicity) # Nearly same as M0
+M4 <- update(M0, . ~ . + Waist) # Best model
+M5 <- update(M0, . ~ . + BMI) # Second best
+M6 <- update(M0, . ~ . + MET)
+M7 <- update(M0, . ~ . + AlcoholPerWk)
+M8 <- update(M0, . ~ . + TobaccoUse) # Nearly same as M0
+M9 <- update(M0, . ~ . + SelfEdu) # Nearly same as M0
+M10 <- update(M0, . ~ . + Occupation) # Nearly same as M0
+M11 <- update(M0, . ~ . + FamHistDiab) # Nearly same as M0
+M12 <- update(M0, . ~ . + ALT)
+
+model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9,
+          M10, M11, M12,
+          rank = QIC) %>% 
+    add_rownames() %>%
+    select(Model = rowname, qLik, QIC, delta) %>% 
+    pander(digits = 2)
+```
+
+```{r qicIS_1}
+M1 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity)
+M2 <- update(M0, . ~ . + Waist + ALT + Sex + BMI + MET + AlcoholPerWk)
+M3 <- update(M0, . ~ . + Waist + ALT + Sex + BMI + MET)
+M4 <- update(M0, . ~ . + Waist + ALT + Sex + BMI)
+M5 <- update(M0, . ~ . + Waist + ALT + Sex)
+M6 <- update(M0, . ~ . + Waist + ALT)
+M7 <- update(M0, . ~ . + Waist)
+M8 <- update(M0, . ~ . + Waist + ALT + Sex + MET + AlcoholPerWk)
+M9 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity + ALT + MET + AlcoholPerWk) # Best model
+M10 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity + ALT + MET)
+M11 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity + ALT + AlcoholPerWk) # Second best
+
+model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11, 
+          rank = QIC) %>% 
+    add_rownames() %>%
+    select(Model = rowname, qLik, QIC, delta) %>% 
+    pander(digits = 2)
+```
+
+```{r qicIS_2}
+M0.1 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT + Sex + MET + AlcoholPerWk +
+                 TobaccoUse + SelfEdu + Occupation) # Third best
+M1 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + Sex)
+M2 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT + Sex + MET + AlcoholPerWk) # Best model
+M2.1 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT + Sex + MET + AlcoholPerWk + FamHistDiab) # Second best
+M3 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT + Sex + MET) # Fourth best
+M4 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT + Sex)
+M5 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT)
+M6 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity)
+M7 <- update(M0, . ~ . + Waist + BaseAge)
+M8 <- update(M0, . ~ . + Waist + BaseAge + ALT + Sex + MET + AlcoholPerWk)
+M9 <- update(M0, . ~ . + Waist + ALT + Sex + MET)
+M10 <- update(M0, . ~ . + Waist + ALT + Sex)
+M11 <- update(M0, . ~ . + Waist + ALT)
+
+model.sel(M0, M0.1, M1, M2, M2.1, M3, M4, M5, M6, M7, M8, M9, M10, M11,
+          rank = QIC) %>% 
+    add_rownames() %>%
+    select(Model = rowname, qLik, QIC, delta) %>% 
+    pander(digits = 2)
+```
+
+## Compare final model with that for TAG (smaller sample size)
+
+```{r qicIS_tag}
+M0 <- geepack::geeglm(
+    lISI ~ ne_Total + VN, data = qic_is_TAG,
+    id = SID, family = gaussian,
+    corstr = 'ar1'
+    )
+M1 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT + Sex + MET + AlcoholPerWk) 
+M2 <- update(M0, . ~ . + Waist + BaseAge + Ethnicity + ALT + Sex + MET + AlcoholPerWk + TAG) # Best model, by a wide margin
+model.sel(M0, M1, M2,
+          rank = QIC) %>% 
+    add_rownames() %>%
+    select(Model = rowname, qLik, QIC, delta) %>% 
+    pander(digits = 2)
+```
+
+# QIC for beta-cell function via ISSI-2
+
+```{r qicBCF_0}
+M0 <- geepack::geeglm(
+    lISSI2 ~ ne_Total + VN, data = qic_bcf,
+    id = SID, family = gaussian,
+    corstr = 'ar1'
+    )
+M0.1 <-
+    update(
+        M0, . ~ . + Sex + BaseAge + Ethnicity + Waist + BMI + MET +
+        AlcoholPerWk + TobaccoUse + SelfEdu + Occupation + FamHistDiab +
+        ALT
+        ) # best model
+M1 <- update(M0, . ~ . + Sex)
+M2 <- update(M0, . ~ . + BaseAge) 
+M3 <- update(M0, . ~ . + Ethnicity) 
+M4 <- update(M0, . ~ . + Waist) # second best
+M5 <- update(M0, . ~ . + BMI) # Third best
+M6 <- update(M0, . ~ . + MET)
+M7 <- update(M0, . ~ . + AlcoholPerWk)
+M8 <- update(M0, . ~ . + TobaccoUse) 
+M9 <- update(M0, . ~ . + SelfEdu) 
+M10 <- update(M0, . ~ . + Occupation) 
+M11 <- update(M0, . ~ . + FamHistDiab) 
+M12 <- update(M0, . ~ . + ALT)
+
+model.sel(M0, M0.1, M1, M2, M3, M4, M5, M6, M7, M8, M9,
+          M10, M11, M12,
+          rank = QIC) %>% 
+    add_rownames() %>%
+    select(Model = rowname, qLik, QIC, delta) %>% 
+    pander(digits = 2)
+```
+
+```{r qicBCF_1}
+M1 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity) # Third best
+M2 <- update(M0, . ~ . + Waist + ALT + Sex + BMI + MET + AlcoholPerWk)
+M3 <- update(M0, . ~ . + Waist + ALT + Sex + BMI + MET)
+M4 <- update(M0, . ~ . + Waist + ALT + Sex + BMI)
+M5 <- update(M0, . ~ . + Waist + ALT + Sex)
+M6 <- update(M0, . ~ . + Waist + ALT)
+M7 <- update(M0, . ~ . + Waist)
+M8 <- update(M0, . ~ . + Waist + ALT + Sex + MET + AlcoholPerWk)
+M8 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity + ALT + MET + AlcoholPerWk) # second best
+M9 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity + ALT) # best model
+
+model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9,
+          rank = QIC) %>% 
+    add_rownames() %>%
+    select(Model = rowname, qLik, QIC, delta) %>% 
+    pander(digits = 2)
+```
+
+## Compare final model with that for TAG (smaller sample size)
+
+```{r qicBCF_tag}
+M0 <- geepack::geeglm(
+    lISSI2 ~ ne_Total + VN, data = qic_bcf_TAG,
+    id = SID, family = gaussian,
+    corstr = 'ar1'
+    )
+M1 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity + ALT) 
+M2 <- update(M0, . ~ . + Waist + Sex + BaseAge + Ethnicity + ALT + TAG) # best model, by a big margin
+model.sel(M0, M1, M2,
+          rank = QIC) %>% 
+    add_rownames() %>%
+    select(Model = rowname, qLik, QIC, delta) %>% 
+    pander(digits = 2)
+```

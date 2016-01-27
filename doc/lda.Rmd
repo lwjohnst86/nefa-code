@@ -1,0 +1,124 @@
+---
+title: "LDA exploration"
+author: "Luke W. Johnston"
+date: "January 19, 2016"
+output: 
+    rmarkdown::html_vignette:
+        toc: true
+---
+
+# Load up packages and data
+
+```{r setup, collapse=TRUE}
+knitr::opts_knit$set(root.dir = '../')
+knitr::opts_chunk$set(collapse = TRUE, fig.height = 8, fig.width = 10)
+```
+
+```{r loadData, message=FALSE}
+source('.Rprofile')
+suppressMessages(run_setup())
+load_data()
+dim(ds)
+```
+
+# Prepare the data for the LDA
+
+```{r ldaData}
+lda_ds <- ds %>%
+    filter(VN == 0) %>%
+    mutate(BCF = rstatsToolkit::aide.tertile(lISSI2) %>%
+               factor(., labels = c('1st tertile', '2nd tertile', '3rd tertile'), ordered = TRUE)) %>%
+    select(BCF, matches('^ne\\d\\d')) %>%
+    mutate_each(funs(as.numeric(scale(.))), -BCF) %>%
+    na.omit() %>% 
+    arrange(BCF)
+
+# include also the 3-yr and 6-yr data for training/testing.
+
+#fit <- qda(BCF ~ ., data = lda_ds)
+fit <- lda(BCF ~ ., data = lda_ds)
+fit.cv <- lda(BCF ~ ., data = lda_ds, CV = TRUE)
+prop_lda <- round(fit$svd^2/sum(fit$svd^2) * 100, 2)
+
+# proportion explained by each LD
+prop_lda
+```
+
+```{r testingLDA}
+fit.class <- predict(fit, newdata = lda_ds[, -1])$class %>% 
+    factor(., ordered = TRUE)
+table(fit.class, lda_ds[[1]])
+table(fit.cv$class, lda_ds[[1]])
+```
+
+```{r FAperBCF}
+p_data <- fit$means %>%
+    as.data.frame() %>%
+    add_rownames('Group') %>%
+    gather(FA, Mean,-Group) %>%
+    mutate(Group = Group %>% factor(., c('1st tertile', '2nd tertile', '3rd tertile'), ordered = TRUE)) %>%
+    arrange(Group, Mean) %>%
+    mutate(FA = paste0(Group, FA) %>%
+               factor(., unique(.)))
+FA.orig <- p_data$FA %>% 
+    as.character()
+FA.label <- p_data$FA %>%
+    gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+    gsub('n(\\d)', 'n-\\1', .) %>%
+    as.character()
+p_data %>%
+    ggplot(aes(x = Mean, y = FA)) +
+    geom_point() +
+    geom_vline(xintercept = 0) +
+    facet_wrap(~ Group, scale = 'free_y') +
+    scale_y_discrete(breaks = FA.orig, label = FA.label) +
+    ggthemes::theme_tufte(12, 'sans') +
+    theme(panel.margin = unit(2, 'lines'),
+          panel.grid = element_line(colour = 'black'),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.major.x = element_blank())
+
+```
+
+```{r FAperLD}
+p_data2 <- fit$scaling %>%
+    as.data.frame() %>%
+    add_rownames('Var') %>%
+    gather(LD, Value, -Var) %>%
+    arrange(LD, Value) %>% 
+    mutate(Var = factor(paste0(LD, Var), unique(paste0(LD, Var))))
+FA.orig <- p_data2$Var %>% 
+    as.character()
+FA.label <- p_data2$Var %>%
+    gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+    gsub('n(\\d)', 'n-\\1', .) %>%
+    as.character()
+p_data2 %>% 
+    ggplot(aes(x = Value, y = Var)) +
+    geom_point() +
+    geom_vline(xintercept = 0) +
+    facet_wrap(~LD, scale = 'free_y') +
+    scale_y_discrete(breaks = FA.orig, label = FA.label) +
+    ggthemes::theme_tufte(12, 'sans') +
+    theme(panel.margin = unit(2, 'lines'),
+          panel.grid = element_line(colour = 'black'),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.major.x = element_blank())
+```
+
+```{r LDbyBCF}
+p_fit <- predict(object = fit, newdata = lda_ds)
+# predict on follow up visits too.
+p_ds <- data.frame(BCF = lda_ds[,"BCF"], lda = p_fit$x)
+ggplot(p_ds, aes(lda.LD1, lda.LD2, group = BCF)) +
+    geom_vline(xintercept = 0, linetype = 'dotted') +
+    geom_hline(yintercept = 0, linetype = 'dotted') +
+    stat_density2d(aes(alpha = ..level.., colour = BCF), size = 2) +
+    labs(x = paste0("LD1 (", prop_lda[1], "%)"),
+         y = paste0('LD2 (', prop_lda[2], '%)')) +
+    ggthemes::theme_tufte(12, 'sans') +
+    scale_alpha(guide = 'none') +
+    theme(legend.title = element_blank(),
+          legend.position = c(1,0),
+          legend.justification = c(1,0))
+```

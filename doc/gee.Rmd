@@ -1,0 +1,135 @@
+---
+title: "GEE models"
+author: "Luke W. Johnston"
+output: 
+    rmarkdown::html_vignette:
+        keep_md: true
+        toc: true
+---
+
+# Set up and load dataset
+
+```{r setup, message = TRUE, collapse=TRUE}
+knitr::opts_knit$set(root.dir = '../')
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+```{r}
+source('.Rprofile')
+suppressMessages(run_setup())
+load_data()
+dim(ds)
+ds %>% 
+    select(VN, TAG) %>% 
+    na.omit() %>% 
+    group_by(VN) %>% 
+    summarize(n = n())
+```
+
+# Prep and wrangle data into GEE form
+
+```{r geeData}
+outcomes <- c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')
+outcomes_is <- c('linvHOMA', 'lISI')
+outcomes_bcf <- c('lIGIIR', 'lISSI2')
+ne_pct <- grep('^pct_ne', names(ds), value = TRUE)
+ne_conc <- c('ne_Total', grep('^ne\\d\\d', names(ds), value = TRUE))
+covariates0 <- c('VN')
+covariates_is <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT')
+covariates_bcf <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 
+                    'MET', 'AlcoholPerWk')
+covariates_is_tag <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'TAG')
+covariates_bcf_tag <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 
+                        'ALT', 'MET', 'AlcoholPerWk', 'TAG')
+
+gee_df <- get_gee_data(ds)
+```
+
+# Unadjusted GEE model
+
+```{r geeResults_Unadj}
+gee_results0 <- bind_rows(
+    analyze_gee(gee_df, outcomes, ne_pct, covariates0, 'mol%'),
+    analyze_gee(gee_df, outcomes, ne_conc, covariates0, 'nmol/mL')
+    )
+gee_results0 %>% 
+    mutate(p.value = p.adjust(p.value, 'BH')) %>% 
+    filter(p.value < 0.1) %>% 
+    select(Yterms, Xterms, unit, estimate, p.value) %>% 
+    mutate_each(funs(round(., 2)), estimate, p.value) %>% 
+    pander('Unadjusted')
+```
+
+# Adjusted with or without TAG for IS
+
+```{r geeResults_IS}
+gee_results_is <- bind_rows(
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is, 'mol%'),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is, 'nmol/mL'),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is_tag, 'mol% (w/ tag)'),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is_tag, 'nmol/mL (w/ tag)')
+    )
+gee_results_is %>%
+    group_by(unit) %>% 
+    mutate(p.value = p.adjust(p.value, 'BH')) %>% 
+    ungroup() %>% 
+    filter(p.value < 0.1) %>% 
+    select(Yterms, Xterms, unit, estimate, p.value) %>% 
+    mutate_each(funs(round(., 2)), estimate, p.value) %>% 
+    pander('Without or with TAG for IS')
+```
+
+# Adjusted with or without TAG for BCF
+
+```{r geeResults_BCF}
+gee_results_bcf <- bind_rows(
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf, 'mol%'),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf, 'nmol/mL'),
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf_tag, 'mol% (w/ tag)'),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf_tag, 'nmol/mL (w/ tag)')
+    )
+gee_results_bcf %>% 
+    group_by(unit) %>% 
+    mutate(p.value = p.adjust(p.value, 'BH')) %>% 
+    ungroup() %>% 
+    filter(p.value < 0.05) %>% 
+    select(Yterms, Xterms, unit, estimate, p.value) %>% 
+    mutate_each(funs(round(., 2)), estimate, p.value) %>% 
+    pander('Without or with TAG for BCF')
+```
+
+# Interaction for IS
+
+```{r geeResults_IS_int}
+gee_results_is_int <- bind_rows(
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is, 'mol%', int = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is, 'nmol/mL', int = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is_tag, 'mol% (w/ tag)', int = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is_tag, 'nmol/mL (w/ tag)', int = TRUE)
+    )
+gee_results_is_int %>%
+    group_by(unit) %>% 
+    mutate(p.value = p.adjust(p.value, 'BH')) %>% 
+    ungroup() %>% 
+    select(p.value) %>% 
+    plot()
+```
+
+
+# Interaction for BCF
+
+```{r geeResults_BCF_int}
+gee_results_bcf_int <- bind_rows(
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf, 'mol%', int = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf, 'nmol/mL', int = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf_tag, 'mol% (w/ tag)', int = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf_tag, 'nmol/mL (w/ tag)', int = TRUE)
+    )
+gee_results_bcf_int %>% 
+    group_by(unit) %>% 
+    mutate(p.value = p.adjust(p.value, 'BH')) %>% 
+    ungroup() %>% 
+    select(p.value) %>% 
+    plot()
+```
+
