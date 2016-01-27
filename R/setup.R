@@ -8,6 +8,7 @@ run_setup <- function() {
     # Run the following packages for setup
     .load_packages()
     .set_options()
+    .load_packages()
 }
 
 .load_packages <- function() {
@@ -15,15 +16,22 @@ run_setup <- function() {
     # installed.
     #
     # Add your packages you want to use here, using the following format:
+    # - For pre-bundled packages
+    library(MASS)
+    # - For CRAN packages:
     # if (!require(package)) install.packages('package')
     if (!require(fdrtool)) install.packages('fdrtool')
+    if (!require(captioner)) install.packages('captioner')
     if (!require(dplyr)) install.packages('dplyr')
     if (!require(tidyr)) install.packages('tidyr')
     if (!require(ggplot2)) install.packages('ggplot2')
     if (!require(pander)) install.packages('pander')
     if (!require(knitr)) install.packages('knitr')
     if (!require(DiagrammeR)) install.packages('DiagrammeR')
-    # Or, for github packages:
+    if (!require(MuMIn)) install.packages('MuMIn')
+    if (!require(geepack)) install.packages('geepack')
+    if (!require(magrittr)) install.packages('magrittr')
+    # - For github packages:
     # if (!require(package)) packrat::install_github('username/package')
     if (!require(mason)) {
         if (!require(curl)) install.packages('curl')
