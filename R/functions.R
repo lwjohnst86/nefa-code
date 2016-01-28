@@ -111,7 +111,25 @@ get_gee_data <- function(ds) {
     arrange(SID, VN)
 }
 
-forest_plot <- function(data) {
+get_lda_data <- function(data) {
+    data %>%
+        filter(VN == 0) %>%
+        mutate(BCF = rstatsToolkit::aide.tertile(lISSI2) %>%
+                   factor(
+                       ., labels = c(
+                           '1st tertile: log(ISSI-2)',
+                           '2nd tertile: log(ISSI-2)',
+                           '3rd tertile: log(ISSI-2)'
+                       ),
+                       ordered = TRUE
+                   )) %>%
+        select(BCF, matches('^ne\\d\\d')) %>%
+        mutate_each(funs(as.numeric(scale(.))),-BCF) %>%
+        na.omit() %>%
+        arrange(BCF)
+}
+
+plot_gee_results <- function(data) {
     data %>%
         seer::trance('main_effect') %>%
         seer::visualize(groups = 'unit~Yterms',
@@ -128,4 +146,37 @@ forest_plot <- function(data) {
             strip.background = element_blank()
         ) +
         ggplot2::scale_alpha_discrete(name = 'P-value', range = c(0.4, 1.0))
+}
+
+plot_nefa_distribution <- function(data) {
+    data %>%
+        dplyr::filter(VN == 0) %>%
+        dplyr::select(SID, matches('^ne\\d')) %>%
+        dplyr::filter(complete.cases(.)) %>%
+        tidyr::gather(Measure, Value,-SID) %>%
+        dplyr::mutate(Measure = renaming_fa(Measure) %>%
+                   gsub('ne_', '', .) %>%
+                   factor(., levels = unique(.))) %>%
+        tidyr::spread(Measure, Value) %>%
+        dplyr::select(-SID) %>%
+        seer::trance('boxes_dots') %>%
+        serr::visualize(dots = FALSE,
+                  xlab = 'Concentration (nmol/mL)',
+                  ylab = 'Non-esterified fatty acid') %>%
+        seer::vision_simple() +
+        ggplot2::theme(axis.ticks.y = element_blank())
+
+}
+
+calculate_percent_contribution <- function(data) {
+    data %>%
+        filter(VN == 0) %>%
+        select(matches('pct_ne')) %>%
+        gather(fat, value) %>%
+        group_by(fat) %>%
+        summarise(pct = round(mean(value, na.rm = TRUE), 1)) %>%
+        mutate(fat = renaming_fa(fat),
+               c = paste0(fat, ' (', pct, '%)')) %>%
+        arrange(desc(pct)) %>%
+        filter(pct >= 10)
 }
