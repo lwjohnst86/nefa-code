@@ -24,101 +24,139 @@ dim(ds)
 # Prepare the data for the LDA
 
 ```{r ldaData}
-lda_ds <- ds %>%
-    filter(VN == 0) %>%
+ds.prep <- ds %>%
+    select(VN, lISSI2, matches('^ne\\d\\d')) %>% 
+    group_by(VN) %>% 
     mutate(BCF = rstatsToolkit::aide.tertile(lISSI2) %>%
                factor(., labels = c('1st tertile', '2nd tertile', '3rd tertile'), ordered = TRUE)) %>%
-    select(BCF, matches('^ne\\d\\d')) %>%
-    mutate_each(funs(as.numeric(scale(.))), -BCF) %>%
+    select(BCF, everything()) %>% 
+    select(-lISSI2) %>% 
+    mutate_each(funs(as.numeric(scale(.))), -BCF, -VN) %>%
+    ungroup()
+
+df_Dysgly <- ds %>% 
+    filter(VN == 0) %>% 
+    mutate(Dysgly = factor(IGT + IFG + DM, labels = c('no', 'yes'))) %>% 
+    select(Dysgly, matches('^ne\\d\\d')) %>%
+    mutate_each(funs(as.numeric(scale(.))), -Dysgly) %>% 
+    na.omit()
+
+df_y1 <- ds.prep %>% 
+    filter(VN == 0) %>%
+    select(-VN) %>% 
+    na.omit() %>%
+    arrange(BCF)
+df_y3 <- ds.prep %>% 
+    filter(VN == 1) %>% 
+    select(-VN) %>% 
+    na.omit() %>% 
+    arrange(BCF)
+df_y6 <- ds.prep %>% 
+    filter(VN == 2) %>% 
+    select(-VN) %>% 
     na.omit() %>% 
     arrange(BCF)
 
 # include also the 3-yr and 6-yr data for training/testing.
-
-#fit <- qda(BCF ~ ., data = lda_ds)
-fit <- lda(BCF ~ ., data = lda_ds)
-fit.cv <- lda(BCF ~ ., data = lda_ds, CV = TRUE)
-prop_lda <- round(fit$svd^2/sum(fit$svd^2) * 100, 2)
-
-# proportion explained by each LD
-prop_lda
+fit_y1 <- lda(BCF ~ ., data = df_y1)
+fit_y3 <- lda(BCF ~ ., data = df_y3)
+fit_y6 <- lda(BCF ~ ., data = df_y6)
+fit_dg <- lda(Dysgly ~ ., data = df_Dysgly)
+# compare with CV lda.
+fitcv_y1 <- lda(BCF ~ ., data = df_y1, CV = TRUE)
+fitcv_y3 <- lda(BCF ~ ., data = df_y3, CV = TRUE)
+fitcv_y6 <- lda(BCF ~ ., data = df_y6, CV = TRUE)
 ```
 
 ```{r testingLDA}
-fit.class <- predict(fit, newdata = lda_ds[, -1])$class %>% 
+fit.class_y1 <- predict(fit_y1, newdata = df_y1[, -1])$class %>% 
     factor(., ordered = TRUE)
-table(fit.class, lda_ds[[1]])
-table(fit.cv$class, lda_ds[[1]])
+fit.class_y3 <- predict(fit_y3, newdata = df_y3[, -1])$class %>% 
+    factor(., ordered = TRUE)
+fit.class_y6 <- predict(fit_y6, newdata = df_y6[, -1])$class %>% 
+    factor(., ordered = TRUE)
+
+table(fit.class_y1, df_y1[[1]])
+table(fitcv_y1$class, df_y1[[1]])
+
+table(fit.class_y3, df_y3[[1]])
+table(fitcv_y3$class, df_y3[[1]])
+
+table(fit.class_y6, df_y6[[1]])
+table(fitcv_y6$class, df_y6[[1]])
+
+# Amount of participants who were misclassified
+table(fit.class_y1, df_y1[[1]]) %>% 
+    as.data.frame() %>% 
+    filter(fit.class_y1 != Var2) %>% 
+    summarize(count = sum(Freq))
+
+# Amount of participants who were correctly classified
+table(fit.class_y1, df_y1[[1]]) %>% 
+    as.data.frame() %>% 
+    filter(fit.class_y1 == Var2) %>% 
+    fit.class_y1 <- predict(fit_y1, newdata = df_y1[, -1])$class %>% 
+    factor(., ordered = TRUE)summarize(count = sum(Freq))
+
+fit.class_dg <- predict(fit_dg, newdata = df_Dysgly[, -1])$class %>% 
+    factor(., ordered = TRUE)
+table(fit.class_dg, df_Dysgly[[1]])
+# Not enough sample size for dysglycemia
 ```
 
 ```{r FAperBCF}
-p_data <- fit$means %>%
-    as.data.frame() %>%
-    add_rownames('Group') %>%
-    gather(FA, Mean,-Group) %>%
-    mutate(Group = Group %>% factor(., c('1st tertile', '2nd tertile', '3rd tertile'), ordered = TRUE)) %>%
-    arrange(Group, Mean) %>%
-    mutate(FA = paste0(Group, FA) %>%
-               factor(., unique(.)))
-FA.orig <- p_data$FA %>% 
-    as.character()
-FA.label <- p_data$FA %>%
-    gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
-    gsub('n(\\d)', 'n-\\1', .) %>%
-    as.character()
-p_data %>%
-    ggplot(aes(x = Mean, y = FA)) +
-    geom_point() +
-    geom_vline(xintercept = 0) +
-    facet_wrap(~ Group, scale = 'free_y') +
-    scale_y_discrete(breaks = FA.orig, label = FA.label) +
-    ggthemes::theme_tufte(12, 'sans') +
-    theme(panel.margin = unit(2, 'lines'),
-          panel.grid = element_line(colour = 'black'),
-          panel.grid.minor.x = element_blank(),
-          panel.grid.major.x = element_blank())
-
+seer::visualize(
+    fit_y1, 'means', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
+seer::visualize(
+    fit_y3, 'means', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
+seer::visualize(
+    fit_y6, 'means', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
 ```
 
 ```{r FAperLD}
-p_data2 <- fit$scaling %>%
-    as.data.frame() %>%
-    add_rownames('Var') %>%
-    gather(LD, Value, -Var) %>%
-    arrange(LD, Value) %>% 
-    mutate(Var = factor(paste0(LD, Var), unique(paste0(LD, Var))))
-FA.orig <- p_data2$Var %>% 
-    as.character()
-FA.label <- p_data2$Var %>%
-    gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
-    gsub('n(\\d)', 'n-\\1', .) %>%
-    as.character()
-p_data2 %>% 
-    ggplot(aes(x = Value, y = Var)) +
-    geom_point() +
-    geom_vline(xintercept = 0) +
-    facet_wrap(~LD, scale = 'free_y') +
-    scale_y_discrete(breaks = FA.orig, label = FA.label) +
-    ggthemes::theme_tufte(12, 'sans') +
-    theme(panel.margin = unit(2, 'lines'),
-          panel.grid = element_line(colour = 'black'),
-          panel.grid.minor.x = element_blank(),
-          panel.grid.major.x = element_blank())
+seer::visualize(
+    fit_y1, 'scaling', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
+seer::visualize(
+    fit_y3, 'scaling', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
+seer::visualize(
+    fit_y6, 'scaling', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
 ```
 
 ```{r LDbyBCF}
-p_fit <- predict(object = fit, newdata = lda_ds)
-# predict on follow up visits too.
-p_ds <- data.frame(BCF = lda_ds[,"BCF"], lda = p_fit$x)
-ggplot(p_ds, aes(lda.LD1, lda.LD2, group = BCF)) +
-    geom_vline(xintercept = 0, linetype = 'dotted') +
-    geom_hline(yintercept = 0, linetype = 'dotted') +
-    stat_density2d(aes(alpha = ..level.., colour = BCF), size = 2) +
-    labs(x = paste0("LD1 (", prop_lda[1], "%)"),
-         y = paste0('LD2 (', prop_lda[2], '%)')) +
-    ggthemes::theme_tufte(12, 'sans') +
-    scale_alpha(guide = 'none') +
-    theme(legend.title = element_blank(),
-          legend.position = c(1,0),
-          legend.justification = c(1,0))
+seer::visualize(fit_y1, orig.data = df_y1, group.name = 'BCF') %>% 
+    seer::vision_simple()
+seer::visualize(fit_y3, orig.data = df_y3, group.name = 'BCF') %>% 
+    seer::vision_simple()
+seer::visualize(fit_y6, orig.data = df_y6, group.name = 'BCF') %>% 
+    seer::vision_simple()
 ```
