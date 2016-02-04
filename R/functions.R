@@ -71,9 +71,7 @@ analyze_gee <- function(data, y, x, covar, unit, adj.p = FALSE, adj.p.method = '
             transform.beta.funs = function(x)
                 (exp(x) - 1) * 100,
             rename.vars.funs = renaming_list
-        ) %>%
-        dplyr::mutate(Xterms = Xterms %>% factor(., unique(.)),
-                      unit = as.factor(unit))
+        )
 
     if (adj.p) {
         out <- out %>%
@@ -130,22 +128,26 @@ get_lda_data <- function(data) {
 }
 
 plot_gee_results <- function(data) {
+    data <- data %>%
+        mutate(Xterms = Xterms %>% factor(., unique(.)))
     data %>%
         seer::trance('main_effect') %>%
         seer::visualize(groups = 'unit~Yterms',
                         xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
                         ylab = 'Non-esterified fatty acids') %>%
-        seer::vision_simple(legend_position = 'bottom') +
+        seer::vision_simple(legend.position = 'bottom') +
         ggplot2::theme(
-            axis.text.y = element_text(face = ifelse(
-                gee_results$Xterms == 'Total', "bold", "plain"
+            axis.text = element_text(face = ifelse(
+                levels(data$Xterms) == 'Total', "bold", "plain"
             )),
             legend.key.width = grid::unit(0.75, "line"),
             legend.key.height = grid::unit(0.75, "line"),
             panel.margin = grid::unit(0.75, "lines"),
             strip.background = element_blank()
         ) +
-        ggplot2::scale_alpha_discrete(name = 'P-value', range = c(0.4, 1.0))
+        ggplot2::scale_alpha_discrete(name = 'FDR-adjusted p-value', range = c(0.4, 1.0)) +
+        ggplot2::scale_size_discrete(name = 'FDR-adjusted p-value') +
+        ggplot2::facet_grid(unit~Yterms, scale = 'free_y', switch = 'y')
 }
 
 plot_nefa_distribution <- function(data) {
@@ -160,7 +162,7 @@ plot_nefa_distribution <- function(data) {
         tidyr::spread(Measure, Value) %>%
         dplyr::select(-SID) %>%
         seer::trance('boxes_dots') %>%
-        serr::visualize(dots = FALSE,
+        seer::visualize(dots = FALSE,
                   xlab = 'Concentration (nmol/mL)',
                   ylab = 'Non-esterified fatty acid') %>%
         seer::vision_simple() +
@@ -168,7 +170,7 @@ plot_nefa_distribution <- function(data) {
 
 }
 
-calculate_percent_contribution <- function(data) {
+calculate_percent_nefa_contribution <- function(data) {
     data %>%
         filter(VN == 0) %>%
         select(matches('pct_ne')) %>%
@@ -179,4 +181,62 @@ calculate_percent_contribution <- function(data) {
                c = paste0(fat, ' (', pct, '%)')) %>%
         arrange(desc(pct)) %>%
         filter(pct >= 10)
+}
+
+calculate_misclass_npct <- function(data.lda, data.orig) {
+    fit.class <- predict(data.lda, newdata = data.orig[,-1])$class %>%
+        factor(., ordered = TRUE)
+
+    # Amount of participants who were misclassified
+    misclass <- table(fit.class, data.orig[[1]]) %>%
+        as.data.frame() %>%
+        filter(fit.class != Var2) %>%
+        summarize(count = sum(Freq)) %>%
+        as.numeric()
+
+    # Amount of participants who were correctly classified
+    good_class <- table(fit.class, data.orig[[1]]) %>%
+        as.data.frame() %>%
+        filter(fit.class == Var2) %>%
+        summarize(count = sum(Freq)) %>%
+        as.numeric()
+
+    npct <-
+        paste0(misclass, ' (', round(misclass / (good_class + misclass) * 100, 0), '%)')
+    return(npct)
+}
+
+calculate_outcomes_pct_change <- function(data) {
+    data %>%
+        select(f.VN, HOMA, ISI, IGIIR, ISSI2) %>%
+        gather(Measure, Value,-f.VN) %>%
+        na.omit() %>%
+        group_by(Measure, f.VN) %>%
+        summarise(med = median(Value)) %>%
+        ungroup() %>%
+        spread(f.VN, med) %>%
+        mutate(pctChg = ((yr6 - yr0) / yr0) * 100) %>%
+        select(pctChg) %>%
+        abs() %>%
+        round(1) %>%
+        {
+        paste0(min(.), '% to ', max(.), '%')
+        }
+}
+
+extract_gee_estimateCI <- function(data) {
+    data %>%
+      mutate(estCI = paste0('(beta: ', trim(format(round(estimate, 1), nsmall = 1)),
+                            ' CI: ',
+                            trim(format(round(conf.low, 1), nsmall = 1)),
+                            ', ',
+                            trim(format(round(conf.high, 1), nsmall = 1)),
+                            ')'),
+             #indep.estCI = paste(indep, estCI),
+             #dep = paste(dep %>% gsub('log\\((.*)\\)', '\\1', .), estCI),
+             dep = paste(dep %>% gsub('log\\((.*)\\)', '\\1', .))
+             ) %>%
+      filter(p.value <= 0.05) %>%
+      arrange(dep, desc(estimate)) %>%
+      select(dep, indep, estCI)
 }
