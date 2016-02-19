@@ -17,9 +17,11 @@ run_setup <- function() {
     #
     # Add your packages you want to use here, using the following format:
     # - For pre-bundled packages
-    library(MASS)
+
     # - For CRAN packages:
     # if (!require(package)) install.packages('package')
+    if (!require(lcmm)) install.packages('lcmm')
+    if (!require(caret)) install.packages('caret')
     if (!require(fdrtool)) install.packages('fdrtool')
     if (!require(captioner)) install.packages('captioner')
     if (!require(dplyr)) install.packages('dplyr')
