@@ -5,91 +5,93 @@ bibliography:
 csl:
     - /home/luke/Documents/bibliography/styles/vancouver.csl
 output:
+    md_document:
+        variant: markdown
     word_document:
-      reference_docx: /home/luke/Templates/journal-templates/ajcn-template.docx
-      fig_height: 6 
-      fig_width: 5
-      fig_caption: true
+        reference_docx: diabetes-care-template.docx
+        fig_height: 6 
+        fig_width: 5
+        fig_caption: true
 ---
 
-# Title page #
+# Title page
 
 Title: Total non-esterified fatty acids, but not composition, predict
-progression in beta-cell dysfunction
+progression in beta-cell dysfunction: The Prospective Metabolism and Islet Cell
+Evaluation (PROMISE) cohort
 
-Author: Luke W. Johnston, Richard P. Bazinet, Anthony J. Hanley
+<!-- 47 characters + spaces -->
+Running title: NEFA and the pathogenesis of diabetes
 
-Affiliations:
+<!-- First, middle initial, last, highest academic degree -->
+Author: Luke W. Johnston, Stewart Harris, Ravi Retnakaran, Bernard Zinman,
+Zhen Liu, Richard P. Bazinet, Anthony J. Hanley
 
-Disclaimers:
+<!-- During time of study. -->
+Affiliation:
 
-Correspondence:
+Corresponding author:
 
-Funding support:
+- Name: Anthony J. Hanley
+- Current address:
+- Phone number:
+- Fax number:
+- Email: anthony.hanley@utoronto.ca
 
-# Abstract #
+Word count: / 4000
+
+Table and figure count: / 4
+
+<!-- Reference limit / 40 -->
+
+<!-- 250 words -->
+# Abstract
+
+Objective:
+
+Research Design and Methods:
+
+Results:
+
+Conclusions:
+
+# Abstract
 
 <!-- outline
-
-Overall story: while nefa are known risk factors for diabetes, not sure about
-the composition. we find that the composition doesn't matter so much as the
-overall pool, specific to BCD. however, 16:0, etc, are the only two fa that have
-an assoc, suggesting that irrespective of other fa increases or decreases, these
-two fa are the fa that contribute to the harm seen in the overall nefa. using
-cluster analysis, we see that those with low bcd have a pattern of fa that skews
-to higher amounts of 16:0 etc and marginally less in other fa (maybe not enough
-to observe on an individual scale). while other studies have seen a role of nefa
-in ir, we do not. while this warrants further longitudinal research, this may
-suggest that given prev studies on ir have been acute in nature, over the long
-term the role of nefa on ir may not be substantial. this duality in nefa is also
-seen in bcd, where acutely it improves bc, but chronically no.
-
-- as GEE results suggest that % does nothing, but in conc 16:0 etc has assoc...
-is it that 16:0 is harmful or is it the pool? is it that as 16:0 inc, there is
-harm, irrespective of whether other FA increase or decrease as well?
-
-figs/tabs: 
-- tab:basic char
-- fig:distr
-- fig:nefaCorr (sup?)
-- fig:varCorr (sup?)
-- fig:geeconc%
-- fig:plsda
 
 TODO:
 - Bootstrap for the longitudinal table data... like instead of an ANOVA/GEE for
 the p-value...?
+- What about adiponectin?
+- Precise followup time for each participant?
+- Interaction by sex or ethnicity
 
 -->
 
-```{r knit_setup, collapse=TRUE}
+```{r knit_setup, echo=FALSE}
 knitr::opts_knit$set(root.dir = '../')
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, dev = c('png', 'postscript'))
 ```
 
 ```{r setup, message=FALSE}
 source('.Rprofile')
 suppressMessages(run_setup())
-load_data()
-ds <- ds %>% 
-    mutate(lALT = log(ALT),
-           lTAG = log(TAG))
-dim(ds)
+ds <- load_data()
 ```
 
 ```{r caption_setup}
 ## Include captions below using `captioner` package
 fig <- captioner(prefix = 'Figure')
 cite_f <- pryr::partial(fig, display = 'cite')
-sfig <- captioner(prefix = 'Supplementary Figure')
+sfig <- captioner(prefix = 'Supplemental Figure S')
 cite_sf <- pryr::partial(sfig, display = 'cite')
 tab <- captioner(prefix = 'Table')
 cite_t <- pryr::partial(tab, display = 'cite')
-stab <- captioner(prefix = 'Supplementary Table')
+stab <- captioner(prefix = 'Supplemental Table S')
 cite_st <- pryr::partial(stab, display = 'cite')
 # usage: cite_st('basicChar')
 
-tab_basic <- tab('basicChar', 'Basic characteristics of the PROMISE participants at each of the 3 time points.')
+tab_basic <- tab('basicChar', 'Basic characteristics of the PROMISE participants at each of the 3 clinic visits.')
 fig_dist <- fig('nefaDist', 'Concentrations (nmol/mL) of each non-esterified fatty acid in PROMISE participants at the baseline visit (2004-2006)')
 fig_gee <- fig('gee', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function using generalized estimating equations over the 6 years in the PROMISE cohort.  Adjusted for {{covariates}}. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values presented were adjusted for the false discovery rate.')
 
@@ -108,11 +110,11 @@ sfig_plsda_groups <- sfig('plsda_groups', 'Clustering of extracted components fr
 
 Total non-esterified fatty acids (NEFA) have been well documented to influence
 the pathogenesis of type 2 diabetes mellitus. Experimental work has shown that
-exposure of cell or animal to high concentrations of NEFA can induce insulin
-resistance in insulin-sensitive tissue such as the muscle or liver, impair
-beta-cell production of insulin, and cause hyperglycemia {{confirm...cite}}.
+exposure of cells or animals to high concentrations of NEFA can induce insulin
+resistance in insulin-sensitive tissue such as the muscle or liver and impair
+beta-cell production of insulin, and cause hyperglycemia [@Rachek2014a;@Cnop2008a].
 Epidemiological and clinical studies have observed similar findings, showing
-that elevated total plasma NEFA associates with risk for diabetes {{cite}}.
+that elevated total plasma NEFA associates with risk for diabetes [@Daniele2014a {{more}}].
 
 Most previous experimental work uses palmitic acid (16:0), oleic acid (18:1n-9),
 or a standard oil such as soybean {{confirm, cite}} and generalize as total
@@ -296,29 +298,32 @@ the False Discovery Rate [@Benjamini1995a].
 # Results
 
 ```{r variableSet}
+gee_df <- get_gee_data(ds)
+
 outcomes_is <- c('linvHOMA', 'lISI')
 outcomes_bcf <- c('lIGIIR', 'lISSI2')
 outcomes <- c(outcomes_is, outcomes_bcf)
-ne_pct <- grep('^pct_ne', names(ds), value = TRUE)
-ne_conc <- c('ne_Total', grep('^ne\\d\\d', names(ds), value = TRUE))
+ne_pct <- grep('^pct_ne', names(gee_df), value = TRUE)
+ne_conc <- c('TotalNE', grep('^ne\\d\\d', names(gee_df), value = TRUE))
 covariates_is <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'MET', 'AlcoholPerWk')
 covariates_bcf <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'FamHistDiab')
-
-gee_df <- get_gee_data(ds)
 ```
 
 ```{r geeData, cache=TRUE}
-gee_results <- bind_rows(
+gee_results <- dplyr::bind_rows(
     analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is, 'mol%', adj.p = TRUE),
     analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is, 'nmol/mL', adj.p = TRUE),
     analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf, 'mol%', adj.p = TRUE),
     analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf, 'nmol/mL', adj.p = TRUE)
-    )
+    ) %>% 
+    tidy_gee_results()
+    
 
 gee_results_unadj <- bind_rows(
     analyze_gee(gee_df, outcomes, ne_pct, 'VN', 'mol%', adj.p = TRUE),
     analyze_gee(gee_df, outcomes, ne_conc, 'VN', 'nmol/mL', adj.p = TRUE)
-    )
+    ) %>% 
+    tidy_gee_results()
 ```
 
 ```{r lcmmPls}
@@ -329,15 +334,16 @@ plsda_results <- analyze_plsda(lcmm_data)
 ```
 
 ```{r inlineResults}
-pctne <- calculate_percent_nefa_contribution(ds) 
-misclass_npct <- calculate_plsda_misclass(plsda_results)
-pctChg_o <- calculate_outcomes_pct_change(ds)
-lcmm_grps <- calculate_ngroups_lcmm(lcmm_results)
+percent.nefa <- calculate_percent_nefa_contribution(ds) 
+misclass.n.percent <- calculate_plsda_misclass(plsda_results)
+percent.change.outcomes <- calculate_outcomes_pct_change(ds)
+lcmm.groups <- calculate_ngroups_lcmm(lcmm_results)
 ```
 
 ## Basic characteristics of the PROMISE cohort
 
-The primary outcome variables declined between `r pctChg_o` over the 6 years.
+The primary outcome variables had a median decline between 
+`r percent.change.outcomes` over the 6 years in this subset of the PROMISE cohort.
 
 `r cite_f('nefaDist')` shows the distribution of the NEFA composition. Four 
 individual NEFA made up the vast majority (`r sum(pct_nefa$pct)`%) of the total
@@ -350,7 +356,7 @@ fraction had weak to no correlations (r<0.3) with the basic characteristics (see
 
 Several associations were seen in the unadjusted GEE models 
 (`r cite_sf('gee')`), particularly for the concentration data. Full model
-adjustment attenuated most of these associations, with total NEFA, 16:0, and
+adjustment attenuated most of these associations, where total NEFA, 16:0, and
 18:2n-6 (all as nmol/mL) had negative associations between IGI/IR and ISSI-2
 (see `r cite_f('gee')`). The magnitude of association for each of these
 variables was fairly consistent for each beta-cell function measure. For every
@@ -377,7 +383,8 @@ beta-cell function latent class. Only `r misclass_npct[2,1]`
 middle group. The specific NEFA composition was not able to accurately classify
 participants who had low or high beta-cell function.
 `r cite_sf('plsda_loadings')` shows the loadings of individual NEFA by the
-extracted component, while `r cite_sf('plsda_groups')` shows the clustering of the components by ISSI-2 latent class.
+extracted component and `r cite_sf('plsda_groups')` shows the clustering of the
+components by ISSI-2 latent class.
 
 # Discussion
 
@@ -387,7 +394,6 @@ years. In particular, the specific composition of the NEFA fraction had no
 association with any of the metabolic outcomes within this cohort. These
 findings suggest that the size of the total fraction, rather than the
 composition, influences the pathogenesis of diabetes.
-
 Given we found associations with the nmol/mL data, but none in the mol% data,
 this suggests to us that the total size of the NEFA fraction is more important
 in the pathogenesis of diabetes than is the specific FA composition. A
@@ -397,34 +403,34 @@ this dependency, the associations we found for 16:0 and 18:2n-6 as nmol/mL
 suggests that these NEFA may be contributing to the harmful association seen for
 the total NEFA fraction, irrespective of changes in the other NEFA.
 
-## Beta cell
+While future studies are needed to confirm these findings, our results suggest
+that measurement of the NEFA composition may not be warranted and that the
+simple, easy to measure total NEFA may be the measure most appropriate for
+further analysis. {{reword}}
 
-We found that higher palmitic acid (16:0), oleic acid (18:1n-9), and linoleic
-acid (18:2n-6) associated with lower beta-cell function by {{number?}}. Expand
-on experimental studies, pathology/biology, mechanisms, etc.
-[@Salgin2012a;@Giacca2011a;@Xiao2009a]
-
+The role of total NEFA on diabetes is a well-studied area of research.
+Epidemiology study showing that higher NEFA in both adults and children 
+associate with lower insulin secretion [@Salgin2012a]. Also show an association 
+with higher risk for developing IGT or diabetes after approximately 6 years in 
+adults [@Salgin2012a].
 In a cross-sectional analysis of the RISCK cohort, total NEFA had a negative
 association with insulin sensitivity and, particularly strong with beta-cell
-function [@Johns2014a]. The authors further analysis showed that greater
-adiposity was not a mediator between the total NEFA and metabolic function
-association.
-
-Experimental [@Carpentier2003a]
-Review [@Carpentier2000a;@Cnop2008]
-
-Most experimental studies on beta-cell function use only palmitic acid....
-
-First study to our knowledge to examine a broad spectrum of individual NEFA in a cohort setting on beta-cell function..
-
-We found no association of any individual NEFA as mol% on beta-cell function,
-but a very strong signal with total NEFA, palmitic acid, oleic acid, and
-linoleic acid as concentrations.
-
-Using cluster techniques, we found no evidence to suggest that any individual
-NEFA contributed uniquely to beta-cell function, confirming the results we saw
-in the GEE models. This is particularly seen with the poor predictive ability of
-the NEFA composition to classify between groups of beta-cell function.
+function [@Johns2014a]. The authors' further analysis suggested that greater
+adiposity was likely not a mediator between the total NEFA and metabolic
+function association.
+{{[@Giacca2011a;@Xiao2009a]}}.
+This is the first study to our knowledge to examine a broad spectrum of
+individual NEFA in a cohort setting on beta-cell function. We found that
+individual NEFA as mol% or of the NEFA composition overall had any association
+or predictive power on determining beta-cell function, but there was a very
+strong signal with total NEFA, palmitic acid, oleic acid, and linoleic acid as
+concentrations.
+Potential mechanisms for the role of NEFA on beta-cell function are well
+described experimentally, particularly for palmitic acid. Prolonged exposure to
+the elevated NEFA can induce apoptosis in the beta-cells, likely through 
+endoplasmic reticulum stress, formation of ceramides, and generation of nitric 
+oxide, as well as can impair proinsulin production and mitochrondial function 
+[@Cnop2008a; @Maris2013a; @Carpentier2003a].
 
 In the sensitivity analysis adjusting for TAG, all associations with beta-cell 
 function were attenuated. While there is strong experimental evidence on the 
@@ -437,8 +443,6 @@ association through hypertriglyceridemia, a known risk factor for diabetes.
 However, a major limitation to the TAG-adjusted GEE models is the reduced sample
 size in the 6 year visit, as only a subset (n=128) of participants had TAG
 measured.
-
-## IR
 
 There is substantial experimental evidence highlighting the role of increased 
 NEFA and a subsequent increase in insulin resistance via impairment of insulin 
@@ -455,73 +459,91 @@ studies were the short time periods examined and the experimentally-induced
 elevations in NEFA concentrations, making it difficult to assess the causal role
 in non-experimental environments over long time frames. Moreover, some studies
 have found null or weak associations of NEFA and IR 
-[@Gray2013a;@Magkos2012a;@Kehlenbrink2012a; @Johns2014a], suggesting that either
+[@Gray2013a;@Magkos2012a;@Kehlenbrink2012a;@Johns2014a], suggesting that either
 NEFA only have a minor role in IR or that NEFA is the effect, but not cause, of
 the underlying IR. Adipose tissue, which release NEFA during fasting, can become
 insulin resistant and thus lipolysis of intracellular TAG by hormone-sensitive 
 lipase may not respond to the inhibitory action of insulin. As such, IR may 
 develop before elevations in blood NEFA. There is also evidence to suggest that 
-insulin may be involved in NEFA update [@Ramos-Roman2012a], further supporting 
+insulin may be involved in NEFA uptake [@Ramos-Roman2012a], further supporting 
 the hypothesis that elevated NEFA is a consequence of higher IR.
 
-Another explanation for our null findings with insulin sensitivity may be
-differences in physiology between fasting and postprandial NEFA kinetics. For
-instance, some experimental studies using the clamp found that fasting NEFA was
-a weak predictor of insulin sensitivity compared to postprandial concentrations
-of NEFA [@Magkos2012a;@Kehlenbrink2012a]. Inefficiencies in NEFA uptake into the
-adipose tissue following postprandial TAG lipolysis via lipoprotein lipase
-may result in NEFA spillover into the blood and a subsequent increase in circulating
-NEFA [@Almandoz2013a], which may be more metabolically active given postprandial
-activity.
-
-...Last possibility is that given these subjects were at-risk for diabetes already,
-the causal role of NEFA on IR may have long passed and it no longer influences
-IR....
-
-## Composition
+There are two other possible explanations for our null findings for the insulin
+sensitivity measures. First, there may be differences in physiology between
+fasting and postprandial NEFA kinetics. For instance, some experimental studies
+using the clamp found that fasting NEFA was a weak predictor of insulin
+sensitivity compared to postprandial concentrations of NEFA
+[@Magkos2012a;@Kehlenbrink2012a]. Inefficiencies in NEFA uptake into the adipose
+tissue following postprandial TAG lipolysis via lipoprotein lipase may result in
+NEFA spillover into the blood and a subsequent increase in circulating NEFA
+[@Almandoz2013a], which may be more metabolically active given postprandial 
+activity. Second, the null findings may be due to the high risk population
+examined. It may be that in this population, IR has become well established and
+the role of NEFA may no longer be evaluated in this context.
 
 This is the first study to our knowledge to examine the composition of the NEFA
-fraction and longitudinal measures of metabolic functioning.
+fraction and longitudinal measures of metabolic functioning. A recent, well
+analyzed study used a variety of advanced statistical techniques to explore the
+multivariate relationship between the NEFA composition and components of the
+metabolic syndrome (MetS) [@Dai2015a]. Specifically, using the statistical techniques,
+the authors identified the NEFA 16:1n-9, 20:1n-9, and 22:4n-6 to most correlate
+with components of the MetS. Another statistically similar studied diabetes
+specifically and found that 16:0, 18:0, 18:1, 18:2, 18:3 may be useful
+biomarkers for identifying healthy compared to diabetic individuals [@Liu2010a].
+However, a limitation of both these studies were the smaller sample sizes
+(approximately 100 subjects) and the cross-sectional design. 
 
-Composition of NEFA and metabolic syndrome components [@Dai2015a]
-
-Composition of NEFA and metabolic syndrome binary [@Novgorodtseva2011a]
-
-Using complex measurement and statistical techniques that were rigorously
-applied {{? reword}} to the composition of the NEFA fraction, Liu *et al.*
--[@Liu2010a] found that 16:0, 18:0, 18:1, 18:2, 18:3 may be useful biomarkers
-for identifying healthy compared to diabetic individuals. However, a limitation
-of this study was the smaller sample size {{confirm}} and the cross-sectional
-design.
-
-Limitations, etc...
+There are a few important limitations to our study. NEFA were only quantified at
+the baseline visit and as such we can not investigate whether there were 
+concomitant changes in NEFA and the metabolic measures. However, we believe this
+is a strength for our specific objective, as the chance of reverse causality is 
+reduced given that fatty acid and glucose metabolism pathways are tightly 
+integrated. This is also an observational cohort, and there may be some residual
+confounding we haven't considered or that couldn't be measured. Nonetheless, we 
+were as thorough as possible in understanding and minimizing potential 
+confounding. Finally, our cohort consists of individuals at-risk for diabetes, 
+who are primarily female of European-ancestry and as such our results may not be
+generalizable to other populations. However, given these limitations, our study
+also has several strengths, including the longitudinal design and the rigorous
+statistical techniques and methods applied, which are specifically suited to
+investigating temporal relationships and to handling the multivariate nature of
+the data. In addition, our cohort contains highly detailed and comprehensive
+variable measurements at each collection visit, and has both concentration and
+mol% data for the fatty acids.
 
 Final, brief conclusion...
+In conclusion, we found that NEFA
+While future studies are needed to confirm these findings, our results suggest
+that measurement of the NEFA composition may not be warranted and that the
+simple, easy to measure total NEFA may be the measure most appropriate for
+further analysis. {{reword}}
 
-## Acknowledgements ##
+## Acknowledgements
 
-# Tables #
+The authors thank Jan Neuman, Paula Van Nostrand, Stella Kink, and Annette
+Barnie of the Leadership Sinai Centre for Diabetes, Mount Sinai Hospital,
+Toronto, Canada and Sheila Porter and Mauricio Marin of the Centre for Studies
+in Family Medicine, University of Western Ontario, London, Canada for their 
+expert technical assistance and dedication in their work for PROMISE. 
+The authors had the following responsibility: LWJ conducted research, analyzed
+data, and wrote the paper; RR, ZL, BZ, and SBH designed research, conducted
+research, and provided essential materials (infrastructure and clinical
+resources); RR, BZ, SBH, RPB, and AG provided intellectual feedback on the
+paper; RPB conducted research, provided essential reagents and materials; AJH
+designed research, assisted with interpretation, and provided intellectual
+feedback on all versions of the paper; LWJ and AJH had primary responsibility
+for final content. All authors read and approved the final manuscript.  The
+authors report no potential conflicts of interest relevant to this study.
+
+# Tables
 
 ```{r tabBasic}
-# table(ds$Ethnicity, ds$f.VN)
-# table(ds$f.VN)
-summary(ds$Sex)
-ds %>%
-    outline_table(c('ne_Total', 'HOMA', 'ISI', 'IGIIR', 'ISSI2',
-                    'TAG', 'Chol', 'BMI', 'Waist', 'HDL', 'FamHistDiab',
-                    'Age', 'Ethnicity', 'Sex', 'MET', 'IFG', 'IGT',
-                    'DM'), 'f.VN') %>% 
-#     add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'), stat_medianIQR, digits = 1) %>% 
-#     add_rows(c('TAG', 'Chol', 'HDL', 'ne_Total', 'BMI', 'Waist', 'Age'), 
-#              stat_meanSD, digits = 1) %>% 
-    add_rows(c('Ethnicity', 'Sex')) %>% 
-    rename_rows(renaming_table_rows) %>%
-    rename_columns('Measure', 'Baseline', '3-yr', '6-yr') %>%
-    construct_table()
-
+table_basic(ds, caption = tab_basic)
 ```
 
-# Figures #
+Note: Values are in median (IQR), mean (SD), and n (%).
+
+# Figures
 
 ```{r figDist, fig.cap=fig_dist}
 plot_nefa_distribution(ds)
@@ -634,24 +656,20 @@ plot_heatmap(ds)
 plot_gee_results(gee_results_unadj)
 ```
 
-```{r supFigLDA}
-
-```
-
 ```{r supTabGEE}
 table_gee(gee_results, stab_gee)
 table_gee(gee_results_unadj, stab_gee_unadj)
 ```
 
-```{r supFigLCMM, fig.cap=}
+```{r supFigLCMM, fig.cap=sfig_lcmm}
 plot_lcmm_results(lcmm_data)
 ```
 
-```{r supFigPlsLoadings, fig.cap=}
+```{r supFigPlsLoadings, fig.cap=sfig_plsda_loadings}
 plot_plsda_loadings(plsda_results)
 ```
 
-```{r supFigPlsGrp}
+```{r supFigPlsGrp, fig.cap=sfig_plsda_groups}
 plot_plsda_grouping(plsda_results)
 ```
 
