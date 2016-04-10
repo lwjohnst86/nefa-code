@@ -16,11 +16,14 @@
 #'      'data/dsname.RData',
 #'      'R/fetchScript.R')
 #' }
-load_data <- function(master.dataset = '/home/luke/Documents/datasets/PROMISE/dataset/data/PROMISE_data.csv.gz',
-                      local.dataset = file.path('data', 'ds.RData'),
+load_data <- function(master.dataset = PROMISE::PROMISE_data,
+                      local.dataset = file.path('data', 'data.Rds'),
                       fetch.script = file.path('R', 'fetch_data.R'),
                       force = FALSE) {
-    if (force) .fetch_data(master.dataset)
+    source('.Rprofile')
+    if (force) {
+        .fetch_data(master.dataset)
+    }
     if (!file.exists(fetch.script))
         stop('Please create a file under the R folder that contains a function called fetch_data.')
     if (!file.exists(local.dataset)) {
@@ -34,5 +37,5 @@ load_data <- function(master.dataset = '/home/luke/Documents/datasets/PROMISE/da
         message('Dataset is up-to-date.')
     }
 
-    load(local.dataset, envir = .GlobalEnv)
+    readRDS(local.dataset)
 }
