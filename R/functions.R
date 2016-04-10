@@ -17,7 +17,7 @@ renaming_table_rows <- function(x) {
         gsub('Chol', 'Chol (mmol/L)', .) %>%
         gsub('LDL', 'LDL (mmol/L)', .) %>%
         gsub('HDL', 'HDL (mmol/L)', .) %>%
-        gsub('ne_Total', 'NEFA (nmol/mL)', .) %>%
+        gsub('BaseTotalNE', 'NEFA (nmol/mL)', .) %>%
         gsub('Age', 'Age (yrs)', .) %>%
         gsub('BMI', 'BMI (kg/m^2^)', .) %>%
         gsub('Waist', 'WC (cm)', .)
@@ -25,10 +25,13 @@ renaming_table_rows <- function(x) {
 
 renaming_outcomes <- function(x) {
     x %>%
-        gsub('linvHOMA', 'log(HOMA-IS)', .) %>%
+        gsub('linvHOMA', 'log(1/HOMA-IR)', .) %>%
         gsub('lISI', 'log(ISI)', .) %>%
         gsub('lIGIIR', 'log(IGI/IR)', .) %>%
-        gsub('lISSI2', 'log(ISSI-2)', .)
+        gsub('lISSI2', 'log(ISSI-2)', .) %>%
+        gsub('^invHOMA$', '1/HOMA-IR', .) %>%
+        gsub('^ISSI2$', 'ISSI-2', .) %>%
+        gsub('^IGIIR$', 'IGI/IR', .)
 }
 
 renaming_fa <- function(x) {
@@ -37,7 +40,7 @@ renaming_fa <- function(x) {
         gsub('n(\\d)$', 'n-\\1', .) %>%
         gsub('D(\\d\\d)$', 'D-\\1', .) %>%
         gsub('^pct_', '', .) %>%
-        gsub('ne_Total', 'Total', .)
+        gsub('TotalNE', 'Total', .)
 }
 
 renaming_fraction <- function(x) {
@@ -62,34 +65,34 @@ analyze_gee <- function(data, y, x, covar, unit,
         extract_term <- 'Xterm$'
     }
     gee_results <- data %>%
-        mason::design('gee', family = gaussian, corstr = 'ar1') %>%
-        {
+        mason::design_analysis('gee') %>%
+        mason::add_settings(family = gaussian('identity'), corstr = 'ar1', cluster.id = 'SID') %>%
+        mason::add_variables('yvars', y) %>%
+        mason::add_variables('xvars', x) %>%
+        mason::add_variables('covariates', covar) %>% {
             if (int) {
-                mason::lay_base(., 'SID', y, x, covar, intvar = 'VN')
-
+                mason::add_variables(., 'interaction', 'VN')
             } else {
-                mason::lay_base(., 'SID', y, x, covar)
+                .
             }
         } %>%
-        mason::build() %>%
-        mason::polish(
-            extract_term, adjust.p = FALSE,
-            transform.beta.funs = function(x)
-                (exp(x) - 1) * 100,
-            rename.vars.funs = renaming_list
-        ) %>%
+        mason::construct_analysis() %>%
+        mason::scrub() %>%
+        mason::polish_filter(extract_term, 'term') %>%
+        mason::polish_transform_estimates(function(x) (exp(x) - 1) * 100) %>%
+        mason::polish_renaming(renaming_fa, 'Xterms') %>%
+        mason::polish_renaming(renaming_outcomes, 'Yterms') %>%
         dplyr::mutate(
             unit = unit,
             order1 = substr(Xterms, nchar(Xterms), nchar(Xterms)),
-            order2 = substr(Xterms, 1, 2),
-            Yterms = factor(Yterms, unique(Yterms))
-        ) %>%
-        dplyr::arrange(order1, order2, Yterms) %>%
-        dplyr::select(-order1,-order2)
+            order1 = ifelse(order1 == 0, 10, order1),
+            order1 = ifelse(order1 == 'l', 20, order1),
+            order1 = as.integer(order1)
+        )
 
     if (adj.p) {
         gee_results <- gee_results %>%
-            dplyr::mutate(p.value = p.adjust(p.value, method = adj.p.method))
+            mason::polish_adjust_pvalue(method = adj.p.method)
     }
 
     return(gee_results)
@@ -141,11 +144,11 @@ analyze_plsda <- function(data.lcmm) {
 get_gee_data <- function(data) {
     gee_ready_data <- dplyr::full_join(
         data %>%
-            dplyr::select(-matches('pct_ne|^ne'),-ne_Total),
+            dplyr::select(-matches('pct_ne|^ne'), -TotalNE),
         ## Scale all the fatty acids
         data %>%
             dplyr::filter(VN == 0) %>%
-            dplyr::select(SID, ne_Total, matches('pct_ne|^ne')) %>%
+            dplyr::select(SID, TotalNE, matches('pct_ne|^ne')) %>%
             dplyr::mutate_each(funs(as.numeric(scale(
                 .
             ))),-SID),
@@ -194,26 +197,16 @@ plot_lcmm_results <- function(results.lcmm) {
 }
 
 plot_gee_results <- function(results.gee) {
-    data <- results.gee %>%
-        mutate(Xterms = Xterms %>% factor(., unique(.)))
-    data %>%
-        seer::trance('main_effect') %>%
-        seer::visualize(groups = 'unit~Yterms',
-                        xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
-                        ylab = 'Non-esterified fatty acids') %>%
-        seer::vision_simple(legend.position = 'bottom') +
-        ggplot2::theme(
-            axis.text = element_text(face = ifelse(
-                levels(data$Xterms) == 'Total', "bold", "plain"
-            )),
-            legend.key.width = grid::unit(0.75, "line"),
-            legend.key.height = grid::unit(0.75, "line"),
-            panel.margin = grid::unit(0.75, "lines"),
-            strip.background = element_blank()
-        ) +
-        ggplot2::scale_alpha_discrete(name = 'FDR-adjusted p-value', range = c(0.4, 1.0)) +
-        ggplot2::scale_size_discrete(name = 'FDR-adjusted p-value') +
-        ggplot2::facet_grid(unit~Yterms, scale = 'free_y', switch = 'y')
+    results.gee %>%
+        seer::view_main_effect(
+            graph.options = 'dot.size',
+            groups = 'unit~Yterms',
+            legend.title = 'FDR-adjusted\np-value',
+            xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
+            ylab = 'Non-esterified fatty acids'
+            ) %>%
+        seer::vision_simple(base.size = 10, base.family = 'Arial') +
+        ggplot2::theme(axis.ticks.y = element_blank())
 }
 
 plot_nefa_distribution <- function(data) {
@@ -223,7 +216,16 @@ plot_nefa_distribution <- function(data) {
         dplyr::filter(complete.cases(.)) %>%
         tidyr::gather(Measure, Value,-SID) %>%
         dplyr::mutate(Measure = renaming_fa(Measure) %>%
-                   gsub('ne_', '', .) %>%
+                   gsub('ne_', '', .)) %>%
+        dplyr::mutate(
+            order1 = substr(Measure, nchar(Measure), nchar(Measure)),
+            order1 = ifelse(order1 == 0, 10, order1),
+            order1 = ifelse(order1 == 'l', 20, order1),
+            order1 = as.integer(order1)
+        ) %>%
+        dplyr::arrange(desc(order1)) %>%
+        dplyr::select(-order1) %>%
+        dplyr::mutate(Measure = Measure %>%
                    factor(., levels = unique(.))) %>%
         tidyr::spread(Measure, Value) %>%
         dplyr::select(-SID) %>%
@@ -292,23 +294,41 @@ plot_plsda_grouping <- function(results.plsda) {
         )
 }
 
-plot_heatmap <- function(data) {
+plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
+                                     'lTAG', 'Chol', 'HDL', 'LDL'),
+                         y = ne_conc) {
     data %>%
         dplyr::filter(VN == 0) %>%
-        mason::design('cor', method = 'pearson') %>%
-        mason::lay_base(c(
-            outcomes, 'BMI', 'Waist', 'Age', 'lALT', 'lTAG', 'Chol', 'HDL', 'LDL'
-        ), ne_conc) %>%
-        mason::build() %>%
-        mason::polish(
-            rename.vars.fun = function(x)
-                renaming_list(x) %>%
-                gsub('^l(ALT|TAG)', 'log(\\1)', .)
+        mason::design_analysis('cor') %>%
+        mason::add_settings(method = 'pearson', obs.usage = 'complete.obs') %>%
+        mason::add_variables('yvars', y) %>%
+        mason::add_variables('xvars', x) %>%
+        mason::construct_analysis() %>%
+        mason::scrub() %>%
+        mason::polish_renaming(renaming_fa, 'Vars2') %>%
+        #mason::polish_renaming(renaming_outcomes, 'Vars1') %>%
+        mason::polish_renaming(function(x)
+            gsub('l(ALT|TAG|IGIIR|invHOMA|ISI|ISSI2)', '\\1', x) %>%
+                renaming_outcomes(), 'Vars1') %>%
+        mason::polish_round(2) %>%
+        dplyr::mutate(
+            order1 = substr(Vars2, nchar(Vars2), nchar(Vars2)),
+            order1 = ifelse(order1 == 0, 10, order1),
+            order1 = ifelse(order1 == 'l', 20, order1),
+            order1 = as.integer(order1)
         ) %>%
-        seer::trance('heatmap') %>%
-        seer::visualize(colours = c('darkred', 'darkblue'), number.colours = 5) %>%
-        seer::vision_simple() +
-        ggplot2::ylab('Non-esterified fatty acids (nmol/mL)')
+        dplyr::arrange(desc(order1)) %>%
+        dplyr::select(-order1) %>%
+        dplyr::mutate(Vars2 = factor(Vars2, unique(Vars2)),
+                      Vars1 = factor(Vars1, unique(Vars1)),
+                      Correlations = round(Correlations, 2)) %>%
+        seer::visualize_corr_heatmap(
+            y = 'Vars2',
+            x = 'Vars1',
+            ylab = 'Non-esterified fatty acids (nmol/mL)',
+            number.colours = 5,
+            values.size = 4) %>%
+        seer::vision_simple(10, 'Arial')
 }
 
 # Calculate or extract for inline -----------------------------------------
@@ -422,10 +442,63 @@ table_gee <- function(results, caption, digits = 1) {
     pander(gee_table, missing = '', caption = caption)
 }
 
+table_basic <- function(data, caption) {
+    data %>%
+        carpenter::outline_table(
+            c(
+                'BaseTotalNE',
+                'HOMA',
+                'ISI',
+                'IGIIR',
+                'ISSI2',
+                'TAG',
+                'Chol',
+                'BMI',
+                'Waist',
+                'HDL',
+                'FamHistDiab',
+                'Age',
+                'Ethnicity',
+                'Sex',
+                'MET',
+                'IFG',
+                'IGT',
+                'DM'
+            ),
+            'f.VN'
+        ) %>%
+        carpenter::add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'), carpenter::stat_medianIQR, digits = 1) %>%
+        carpenter::add_rows(c('TAG', 'Chol', 'HDL', 'BaseTotalNE', 'BMI', 'Waist', 'Age'),
+                            carpenter::stat_meanSD,
+                            digits = 1) %>%
+        carpenter::add_rows(c('Ethnicity', 'Sex'), carpenter::stat_nPct, digits = 0) %>%
+        carpenter::rename_rows(renaming_table_rows) %>%
+        carpenter::rename_columns('Measure', 'Baseline', '3-yr', '6-yr') %>%
+        carpenter::construct_table(caption = caption)
+}
+
 # Misc --------------------------------------------------------------------
 
 # Trim white space
-trim_ws <- function (x) gsub("^\\s+|\\s+$", "", x)
+trim_ws <- function (x) {
+    gsub("^\\s+|\\s+$", "", x)
+}
 
+tidy_gee_results <- function(results.gee) {
+    results.gee %>%
+        dplyr::mutate(Yterms = factor(
+            Yterms,
+            levels = c('log(1/HOMA-IR)', 'log(ISI)',
+                       'log(IGI/IR)', 'log(ISSI-2)'),
+            ordered = TRUE
+        )) %>%
+        dplyr::rename(unadj.p.value = p.value, p.value = adj.p.value) %>%
+        dplyr::arrange(desc(order1)) %>%
+        dplyr::select(-order1)
+}
 
-
+graph_theme <- function(base.plot) {
+    base.plot %>%
+        seer::vision_simple(base.size = 10, base.family = 'Arial', legend.position = 'none') +
+        ggplot2::theme(axis.ticks.y = element_blank())
+}
