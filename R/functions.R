@@ -5,7 +5,6 @@
 ##' Custom functions used for analyses.
 ##'
 
-
 # Renaming ----------------------------------------------------------------
 
 renaming_table_rows <- function(x) {
@@ -58,7 +57,7 @@ renaming_list <- function(x) {
 # Analyze -----------------------------------------------------------------
 
 analyze_gee <- function(data, y, x, covar, unit,
-                        adj.p = FALSE, adj.p.method = 'BH', int = FALSE) {
+                        adj.p = FALSE, adj.p.method = 'BH', int = FALSE, intvar = 'VN') {
     if (int) {
         extract_term <- ':'
     } else {
@@ -71,7 +70,7 @@ analyze_gee <- function(data, y, x, covar, unit,
         mason::add_variables('xvars', x) %>%
         mason::add_variables('covariates', covar) %>% {
             if (int) {
-                mason::add_variables(., 'interaction', 'VN')
+                mason::add_variables(., 'interaction', intvar)
             } else {
                 .
             }
@@ -113,10 +112,10 @@ analyze_lcmm <- function(data, lc.var = 'lISSI2') {
     return(lcmm_results)
 }
 
-analyze_plsda <- function(data.lcmm) {
-    data.prep <- data.lcmm %>%
+analyze_plsda <- function(data, variable = 'ClassLCMM') {
+    data.prep <- data %>%
         dplyr::filter(VN == 0) %>%
-        dplyr::select(ClassLCMM, matches('^ne\\d\\d')) %>%
+        dplyr::select(contains(variable), matches('^ne\\d\\d')) %>%
         na.omit()
 
     if (length(caret::nearZeroVar(data.prep[2:dim(data.prep)[2]])) != 0)
@@ -173,12 +172,43 @@ get_gee_data <- function(data) {
     return(gee_ready_data)
 }
 
+get_dysglycemia_data <- function(data) {
+    dysgly.data <-
+        dplyr::left_join(
+            data %>%
+                dplyr::filter(VN == 0),
+            data %>%
+                dplyr::filter(!is.na(TotalNE)) %>%
+                dplyr::mutate_each(funs(ifelse(is.na(.), 0, .)), IFG, IGT) %>%
+                dplyr::mutate(PreDM = as.numeric(rowSums(.[c('IFG', 'IGT')], na.rm = TRUE))) %>%
+                dplyr::mutate(FactorDysgly = ifelse(
+                    PreDM == 1, 'PreDM',
+                    ifelse(DM == 1, 'DM',
+                           'NGT')
+                )) %>%
+                dplyr::select(SID, VN, FactorDysgly) %>%
+                tidyr::spread(VN, FactorDysgly) %>%
+                dplyr::mutate(
+                    DetailedConvert = as.factor(paste0(`0`, '-', `1`, '-', `2`)),
+                    ConvertDysgly = as.numeric(!grepl('NGT$|NGT-NA$|NGT-NGT-NA$|NGT-NA-NA$',
+                                                      DetailedConvert)),
+                    ConvertDM = as.numeric(grepl('-DM$|-DM-DM$|-DM-NA$|-DM-NGT$',
+                                                 DetailedConvert)),
+                    ConvertPreDM = as.numeric(grepl('-PreDM$|-PreDM-PreDM$|-PreDM-NA$',
+                                                    DetailedConvert))
+                )
+        ) %>%
+        dplyr::filter(!is.na(TotalNE))
+
+    return(dysgly.data)
+}
+
 combine_lcmm_data <- function(data, results.lcmm) {
     data <- data %>%
         dplyr::full_join(results.lcmm$pprob %>%
                              as.data.frame() %>%
                              dplyr::select(SID, class)) %>%
-        dplyr::mutate(class = factor(class, labels = c('Mid', 'High', 'Low'))) %>%
+        dplyr::mutate(class = factor(class, labels = c('High', 'Mid', 'Low'))) %>%
         dplyr::rename(ClassLCMM = class)
 
     return(data)
@@ -193,7 +223,7 @@ plot_lcmm_results <- function(results.lcmm) {
         ggplot2::geom_line(ggplot2::aes(group = SID, colour = ClassLCMM), size = 0.1, alpha = 0.9) +
         ggplot2::geom_smooth(aes(group = ClassLCMM), method = "loess", size = 2)  +
         ggplot2::labs(x = "Time", y = "log(ISSI-2)", colour = "Latent Class") +
-        ggthemes::theme_tufte(11, 'sans')
+        graph_theme()
 }
 
 plot_gee_results <- function(results.gee) {
@@ -204,9 +234,8 @@ plot_gee_results <- function(results.gee) {
             legend.title = 'FDR-adjusted\np-value',
             xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
             ylab = 'Non-esterified fatty acids'
-            ) %>%
-        seer::vision_simple(base.size = 10, base.family = 'Arial') +
-        ggplot2::theme(axis.ticks.y = element_blank())
+            ) +
+        graph_theme(ticks = FALSE)
 }
 
 plot_nefa_distribution <- function(data) {
@@ -232,9 +261,8 @@ plot_nefa_distribution <- function(data) {
         seer::trance('boxes_dots') %>%
         seer::visualize(dots = FALSE,
                   xlab = 'Concentration (nmol/mL)',
-                  ylab = 'Non-esterified fatty acid') %>%
-        seer::vision_simple() +
-        ggplot2::theme(axis.ticks.y = element_blank())
+                  ylab = 'Non-esterified fatty acid') +
+        graph_theme(ticks = FALSE)
 }
 
 plot_plsda_loadings <- function(results.plsda) {
@@ -258,14 +286,10 @@ plot_plsda_loadings <- function(results.plsda) {
             x = paste0('Component 1 (', round(explained.var[1], 1), '%)'),
             y = paste0('Component 2 (', round(explained.var[2], 1), '%)')
         ) +
-        ggthemes::theme_tufte(11, 'sans') +
-        ggplot2::theme(
-            panel.grid = ggplot2::element_line(),
-            panel.grid.minor = ggplot2::element_blank()
-        )
+        graph_theme(minor.grid.lines = TRUE)
 }
 
-plot_plsda_grouping <- function(results.plsda) {
+plot_plsda_grouping <- function(results.plsda, legend = 'LCMM Class') {
     # Select only the plsda results and class from the list
     results <- results.plsda$results
     class.lcmm <- results.plsda$data$y
@@ -282,16 +306,12 @@ plot_plsda_grouping <- function(results.plsda) {
         ggplot2::ggplot(ggplot2::aes(Comp1, Comp2, colour = class.lcmm)) +
         ggplot2::stat_density2d(ggplot2::aes(alpha = ..level.., colour = class.lcmm), size = 2) +
         ggplot2::scale_alpha(guide = 'none') +
-        ggplot2::scale_color_discrete('LCMM Class') +
+        ggplot2::scale_color_discrete(legend) +
         ggplot2::labs(
             x = paste0('Component 1 (', round(explained.var[1], 1), '%)'),
             y = paste0('Component 2 (', round(explained.var[2], 1), '%)')
         ) +
-        ggthemes::theme_tufte(11, 'sans') +
-        ggplot2::theme(
-            panel.grid = ggplot2::element_line(),
-            panel.grid.minor = ggplot2::element_blank()
-        )
+        graph_theme(minor.grid.lines = TRUE)
 }
 
 plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
@@ -327,11 +347,23 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
             x = 'Vars1',
             ylab = 'Non-esterified fatty acids (nmol/mL)',
             number.colours = 5,
-            values.size = 4) %>%
-        seer::vision_simple(10, 'Arial')
+            values.size = 4) +
+        graph_theme(ticks = FALSE)
 }
 
 # Calculate or extract for inline -----------------------------------------
+
+calculate_conversion_dysgly <- function(data, variable = c('ConvertDM', 'ConvertPreDM')) {
+    variable <- match.arg(variable)
+
+    conversion <-
+        table(data[variable])[2] %>%
+        {
+            paste0(., ' (', round((. / 477) * 100, 0), '%)')
+        }
+
+    return(conversion)
+}
 
 calculate_ngroups_lcmm <- function(results.lcmm) {
     n_by_group <- results.lcmm$pprob$class %>%
@@ -370,13 +402,14 @@ calculate_plsda_misclass <- function(results.plsda) {
         dplyr::summarise(N = sum(Freq)) %>%
         dplyr::ungroup() %>%
         dplyr::mutate(Total = sum(N),
-                      Percent = paste0(round((N / Total) * 100, 1), '%'))
+                      Percent = paste0(round((N / Total) * 100, 1), '%'),
+                      NPct = paste0(N, ' (', Percent, ')'))
 
     return(misclass_plsda)
 }
 
 calculate_outcomes_pct_change <- function(data) {
-    change_over_time_outcomes <- data %>%
+    change_over_time <- data %>%
         dplyr::select(f.VN, HOMA, ISI, IGIIR, ISSI2) %>%
         tidyr::gather(Measure, Value,-f.VN) %>%
         na.omit() %>%
@@ -390,7 +423,40 @@ calculate_outcomes_pct_change <- function(data) {
         round(1) %>%
         {paste0(min(.), '% to ', max(.), '%')}
 
-    return(change_over_time_outcomes)
+    pval <- design_analysis(data, 'gee') %>%
+        add_settings(family = gaussian, corstr = 'ar1', cluster.id = 'SID') %>%
+        add_variables('yvars', c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')) %>%
+        add_variables('xvars', 'VN') %>%
+        construct_analysis() %>%
+        scrub() %>%
+        polish_filter('Xterm$', 'term') %>%
+        dplyr::summarise(p.value = mean(p.value)) %>%
+        dplyr::mutate(p.value = format.pval(p.value, digits = 2, eps = 0.001))
+
+    change.outcomes <- list(chg = change_over_time, p = pval)
+
+    return(change.outcomes)
+}
+
+
+
+calculate_factor_npercent <- function(x, group = c('Yes', 'Female', 'European')) {
+    nums <- table(x)
+    pct <- (nums[group]/sum(nums)) * 100
+    data.frame(
+        n = nums[group],
+        pct = paste0(round(pct, 1), '%'),
+        npct = paste0(nums[group], ' (', paste0(round(pct, 1), '%)'))
+    )
+}
+
+calculate_gee_magnitude <- function(results.gee) {
+    results.gee %>%
+        dplyr::filter(p.value <= 0.05) %>%
+        dplyr::group_by(Yterms) %>%
+        dplyr::summarise(est = mean(estimate) %>%
+                             round(1) %>%
+                             abs())
 }
 
 
@@ -418,28 +484,29 @@ extract_gee_estimateCI <- function(data) {
 
 table_gee <- function(results, caption, digits = 1) {
     gee_table_prep <- results %>%
-        mutate_each(funs(trim_ws(format(
+        dplyr::mutate_each(funs(trim_ws(format(
             round(., digits), nsmall = digits
         ))), estimate, conf.low, conf.high) %>%
-        mutate(
+        dplyr::mutate(
             p.binary = ifelse(p.value <= 0.05, '\\*', ''),
             estimate.ci = paste0(estimate, ' (', conf.low, ', ', conf.high, ')', p.binary),
             Yterms = factor(Yterms, unique(Yterms)),
             Xterms = factor(Xterms, unique(Xterms))
         ) %>%
-        select(Yterms, Xterms, unit, estimate.ci) %>%
-        spread(Yterms, estimate.ci)
+        dplyr::select(Yterms, Xterms, unit, estimate.ci) %>%
+        tidyr::spread(Yterms, estimate.ci)
 
     gee_table <-
-        bind_rows(
+        dplyr::bind_rows(
             data.frame(Xterms = paste0('**', unique(gee_table_prep$unit)[1], '**')),
-            filter(gee_table_prep, unit == 'mol%'),
+            dplyr::filter(gee_table_prep, unit == 'mol%'),
             data.frame(Xterms = paste0('**', unique(gee_table_prep$unit)[2], '**')),
-            filter(gee_table_prep, unit == 'nmol/mL')
+            dplyr::filter(gee_table_prep, unit == 'nmol/mL')
         ) %>%
-        select(-unit)
+        dplyr::select(-unit) %>%
+        dplyr::rename('Fatty acid' = Xterms)
 
-    pander(gee_table, missing = '', caption = caption)
+    pander::pander(gee_table, missing = '', caption = caption)
 }
 
 table_basic <- function(data, caption) {
@@ -461,6 +528,7 @@ table_basic <- function(data, caption) {
                 'Ethnicity',
                 'Sex',
                 'MET',
+                'ALT',
                 'IFG',
                 'IGT',
                 'DM'
@@ -468,7 +536,7 @@ table_basic <- function(data, caption) {
             'f.VN'
         ) %>%
         carpenter::add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'), carpenter::stat_medianIQR, digits = 1) %>%
-        carpenter::add_rows(c('TAG', 'Chol', 'HDL', 'BaseTotalNE', 'BMI', 'Waist', 'Age'),
+        carpenter::add_rows(c('ALT', 'TAG', 'Chol', 'HDL', 'BaseTotalNE', 'BMI', 'Waist', 'MET', 'Age'),
                             carpenter::stat_meanSD,
                             digits = 1) %>%
         carpenter::add_rows(c('Ethnicity', 'Sex'), carpenter::stat_nPct, digits = 0) %>%
@@ -497,8 +565,36 @@ tidy_gee_results <- function(results.gee) {
         dplyr::select(-order1)
 }
 
-graph_theme <- function(base.plot) {
-    base.plot %>%
-        seer::vision_simple(base.size = 10, base.family = 'Arial', legend.position = 'none') +
-        ggplot2::theme(axis.ticks.y = element_blank())
+graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE) {
+    graph.theme <-
+        ggplot2::"%+replace%"(
+            ggthemes::theme_tufte(base_size = 10, base_family = 'Arial'),
+            ggplot2::theme(
+                axis.line = ggplot2::element_line('black'),
+                axis.line.x = ggplot2::element_line('black'),
+                axis.line.y = ggplot2::element_line('black'),
+                legend.key.width = grid::unit(0.7, "line"),
+                legend.key.height = grid::unit(0.7, "line"),
+                strip.background = element_blank(),
+                plot.margin = grid::unit(c(0.5, 0, 0, 0), "cm"),
+                legend.position = 'bottom'
+            )
+        )
+
+    if (!ticks) {
+        graph.theme <- ggplot2::"%+replace%"(graph.theme,
+                                            ggplot2::theme(axis.ticks.y = element_blank()))
+    }
+
+    if (minor.grid.lines) {
+        graph.theme <- ggplot2::"%+replace%"(
+            graph.theme,
+            ggplot2::theme(
+                panel.grid = ggplot2::element_line(),
+                panel.grid.minor = ggplot2::element_blank()
+            )
+        )
+    }
+
+    return(graph.theme)
 }
