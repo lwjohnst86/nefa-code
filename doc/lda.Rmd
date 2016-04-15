@@ -17,13 +17,50 @@ knitr::opts_chunk$set(collapse = TRUE, fig.height = 8, fig.width = 10)
 ```{r loadData, message=FALSE}
 source('.Rprofile')
 suppressMessages(run_setup())
-load_data()
+ds <- load_data()
 dim(ds)
 ```
 
 # Latent class mixed model
 
+```{r}
+ds.dysgly <-
+    left_join(
+    ds %>%
+        filter(VN == 0),
+    ds %>%
+        filter(!is.na(TotalNE)) %>%
+        mutate_each(funs(ifelse(is.na(.), 0, .)), IFG, IGT) %>%
+        mutate(PreDM = as.numeric(rowSums(.[c('IFG', 'IGT')], na.rm = TRUE))) %>%
+        mutate(FactorDysgly = ifelse(PreDM == 1, 'PreDM',
+                                     ifelse(DM == 1, 'DM',
+                                            'NGT'))) %>%
+        select(SID, VN, FactorDysgly) %>%
+        spread(VN, FactorDysgly) %>%
+        mutate(
+            DetailedConvert = as.factor(paste0(`0`, '-', `1`, '-', `2`)),
+            ConvertDysgly = as.numeric(!grepl('NGT$|NGT-NA$|NGT-NGT-NA$|NGT-NA-NA$',
+                                              DetailedConvert)), 
+            ConvertDM = as.numeric(grepl('-DM$|-DM-DM$|-DM-NA$|-DM-NGT$',
+                                         DetailedConvert)),
+            ConvertPreDM = as.numeric(grepl('-PreDM$|-PreDM-PreDM$|-PreDM-NA$',
+                                            DetailedConvert))
+            #Drop = grepl('-PreDM$|-PreDM-PreDM$|-PreDM-NA$', DetailedConvert)
+            )
+    ) %>%
+    filter(!is.na(TotalNE))
+
+dm.convert <- 
+    table(ds.dysgly$ConvertDM)[2] %>% 
+    {paste0(., ' (', round((. / 477)*100, 0), '%)')}
+predm.convert <- 
+    table(ds.dysgly$ConvertPreDM)[2] %>% 
+    {paste0(., ' (', round((. / 477)*100, 0), '%)')}
+```
+
+
 ```{r lccmPkg}
+
 ds.lcmm <- ds %>% 
     select(SID, lISSI2, VN) %>% 
     na.omit() %>% 
@@ -39,7 +76,7 @@ ds.lcmm2 <-
     full_join(ds.lcmm,
               as.data.frame(fit$pprob[,1:2]),
               by = 'SID') %>%
-    mutate(class = factor(class, labels = c('Mid', 'High', 'Low')))
+    mutate(class = factor(class, levels = c('High'), labels = c('Mid', 'High', 'Low')))
 ggplot(ds.lcmm2, aes(VN, lISSI2, group = SID, colour = class)) +
     geom_line(aes(group = SID, colour = class), size = 0.1, alpha = 0.9) +
     geom_smooth(aes(group = class), method = "loess", size = 2)  +
@@ -109,6 +146,15 @@ fit$scores %>%
     theme(panel.grid = element_line(),
           panel.grid.minor = element_blank())
 
+```
+
+```{r plsdaDysgly}
+plsda_dysgly <- ds.dysgly %>% 
+    mutate(ConvertDysgly = factor(ConvertDysgly, levels = c(0, 1), labels = c('No', 'Yes'))) %>% 
+    analyze_plsda('ConvertDysgly')
+plot_plsda_loadings(plsda_dysgly)
+plot_plsda_grouping(plsda_dysgly)
+calculate_plsda_misclass(plsda_dysgly)
 ```
 
 # Linear discriminant analysis
