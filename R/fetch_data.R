@@ -5,7 +5,7 @@
 #' the new dataset as an `.RData` file. The dot in front of the function hides
 #' it from the global environment.
 #'
-.fetch_data <- function(master.dataset) {
+.fetch_data <- function(master.dataset = PROMISE::PROMISE_data) {
     # Load the master dataset,
     ds.prep <- master.dataset %>%
         filter(VN %in% c(1, 3, 6)) %>%
@@ -25,7 +25,7 @@
             SID, VN, BMI, Waist, HOMA, ISI, IGIIR, ISSI2, TAG, LDL, HDL, Chol,
             ALT, CRP, FamHistDiab, matches('meds'), Age, Sex, Ethnicity,
             IFG, IGT, DM, MET, BaseAge, AlcoholPerWk, TobaccoUse, SelfEdu, Occupation,
-            TotalNE, matches('^ne\\d+')
+            TotalNE, matches('^ne\\d+'), Glucose0, Glucose120
         ) %>%
         mutate(
             BaseTotalNE = TotalNE,
