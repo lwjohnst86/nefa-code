@@ -24,7 +24,6 @@ run_setup <- function() {
     if (!require(caret)) install.packages('caret')
     if (!require(fdrtool)) install.packages('fdrtool')
     if (!require(captioner)) install.packages('captioner')
-    if (!require(dplyr)) install.packages('dplyr')
     if (!require(tidyr)) install.packages('tidyr')
     if (!require(ggplot2)) install.packages('ggplot2')
     if (!require(pander)) install.packages('pander')
@@ -33,6 +32,7 @@ run_setup <- function() {
     if (!require(MuMIn)) install.packages('MuMIn')
     if (!require(geepack)) install.packages('geepack')
     if (!require(magrittr)) install.packages('magrittr')
+    if (!require(dplyr)) install.packages('dplyr')
     # - For github packages:
     # if (!require(package)) packrat::install_github('username/package')
     if (!require(mason)) {
@@ -59,7 +59,8 @@ run_setup <- function() {
 
     # For the document (knitr)
     knitr::opts_chunk$set(
-        warning = FALSE, message = FALSE, collapse = TRUE
+        warning = FALSE, message = FALSE, collapse = TRUE,
+        fig.showtext = TRUE
     )
 }
 
