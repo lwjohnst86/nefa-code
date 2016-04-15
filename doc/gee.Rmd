@@ -3,7 +3,6 @@ title: "GEE models"
 author: "Luke W. Johnston"
 output: 
     rmarkdown::html_vignette:
-        keep_md: true
         toc: true
 ---
 
