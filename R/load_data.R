@@ -1,37 +1,38 @@
-# ---NO NEED TO EDIT---
+# ---(LIKELY) NO NEED TO EDIT---
 #
-#' Load or fetch the dataset for the project
-#'
-#' @param master.dataset File path to the master dataset to fetch and wrangle from.
-#' @param local.dataset File path to the local dataset (eg. \code{data/}).
-#' @param fetch.script File path to the \code{fetch_data} function.
-#'
-#' @return Either updates the dataset or loads it in the working environment.
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' load_data('/path/to/master/dataset/')
-#' load_data('/path/to/master/dataset/',
-#'      'data/dsname.RData',
-#'      'R/fetchScript.R')
-#' }
-load_data <- function(master.dataset = PROMISE::PROMISE_data,
-                      local.dataset = file.path('data', 'data.Rds'),
+# `load_data()` either loads the dataset inside the `data/` folder or, if the
+# `fetch_data.R` file has been changed, will re-run the `fetch_data.R` function
+# to update the dataset in `data/` and then loads the dataset.
+#
+# There are three arguments to this function:
+#
+# - `local.dataset`: Set the file path to the local dataset (eg. `data/`).
+# - `fetch.script`: Set the file path to the `fetch_data.R` function.
+# - `force`: Force updating the dataset in `data/` by running the `fetch_data.R`
+# function.
+#
+# Examples for usage:
+#
+#   ds <- load_data()
+#   ds <- load_data(
+#       'data/dsname.RData',
+#       'R/fetchScript.R')
+#
+load_data <- function(local.dataset = file.path('data', 'data.Rds'),
                       fetch.script = file.path('R', 'fetch_data.R'),
                       force = FALSE) {
     source('.Rprofile')
     if (force) {
-        .fetch_data(master.dataset)
+        .fetch_data()
     }
     if (!file.exists(fetch.script))
         stop('Please create a file under the R folder that contains a function called fetch_data.')
     if (!file.exists(local.dataset)) {
         dir.create('data')
-        .fetch_data(master.dataset)
+        .fetch_data()
         message('A dataset has been added and loaded.')
     } else if (file.mtime(fetch.script) > file.mtime(local.dataset)) {
-        .fetch_data(master.dataset)
+        .fetch_data()
         message('Dataset has been updated and loaded.')
     } else {
         message('Dataset is up-to-date.')
