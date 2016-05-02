@@ -38,9 +38,9 @@ covariates0 <- c('VN')
 covariates_is <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT')
 covariates_bcf <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 
                     'MET', 'AlcoholPerWk')
-covariates_is_tag <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'TAG')
+covariates_is_tag <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'BaseTAG')
 covariates_bcf_tag <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 
-                        'ALT', 'MET', 'AlcoholPerWk', 'TAG')
+                        'ALT', 'MET', 'AlcoholPerWk', 'BaseTAG')
 ```
 
 # Unadjusted GEE model
@@ -117,6 +117,9 @@ gee_results_is_int <- bind_rows(
 gee_results_is_int %>%
     select(p.value) %>% 
     plot()
+gee_results_is_int %>%
+    .$p.value %>% 
+    min()
 ```
 
 ```{r geeResults_IS_int_sex}
@@ -166,6 +169,9 @@ gee_results_bcf_int <- bind_rows(
 gee_results_bcf_int %>% 
     select(p.value) %>% 
     plot()
+gee_results_bcf_int %>%
+    .$p.value %>% 
+    min()
 ```
 
 ```{r geeResults_BCF_int_sex}
