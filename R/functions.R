@@ -208,7 +208,8 @@ combine_lcmm_data <- function(data, results.lcmm) {
         dplyr::full_join(results.lcmm$pprob %>%
                              as.data.frame() %>%
                              dplyr::select(SID, class)) %>%
-        dplyr::mutate(class = factor(class, labels = c('High', 'Mid', 'Low'))) %>%
+        dplyr::mutate(class = factor(class, levels = c(2, 1, 3),
+                                     labels = c('High', 'Mid', 'Low'))) %>%
         dplyr::rename(ClassLCMM = class)
 
     return(data)
@@ -219,10 +220,11 @@ combine_lcmm_data <- function(data, results.lcmm) {
 
 plot_lcmm_results <- function(results.lcmm) {
     results.lcmm %>%
-        ggplot2::ggplot(ggplot2::aes(VN, lISSI2, group = SID, colour = ClassLCMM)) +
+        ggplot2::ggplot(ggplot2::aes(f.VN, lISSI2, group = SID, colour = ClassLCMM)) +
         ggplot2::geom_line(ggplot2::aes(group = SID, colour = ClassLCMM), size = 0.1, alpha = 0.9) +
         ggplot2::geom_smooth(aes(group = ClassLCMM), method = "loess", size = 2)  +
         ggplot2::labs(x = "Time", y = "log(ISSI-2)", colour = "Latent Class") +
+        ggplot2::scale_x_discrete(labels = c('Baseline', 'Year 3', 'Year 6'), expand = c(0.05, 0.05)) +
         graph_theme()
 }
 
@@ -409,18 +411,25 @@ calculate_plsda_misclass <- function(results.plsda) {
 }
 
 calculate_outcomes_pct_change <- function(data) {
-    change_over_time <- data %>%
+    prep.data <- data %>%
         dplyr::select(f.VN, HOMA, ISI, IGIIR, ISSI2) %>%
         tidyr::gather(Measure, Value,-f.VN) %>%
         na.omit() %>%
         dplyr::group_by(Measure, f.VN) %>%
-        dplyr::summarise(med = median(Value)) %>%
-        dplyr::ungroup() %>%
+        dplyr::summarise(med = median(Value),
+                         n = n()) %>%
+        dplyr::ungroup()
+
+    sample_size <- prep.data$n %>%
+        {paste0(min(.), '-', max(.))}
+
+    change_over_time <- prep.data %>%
+        dplyr::select(-n) %>%
         tidyr::spread(f.VN, med) %>%
         dplyr::mutate(pctChg = ((yr6 - yr0) / yr0) * 100) %>%
         dplyr::select(pctChg) %>%
         abs() %>%
-        round(1) %>%
+        round(0) %>%
         {paste0(min(.), '% to ', max(.), '%')}
 
     pval <- design_analysis(data, 'gee') %>%
@@ -433,7 +442,7 @@ calculate_outcomes_pct_change <- function(data) {
         dplyr::summarise(p.value = mean(p.value)) %>%
         dplyr::mutate(p.value = format.pval(p.value, digits = 2, eps = 0.001))
 
-    change.outcomes <- list(chg = change_over_time, p = pval)
+    change.outcomes <- list(n = sample_size, chg = change_over_time, p = pval)
 
     return(change.outcomes)
 }
@@ -511,6 +520,10 @@ table_gee <- function(results, caption, digits = 1) {
 
 table_basic <- function(data, caption) {
     data %>%
+        dplyr::mutate(Ethnicity = ifelse(VN == 0, as.character(Ethnicity), NA),
+                      Ethnicity = as.factor(Ethnicity),
+                      Sex = ifelse(VN == 0, as.character(Sex), NA),
+                      Sex = as.factor(Sex)) %>%
         carpenter::outline_table(
             c(
                 'BaseTotalNE',
@@ -535,13 +548,33 @@ table_basic <- function(data, caption) {
             ),
             'f.VN'
         ) %>%
-        carpenter::add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'), carpenter::stat_medianIQR, digits = 1) %>%
-        carpenter::add_rows(c('ALT', 'TAG', 'Chol', 'HDL', 'BaseTotalNE', 'BMI', 'Waist', 'MET', 'Age'),
+        carpenter::add_rows(c('HOMA', 'ISI'), carpenter::stat_medianIQR, digits = 1) %>%
+        carpenter::add_rows(c('IGIIR', 'ISSI2'), carpenter::stat_medianIQR, digits = 1) %>%
+        carpenter::add_rows(c('BMI', 'Waist'), carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::add_rows(c('ALT', 'TAG', 'Chol', 'HDL', 'BaseTotalNE', 'MET', 'Age'),
                             carpenter::stat_meanSD,
                             digits = 1) %>%
         carpenter::add_rows(c('Ethnicity', 'Sex'), carpenter::stat_nPct, digits = 0) %>%
         carpenter::rename_rows(renaming_table_rows) %>%
         carpenter::rename_columns('Measure', 'Baseline', '3-yr', '6-yr') %>%
+        carpenter::construct_table(caption = caption)
+}
+
+table_distribution <- function(data, caption) {
+    fatty.acid.species <- grep('^ne\\d\\d|^TotalNE', names(data), value = TRUE)
+    grep_nefa <- function(pattern, x = fatty.acid.species)
+        grep(pattern, x, value = TRUE)
+    data %>%
+        dplyr::filter(VN == 0) %>%
+        carpenter::outline_table(., fatty.acid.species, 'f.VN') %>%
+        carpenter::add_rows(grep_nefa('3$'), carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::add_rows(grep_nefa('6$'), carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::add_rows(grep_nefa('7$'), carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::add_rows(grep_nefa('9$'), carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::add_rows(grep_nefa('0$'), carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::add_rows(grep_nefa('TotalNE$'), carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::rename_columns('NEFA', 'Concentrations (nmol/mL)') %>%
+        carpenter::rename_rows(renaming_fa) %>%
         carpenter::construct_table(caption = caption)
 }
 
@@ -554,14 +587,16 @@ trim_ws <- function (x) {
 
 tidy_gee_results <- function(results.gee) {
     results.gee %>%
+        dplyr::rename(unadj.p.value = p.value, p.value = adj.p.value) %>%
+        dplyr::arrange(desc(order1)) %>%
         dplyr::mutate(Yterms = factor(
             Yterms,
             levels = c('log(1/HOMA-IR)', 'log(ISI)',
                        'log(IGI/IR)', 'log(ISSI-2)'),
-            ordered = TRUE
-        )) %>%
-        dplyr::rename(unadj.p.value = p.value, p.value = adj.p.value) %>%
-        dplyr::arrange(desc(order1)) %>%
+            labels = c('log(1/HOMA-IR)', 'log(ISI)',
+                       'log(IGI/IR)', 'log(ISSI-2)'),
+            ordered = TRUE),
+            Xterms = factor(Xterms, unique(Xterms))) %>%
         dplyr::select(-order1)
 }
 
