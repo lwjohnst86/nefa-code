@@ -115,7 +115,7 @@ analyze_lcmm <- function(data, lc.var = 'lISSI2') {
 analyze_plsda <- function(data, variable = 'ClassLCMM') {
     data.prep <- data %>%
         dplyr::filter(VN == 0) %>%
-        dplyr::select(contains(variable), matches('^ne\\d\\d')) %>%
+        dplyr::select(contains(variable), matches('^pct_ne\\d\\d')) %>%
         na.omit()
 
     if (length(caret::nearZeroVar(data.prep[2:dim(data.prep)[2]])) != 0)
@@ -306,7 +306,7 @@ plot_plsda_grouping <- function(results.plsda, legend = 'LCMM Class') {
 
     plot_data %>%
         ggplot2::ggplot(ggplot2::aes(Comp1, Comp2, colour = class.lcmm)) +
-        ggplot2::stat_density2d(ggplot2::aes(alpha = ..level.., colour = class.lcmm), size = 2) +
+        ggplot2::stat_density2d(ggplot2::aes(alpha = ..level.., colour = class.lcmm), size = 1) +
         ggplot2::scale_alpha(guide = 'none') +
         ggplot2::scale_color_discrete(legend) +
         ggplot2::labs(
@@ -350,7 +350,7 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
             ylab = 'Non-esterified fatty acids (nmol/mL)',
             number.colours = 5,
             values.size = 4) +
-        graph_theme(ticks = FALSE)
+        graph_theme(ticks = FALSE, legend.pos = 'right')
 }
 
 # Calculate or extract for inline -----------------------------------------
@@ -507,9 +507,9 @@ table_gee <- function(results, caption, digits = 1) {
 
     gee_table <-
         dplyr::bind_rows(
-            data.frame(Xterms = paste0('**', unique(gee_table_prep$unit)[1], '**')),
-            dplyr::filter(gee_table_prep, unit == 'mol%'),
             data.frame(Xterms = paste0('**', unique(gee_table_prep$unit)[2], '**')),
+            dplyr::filter(gee_table_prep, unit == 'mol%'),
+            data.frame(Xterms = paste0('**', unique(gee_table_prep$unit)[1], '**')),
             dplyr::filter(gee_table_prep, unit == 'nmol/mL')
         ) %>%
         dplyr::select(-unit) %>%
@@ -600,7 +600,7 @@ tidy_gee_results <- function(results.gee) {
         dplyr::select(-order1)
 }
 
-graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE) {
+graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legend.pos = 'bottom') {
     graph.theme <-
         ggplot2::"%+replace%"(
             ggthemes::theme_tufte(base_size = 10, base_family = 'Arial'),
@@ -612,7 +612,7 @@ graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE) {
                 legend.key.height = grid::unit(0.7, "line"),
                 strip.background = element_blank(),
                 plot.margin = grid::unit(c(0.5, 0, 0, 0), "cm"),
-                legend.position = 'bottom'
+                legend.position = legend.pos
             )
         )
 
@@ -632,4 +632,32 @@ graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE) {
     }
 
     return(graph.theme)
+}
+
+example_plsda_results <- function() {
+    data(mdrr)
+    set.seed(1)
+    inTrain <- sample(seq(along = mdrrClass), 450)
+
+    nzv <- nearZeroVar(mdrrDescr)
+    filteredDescr <- mdrrDescr[, -nzv]
+
+    training <- filteredDescr[inTrain,]
+    trainMDRR <- mdrrClass[inTrain]
+
+    preProcValues <- preProcess(training)
+
+    trainDescr <- predict(preProcValues, training)
+
+    y <- trainMDRR
+    x <- trainDescr
+    plsda_results <- list(
+        results = caret::plsda(x, y, probMethod = 'Bayes'),
+        data = list(
+            x = x,
+            y = y
+        )
+    )
+
+    return(plsda_results)
 }
