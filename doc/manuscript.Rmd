@@ -12,9 +12,16 @@ output:
         keep_md: true
 ---
 
+<!--
+
+TODO:
+- Use pct for PLSDA
+
+-->
+
 # Title page
 
-Title: Total non-esterified fatty acids, but not individual species, predict
+Title: Total non-esterified fatty acids, but not individual fatty acids, predict
 progression in beta-cell dysfunction: The Prospective Metabolism and Islet Cell
 Evaluation (PROMISE) cohort
 
@@ -49,17 +56,17 @@ Corresponding author:
 - Fax number:
 - Email: anthony.hanley@utoronto.ca
 
-Word count: 3543 / 4000
+Word count: 3569 / 4000
 
 Table and figure count: 3 / 4
 
 <!-- Reference limit / 40 -->
 
 # Abstract
-250 / 250 words
+249 / 250 words
 
 Objective: Our aim was to determine the longitudinal associations of individual
-non-esterified fatty acid (NEFA) species on changes in insulin sensitivity and
+non-esterified fatty acids (NEFA) on changes in insulin sensitivity and
 beta-cell function over 6 years in a cohort of individuals who are at-risk for
 diabetes.
 
@@ -82,7 +89,7 @@ or ISI, nor were any associations seen for the mol% data.
 
 Conclusions: Total NEFA was a strong predictor for lower beta-cell function over
 6 years. Our results suggest that association with beta-cell function is due to
-the absolute size of the serum NEFA fraction, rather than the specific lipid
+the absolute size of the serum NEFA fraction, rather than the specific fatty acid
 composition.
 
 <!-- outline
@@ -94,7 +101,7 @@ the p-value...?
 - Precise followup time for each participant?
 - [X] Interaction by sex or ethnicity
 - [X] Interaction by time
-- [X] Sensitivity analysis with TG
+- [X] Sensitivity analysis with TAG
 - [X] PLS-DA with dysglycemia (for anyone who got it over the years).
 - [X] Replace TAG with BaseTAG in the QIC (or use both)
 - [X] Fix time axis labels on LCMM plot
@@ -140,10 +147,13 @@ stab_gee <- stab('gee', 'Longitudinal associations of individual non-esterified 
 ALT, and family history of diabetes (plus physical activity and alcohol intake for beta-cell function models). Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, indicated by asterisk.')
 stab_gee_unadj <- stab('gee_unadj', 'Unadjusted generalized estimating equations models of the longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort.  Models are only adjusted for time. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, indicated by asterisk.')
 sfig_lcmm <- sfig('lcmm', 'Latent class mixed model (LCMM) analysis to identify individual classes of trajectories for log(ISSI-2) over the 6 years in the PROMISE cohort. LCMM is a technique that identifies groups of participants that share a similar underlying trajectory in beta-cell function over the 6 years (e.g. no change compared to declines in ISSI-2). Red lines indicate individuals with a high beta-cell function who stayed high, green represents those in the middle, and blue represents those who had the lowest beta-cell function.')
-sfig_plsda_groups <- sfig('plsda_groups', 'Clustering of extracted components from the partial least squares discriminant analysis (PLS-DA) on the classes extracted from the latent class mixed model (LCMM) in 463 participants from the baseline PROMISE visit (2004-2006). PLS-DA is a multivariate technique that The percent explained variance of each component is shown in brackets on each axis. Red, green, and blue lines indicate participants classified as high, middle, and low for beta-cell function, respectively, from the LCMM analysis.')
+sfig_plsda_groups <- sfig('plsda_groups', '')
 sfig_plsda_loadings <- sfig('plsda_loadings', 'Pattern loadings from partial least squares discriminant analysis to identify potential clusters of NEFA composition within the classes extracted from the latent class mixed model in 463 participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis.')
-sfig_plsda_groups_dysgly <- sfig('plsda_groups_dysgly', 'Clustering of extracted components from the partial least squares discriminant analysis for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis. Blue lines indicate dysglycemia conversion or maintanence and red lines indicate no dysglycemia status.')
+sfig_plsda_groups_dysgly <- sfig('plsda_groups_dysgly', '')
 sfig_plsda_loadings_dysgly <- sfig('plsda_loadings_dysgly', 'Pattern loadings from partial least squares discriminant analysis to identify potential clusters of NEFA composition for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis.')
+sfig_plsda_example <- sfig('plsda_example', 'Example results of a high discriminatory ability to classify groups accurately when using partial least squares discriminatory analysis (PLS-DA). Discriminatory ability is evident from the amount of separation between the two groups. In this case, PLS-DA was 82% accurate at correctly classifying groups.')
+sfig_plsda_groups <- sfig('plsda_groups', paste0('Clustering of extracted components from the partial least squares discriminant analysis (PLS-DA) on the classes extracted from the latent class mixed model (LCMM) in 463 participants from the baseline PROMISE visit (2004-2006). PLS-DA is a multivariate technique that The percent explained variance of each component is shown in brackets on each axis. Red, green, and blue lines indicate participants classified as high, middle, and low for beta-cell function, respectively, from the LCMM analysis. See ', cite_sf('plsda_example'), ' for an example plot showing good discriminatory ability between groups.'))
+sfig_plsda_groups_dysgly <- sfig('plsda_groups_dysgly', paste0('Clustering of extracted components from the partial least squares discriminant analysis for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis. Blue lines indicate dysglycemia conversion or maintanence and red lines indicate no dysglycemia status. See ', cite_sf('plsda_example'), ' for an example plot showing good discriminatory ability between groups.'))
 ```
 
 # Background
@@ -153,16 +163,16 @@ the pathogenesis of type 2 diabetes mellitus. Experimental work has shown that
 exposure to high concentrations of NEFA can induce insulin resistance in 
 insulin-sensitive tissues such as muscle and liver, and in addition can impair 
 pancreatic beta-cell production of insulin [@Rachek2014a;@Cnop2008a].
-Epidemiological and clinical studies have reported concordant findings, showing
+Observational and clinical studies have reported concordant findings, showing
 in particular that elevated total plasma NEFA associates with an increased risk
 for incident type 2 diabetes [@Daniele2014a;@Salgin2012a].
 
 Much of the previous experimental work on the role of NEFA in type 2 diabetes
-utilized individual lipid species such as palmitic acid (16:0) or oleic acid
+utilized individual fatty acids such as palmitic acid (16:0) or oleic acid
 (18:1n-9), or alternatively used specific oils such as soybean oil, which is
 high in the polyunsaturated fatty acid (PUFA) linoleic acid (18:2n-6), as the
 exposure to characterize the impact of total NEFA. However, fatty acids comprise
-multiple classes of molecules with diverse physiological functions, and few 
+multiple molecules with diverse physiological functions, and few 
 studies have compared the effects of a broader spectrum of fatty acids. Notably,
 one study suggests that eicosapentaenoic acid (20:5n-3) can protect against the
 lipotoxic effect of palmitic acid in the beta-cells [@Xiao2006].
@@ -172,12 +182,12 @@ diabetes, there are important gaps in the research. The majority of previous
 studies have used animal models or cell lines [@Szendroedi2012a;@Kehlenbrink2012a], 
 have been short term human infusion trials [@Daniele2014a;@Liang2013a], or have
 been epidemiological studies that only looked at total NEFA and not individual
-species [@Miller2012a;@Johns2014a]. To date, there have
-been no longitudinal studies examining the role of the composition of the NEFA
-blood lipid fraction on the pathogenesis of diabetes, which is critical to
-understanding associations at a more granular level given protracted natural
+fatty acids [@Miller2012a;@Johns2014a]. To date, there have
+been no longitudinal studies examining the role of the composition of the serum NEFA
+fraction on the pathogenesis of diabetes, which is critical to
+understanding associations at a more granular level given the protracted natural
 history of diabetes and the growing appreciation of the divergent effects of
-individual lipid species. Therefore, our research objective was to examine the 
+individual fatty acids. Therefore, our research objective was to examine the 
 association of serum NEFA composition on changes over time in insulin
 sensitivity and beta-cell function in a longitudinal cohort. We hypothesized
 that higher palmitic acid and lower polyunsaturated fatty acids such as
@@ -211,7 +221,7 @@ At each examination, an 8-12 hour fasting blood sample was draw from each
 participant, followed by a 75g oral glucose tolerance test (OGTT) with a 30
 minute and 2 hour blood draw. All blood samples were processed and frozen at
 -70°C. Alanine aminotransferase (ALT) was measured using standard laboratory
-procedures. Cholesterol, HDL, and triglycerides (TG) were measured using Roche
+procedures. Cholesterol, HDL, and triacylglycerides (TAG) were measured using Roche
 Modular's enzymatic colorimetric tests (Mississauga, ON).  Both specific insulin
 and glucose were derived from the OGTT at fasting, 30 minute, and 2 hour time
 points. Specific insulin was measured using the Elecsys 1010 (Roche Diagnostics,
@@ -232,7 +242,7 @@ stable at these temperatures for up to 10 years [@Matthan2010a]. A known amount
 of heptadecanoic acid (17:0) was added to the serum as an internal 
 standard prior to extracting total lipids according to the method of Folch 
 [@Folch1957a]. Each serum lipid fraction (NEFA, cholesteryl ester, phospholipid,
-and triacylglycerol) was isolated using thin layer chromatography; each fraction was
+and TAG) was isolated using thin layer chromatography; each fraction was
 visualized under UV light after lightly spraying with 8-anilino-1-naphthalene
 sulfonic acid (0.1% wt/vol) and then converted to fatty acid methyl esters with
 14% boron trifluoride in methanol at 100°C for 1 h. Fatty acid methyl esters
@@ -279,14 +289,14 @@ MET-hours per week.
 The primary outcome variables for this analysis were 
 1/HOMA-IR, ISI, IGI/IR, and ISSI-2; outcome variables were log-transformed for
 the statistical modeling. The primary predictor variables for this analysis were
-22 individual NEFA species as mole percent (mol%) of the total fraction and as
+22 individual NEFA as mole percent (mol%) of the total fraction and as
 concentration (nmol/mL). Pearson correlation coefficients were computed to
 assess the relationships of individual NEFA with other continuous variables.
 
 For the primary analysis, generalized estimating equation (GEE) models 
 [@Zeger1986a] were used to determine the longitudinal associations between the 
 outcome variables and the predictor variables. Given the longitudinal design 
-an auto-regressive (AR1) correlation matrix was chosen for the GEE models, 
+an auto-regressive of order 1 (AR1) correlation matrix was chosen for the GEE models, 
 though other matrices (eg. exchangeable) had similar fit (data not shown). GEE
 is well suited to longitudinal cohort studies given it's capacity to handle
 missed visits. The predictor variables and continuous covariates were scaled
@@ -314,10 +324,10 @@ also assessed the overall fit of models that included a time interaction, which
 ultimately did not improve the overall fit of our models in terms of QIC
 (M6.1 and M8.1 as seen
 in `r cite_st('qic')`) and we therefore did not include them in the main effect
-analysis. Given that TG is a risk factor
-for diabetes and that NEFA contribute to TG production, TG may act as a mediator
-between NEFA and the outcomes. To determine the role of TG in the
-association between NEFA and the outcomes, TG was included in the GEE model as a
+analysis. Given that TAG is a risk factor
+for diabetes and that NEFA contribute to TAG production, TAG may act as a mediator
+between NEFA and the outcomes. To determine the role of TAG in the
+association between NEFA and the outcomes, TAG was included in the GEE model as a
 sensitivity analysis. Lastly for the GEE models, we tested for an interaction
 with sex or ethnicity by the predictor term for each outcome variable.
 
@@ -430,13 +440,12 @@ fairly consistent for each beta-cell function measure. For every one SD decrease
 in any of these three NEFA variables, there was an average predicted
 `r est.gee$est[1]`% lower IGI/IR and `r est.gee$est[2]`% lower ISSI-2 at each
 clinic visit. None of the NEFA variables as a mol% had any association with the
-outcomes. Adjusting for TG attenuated all associations with IGI/IR and ISSI-2
+outcomes. Adjusting for TAG attenuated all associations with IGI/IR and ISSI-2
 (data not shown).
 There were no significant interaction effects
 between time, sex, or ethnicity and the individual NEFA on any of the outcome
 measures (all p>0.15). Raw values from the GEE models are shown in 
-`r cite_st('gee_unadj')` for unadjusted models and `r cite_st('gee')` for fully
-adjusted models.
+`r cite_st('gee')` for fully adjusted models and `r cite_st('gee_unadj')` for unadjusted models.
 
 ## Latent trajectory and NEFA pattern recognition
 
@@ -451,11 +460,13 @@ the correct beta-cell function latent class. Only
 `r misclass.n.percent.bcf$NPct[2]` 
 participants were correctly classified, primarily into the
 middle group. The specific NEFA composition was not able to accurately classify
-participants who had low or high beta-cell function.
-`r cite_sf('plsda_groups')` shows the loadings of individual NEFA by the
-extracted component and `r cite_sf('plsda_loadings')` shows the clustering of
+participants who had low or high beta-cell function, however, those individuals 
+classified into the low beta-cell function group tended to have patterns of NEFA 
+composition higher in 14:0, 16:0, 14:1n-7, and 16:1n-7.
+`r cite_sf('plsda_loadings')` shows the loadings of individual NEFA by the
+extracted component and `r cite_sf('plsda_groups')` shows the clustering of
 the components by ISSI-2 latent class. The PLS-DA analysis using conversion to
-or maintenance of dysglycemia status as the response variable showed similar
+or maintenance of dysglycemia status over the 6 years as the response variable showed similar
 poor discriminatory ability, though better than the beta-cell function
 trajectory results. While `r misclass.n.percent.dysgly$NPct[2]` participants
 were classified correctly based on dysglycemia status, examining the clustering
@@ -489,25 +500,25 @@ through endoplasmic reticulum stress, formation of ceramides, and generation of
 nitric oxide, as well as impairment of proinsulin production and mitochrondrial
 function [@Cnop2008a; @Maris2013a; @Giacca2011a; @Xiao2009a].
 The present analysis is the first study to our knowledge to examine the 
-longitudinal association of a broad spectrum of individual NEFA species on
+longitudinal association of a broad spectrum of individual NEFA on
 beta-cell function in a large cohort. We found that there was a strong signal of
 higher total NEFA, palmitic acid, oleic acid, and linoleic acid as
 concentrations with lower beta-cell function. However, in modeling these fatty
 acids as a mol% and using novel clustering analysis approaches, no individual or
-specific fatty acid species in the NEFA fraction predicted lower beta-cell
+specific fatty acids in the NEFA fraction strongly predicted lower beta-cell
 function, insulin sensitivity, or dysglycemia status. Taken together, these
 results suggest that it is the absolute size of the circulating NEFA fraction,
-irrespective of any specific composition of fatty acid species, that is
+irrespective of any specific composition of fatty acids, that is
 responsible for the hypothesized lipotoxic effects of NEFA on the beta-cells.
 
 Biologically, within a free-living population chronic elevation of NEFA may be 
-mediating it's association through TG. In normal metabolism, NEFA enters the 
-liver and assists in the production of TG that is to be processed into very-low
+mediating it's association through TAG. In normal metabolism, NEFA enters the 
+liver and assists in the production of TAG that is to be processed into very-low
 density lipoproteins (VLDL) [@Nielsen2012a]. As such higher NEFA may contribute 
 to hypertriglyceridemia, which is a known risk factor for diabetes. In the
-sensitivity analysis adjusting for TG, all associations with beta-cell function
+sensitivity analysis adjusting for TAG, all associations with beta-cell function
 were attenuated, suggesting that NEFA may in fact be mediating it's association
-through TG.
+through TAG.
 
 There is substantial experimental evidence highlighting the role of increased 
 NEFA and the subsequent increase in insulin resistance via impairment of insulin 
@@ -528,7 +539,7 @@ have found null or weak associations of NEFA and IR
 [@Gray2013a;@Magkos2012a;@Kehlenbrink2012a;@Johns2014a], suggesting that either
 NEFA has only a minor role in IR or that NEFA is the effect, but not cause, of
 the underlying IR. Adipose tissue, which release NEFA during fasting, can become
-insulin resistant and thus lipolysis of intracellular TG by hormone-sensitive 
+insulin resistant and thus lipolysis of intracellular TAG by hormone-sensitive 
 lipase may not respond to the inhibitory action of insulin. As such, IR may 
 develop before elevations in blood NEFA. There is also evidence to suggest that 
 insulin may be involved in NEFA uptake [@Ramos-Roman2012a], further supporting 
@@ -542,7 +553,7 @@ fasting and postprandial NEFA kinetics. For instance, some experimental studies
 using clamp protocols found that fasting NEFA was a weak predictor of insulin
 sensitivity compared to postprandial concentrations of NEFA
 [@Magkos2012a;@Kehlenbrink2012a]. Inefficiencies in NEFA uptake into the adipose
-tissue following postprandial TG lipolysis via lipoprotein lipase may result in
+tissue following postprandial TAG lipolysis via lipoprotein lipase may result in
 NEFA spillover into the blood and a subsequent increase in circulating NEFA
 [@Almandoz2013a], which may be more metabolically active given postprandial 
 activity. Second, the null findings may be due to the high risk population
@@ -558,7 +569,7 @@ Specifically, the authors identified NEFA
 16:1n-9, 20:1n-9, and 22:4n-6 to correlate with components of the MetS. 
 Another similar study examining diabetes found that 16:0, 18:0, 18:1, 18:2, 18:3
 may be useful biomarkers for identifying healthy compared to diabetic
-individuals [@Liu2010a]. However, in both studies, major limitations were the
+individuals [@Liu2010a]. However, both studies were limited by
 smaller sample sizes (approximately 100 subjects) and the cross-sectional
 design.
 
@@ -755,7 +766,7 @@ plot_lcmm_results(lcmm_data)
 ```
 
 ```{r supFigPlsGrp, fig.cap=sfig_plsda_groups}
-plot_plsda_grouping(plsda_results)
+plot_plsda_grouping(plsda_results, 'Beta-cell function')
 ```
 
 ```{r supFigPlsLoadings, fig.cap=sfig_plsda_loadings}
@@ -763,11 +774,15 @@ plot_plsda_loadings(plsda_results)
 ```
 
 ```{r supFigPlsGrpDysgly, fig.cap=sfig_plsda_groups_dysgly}
-plot_plsda_grouping(plsda_dysgly)
+plot_plsda_grouping(plsda_dysgly, 'Dysglycemia')
 ```
 
 ```{r supFigPlsLoadingsDysgly, fig.cap=sfig_plsda_loadings_dysgly}
 plot_plsda_loadings(plsda_dysgly)
+```
+
+```{r supFigPlsExample, fig.cap=sfig_plsda_example}
+plot_plsda_grouping(example_plsda_results(), 'Example groups')
 ```
 
 # References 
