@@ -1,11 +1,4 @@
 
-<!--
-
-TODO:
-- Use pct for PLSDA
-
--->
-
 # Title page
 
 Title: Total non-esterified fatty acids, but not individual fatty acids, predict
@@ -43,41 +36,41 @@ Corresponding author:
 - Fax number:
 - Email: anthony.hanley@utoronto.ca
 
-Word count: 3543 / 4000
+Word count: 3569 / 4000
 
 Table and figure count: 3 / 4
 
 <!-- Reference limit / 40 -->
 
 # Abstract
-250 / 250 words
+249 / 250 words
 
 Objective: Our aim was to determine the longitudinal associations of individual
-non-esterified fatty acid (NEFA) species on changes in insulin sensitivity and
+non-esterified fatty acids (NEFA) on changes in insulin sensitivity (IS) and
 beta-cell function over 6 years in a cohort of individuals who are at-risk for
 diabetes.
 
 Research Design and Methods: In the PROMISE cohort, 477 participants had serum
 NEFA measured at the baseline visit and who had completed an OGTT at 3 time
 points over 6 years. Outcome variables were calculated using the OGTT values.
-Insulin sensitivity was assessed using 1/HOMA-IR and the Matsuda index (ISI),
-while beta-cell function was assessed using the Insulinogenic index over HOMA-IR
-(IGI/IR) and the Insulin Secretion-Sensitivity Index-2 (ISSI-2). Generalized
-estimating equations was used, adjusting for time, waist, sex, ethnicity, age,
-ALT, alcohol intake, physical activity, and family history of diabetes. NEFA
-were analyzed as both a concentration and as a proportion of the total fraction.
+IS was assessed using 1/HOMA-IR and the Matsuda index, while beta-cell function
+was assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin
+Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were
+used, adjusting for time, waist, sex, ethnicity, age, ALT, alcohol intake,
+physical activity, and family history of diabetes. NEFA were analyzed as both
+concentrations and proportions (mol%) of the total fraction.
 
-Results: Insulin sensitivity and beta-cell function declined by 14-27% while
-BMI did not change over the 6-years. Total NEFA, 16:0, 18:1n-9, and 18:2n-6 as
-concentrations had negative associations with IGI/IR and ISSI-2. These four NEFA
-variables had similar magnitudes of association, predicting between 4-8% lower
-IGI/IR and ISSI-2 over the 6 years. No associations were seen for 1/HOMA-IR
-or ISI, nor were any associations seen for the mol% data.
+Results: IS and beta-cell function declined by 14-27% while BMI
+did not significantly change over 6 years of follow-up. Total NEFA, 16:0,
+18:1n-9, and 18:2n-6 as concentrations had significant negative associations
+with IGI/IR and ISSI-2, predicting between 4-8% lower IGI/IR and ISSI-2 over the
+6 years. However, individual NEFA modeled as mol% showed no associations with
+these outcomes. Total and individual NEFA were not associated with IS measures.
 
-Conclusions: Total NEFA was a strong predictor for lower beta-cell function over
-6 years. Our results suggest that association with beta-cell function is due to
-the absolute size of the serum NEFA fraction, rather than the specific fatty acid
-composition.
+Conclusions: Total NEFA concentration was a strong predictor of lower beta-cell
+function over 6 years. Our results suggest that the association with beta-cell
+function is due to the absolute size of the serum NEFA fraction, rather than the
+specific fatty acid composition.
 
 <!-- outline
 
@@ -93,6 +86,8 @@ the p-value...?
 - [X] Replace TAG with BaseTAG in the QIC (or use both)
 - [X] Fix time axis labels on LCMM plot
 - Describe LCMM and PLS-DA better in plots
+- [X] Use pct for PLSDA
+- [X] Explained variation in X and in Y for PLS-DA
 
 -->
 
@@ -119,21 +114,21 @@ utilized individual fatty acids such as palmitic acid (16:0) or oleic acid
 high in the polyunsaturated fatty acid (PUFA) linoleic acid (18:2n-6), as the
 exposure to characterize the impact of total NEFA. However, fatty acids comprise
 multiple molecules with diverse physiological functions, and few 
-studies have compared the effects of a broader spectrum of fatty acids. Notably,
+studies have analyzed the effects of a broader spectrum of fatty acids. Notably,
 one study suggests that eicosapentaenoic acid (20:5n-3) can protect against the
 lipotoxic effect of palmitic acid in the beta-cells [@Xiao2006].
 
 Despite a sizable literature studying the role of total NEFA concentration in 
-diabetes, there are important gaps in the research. The majority of previous 
+diabetes, there are important gaps in this research. The majority of previous 
 studies have used animal models or cell lines [@Szendroedi2012a;@Kehlenbrink2012a], 
 have been short term human infusion trials [@Daniele2014a;@Liang2013a], or have
 been epidemiological studies that only looked at total NEFA and not individual
-species [@Miller2012a;@Johns2014a]. To date, there have
+fatty acids [@Miller2012a;@Johns2014a]. To date, there have
 been no longitudinal studies examining the role of the composition of the serum NEFA
 fraction on the pathogenesis of diabetes, which is critical to
 understanding associations at a more granular level given the protracted natural
 history of diabetes and the growing appreciation of the divergent effects of
-individual fatty acids. Therefore, our research objective was to examine the 
+individual fatty acids. Therefore, our objective was to examine the 
 association of serum NEFA composition on changes over time in insulin
 sensitivity and beta-cell function in a longitudinal cohort. We hypothesized
 that higher palmitic acid and lower polyunsaturated fatty acids such as
@@ -197,9 +192,9 @@ Forest, CA, USA) equipped with a Varian Factor Four capillary column and a flame
 ionization detector, which were injected in splitless mode. Fatty acid
 concentrations (nmol/ml) were calculated by proportional comparison of gas
 chromatography peak areas to that of the internal standards [@Nishi2014a]. 
-There were 22 fatty acids measured in the NEFA fraction. Given the
+There were 22 fatty acids measured in the NEFA fraction. Given their
 diverse biology, as well as the complexity of the analyses, findings for other lipid
-fractions in this cohort are reported separately (see {{pl and ce paper}} for the
+fractions in this cohort are reported separately (see [@Johnston2016a] for the
 analysis of the phospholipid and cholesteryl ester fractions).
 
 ## Outcome variables
@@ -235,7 +230,7 @@ MET-hours per week.
 The primary outcome variables for this analysis were 
 1/HOMA-IR, ISI, IGI/IR, and ISSI-2; outcome variables were log-transformed for
 the statistical modeling. The primary predictor variables for this analysis were
-22 individual NEFA species as mole percent (mol%) of the total fraction and as
+22 individual NEFA as mole percent (mol%) of the total fraction and as
 concentration (nmol/mL). Pearson correlation coefficients were computed to
 assess the relationships of individual NEFA with other continuous variables.
 
@@ -258,14 +253,14 @@ Supplemental Figure S  10 shows the specified directed acyclic graph. The final 
 we selected differed between insulin sensitivity and beta-cell function models. 
 For insulin sensitivity, we adjusted for time, sex, ethnicity, baseline age, WC,
 ALT, MET, alcohol intake, and family history of diabetes (M6). For beta-cell
-function, the last few models (M5-M8) were comparable in performance, so we
+function, the last four models (M5-M8) were comparable in performance, therefore we
 report results from the simplest model (M8), adjusting for time, sex, ethnicity,
 baseline age, WC, ALT,
 and family history of diabetes. After scaling, log-transforming, and
 exponentiating the GEE estimates, the GEE results are interpreted as an expected
 percent difference in the outcome variable for every SD increase in the
-predictor variable given the covariates are held constant. While we a priori
-decided to test for and report on the time by predictor interaction results, we
+predictor variable given the covariates are held constant. While we decided *a priori*
+to test for and report on the time by predictor interaction results, we
 also assessed the overall fit of models that included a time interaction, which
 ultimately did not improve the overall fit of our models in terms of QIC
 (M6.1 and M8.1 as seen
@@ -282,20 +277,24 @@ limited in that it cannot analyze the inherent multivariate nature of the
 composition of the NEFA fraction. As such, after running the GEE models for the
 longitudinal analysis, partial least squares discriminant analysis (PLS-DA) was
 used to identify the patterns of NEFA composition against beta-cell function
-(using ISSI-2, which had most of the associations in the GEE models) and for
+(using ISSI-2, which had the majority of the significant associations in the GEE models) and for
 those who converted to or maintained dysglycemia status (either IFG, IGT, or DM)
 over the 6 years. Since PLS-DA cannot handle longitudinal data, latent class
 mixed models (LCMM) were used to extract latent trajectories of beta-cell
 function (ISSI-2) over the 6 years.
 
-All analyses were performed using R 3.2.5 [@Rbase], along with the R
+All analyses were performed using R 3.3.0 [@Rbase], along with the R
 packages geepack 1.2.0.1 for GEE <!--[@Hoejsgaard2006a]-->, caret
 6.0.68 for PLS-DA, and lcmm 1.7.5 for
-LCMM. The R code for this manuscript is available at {{link}}. Results were
-statistically significance at p<0.05, after adjusting for multiple testing using
-the Benjamini-Hochberg False Discovery Rate [@Benjamini1995a].
+LCMM. The R code for this manuscript is available at {{add link before
+submission}}. Results were considered statistically significance at p<0.05,
+after adjusting for multiple testing using the Benjamini-Hochberg False
+Discovery Rate [@Benjamini1995a].
 
 # Results
+
+
+
 
 
 
@@ -312,10 +311,10 @@ For this study, there were
 The average age of the participants was 50.2 years 
 (9.8 SD) and the average BMI was
 31.1 (6.4 SD). Most of the 
-subset of the cohort, 308 (64.8%), had a family history of diabetes.
-The primary outcome variables had a significant median decline between 
+participants, 308 (64.8%), had a family history of diabetes.
+The primary outcome variables showed a significant median decline between 
 14% to 27% (p<0.001) over the 6
-years in this analysis of the PROMISE cohort (n=367-470).
+years in this analysis of the PROMISE cohort.
 Consistent with this decline, there were 42 (9%)
 participants who developed diabetes while 96 (20%) participants either
 converted to or maintained IFG or IGT status over the 6 years.
@@ -326,35 +325,34 @@ participants. Four individual NEFA made up the vast majority
 were 18:1n-9 (36.6%), 16:0 (23.5%), 18:0 (15.2%), and 
 18:2n-6 (14%). Raw concentration values are shown in Supplemental Table S  2. 
 All individual NEFA as well as the total fraction had
-correlations that ranged from weak to null (r<0.3) with the basic
+correlations that ranged from weak to null (r<0.3) with participant
 characteristics (see Supplemental Figure S  2).
 
 ## GEE modeling
 
-Several associations were seen in the unadjusted GEE models 
-(see Supplemental Figure S  3), particularly for the concentration compared to the
-mol% data. Full model adjustment (Figure  2) attenuated most of these
+A number of associations were seen in the unadjusted GEE models 
+(see Supplemental Figure S  3), particularly for NEFA modeled as a concentration.
+Full model adjustment (Figure  2) attenuated most of these
 associations, although total NEFA, 16:0, 18:1n-9, and 18:2n-6 (all as nmol/mL)
-had negative associations between
+had negative associations with
 IGI/IR and ISSI-2. The magnitude of association for each of these variables was
-fairly consistent for each beta-cell function measure. For every one SD decrease
+fairly consistent for each beta-cell function measure. For every one SD increase
 in any of these three NEFA variables, there was an average predicted
 8.4% lower IGI/IR and 4.1% lower ISSI-2 at each
-clinic visit. None of the NEFA variables as a mol% had any association with the
+clinic visit. However, in contrast to these results using NEFA modeled as concentrations, none of the NEFA variables modeled as mol% were associated with the
 outcomes. Adjusting for TAG attenuated all associations with IGI/IR and ISSI-2
 (data not shown).
 There were no significant interaction effects
 between time, sex, or ethnicity and the individual NEFA on any of the outcome
 measures (all p>0.15). Raw values from the GEE models are shown in 
-Supplemental Table S  4 for unadjusted models and Supplemental Table S  3 for fully
-adjusted models.
+Supplemental Table S  3 for fully adjusted models and Supplemental Table S  4 for unadjusted models.
 
 ## Latent trajectory and NEFA pattern recognition
 
 Three latent classes were extracted from LCMM, with 118 
 participants in the high, 269 in the middle, and 
 86
-in the low beta-cell function groups. The trajectories of the three groups are
+in the low beta-cell function groups. The trajectories of the these groups are
 shown in Supplemental Figure S  4. These groups were used as the beta-cell function
 response variables in the PLS-DA analysis. The PLS-DA results show a very poor
 discriminatory ability of the NEFA composition in classifying participants into
@@ -370,10 +368,12 @@ extracted component and Supplemental Figure S  5 shows the clustering of
 the components by ISSI-2 latent class. The PLS-DA analysis using conversion to
 or maintenance of dysglycemia status over the 6 years as the response variable showed similar
 poor discriminatory ability, though better than the beta-cell function
-trajectory results. While 346 (72.4%) participants
-were classified correctly based on dysglycemia status, examining the clustering
-of the NEFA composition showed poor discrimination between groups (see 
-Supplemental Figure S  7 and Supplemental Figure S  8).
+trajectory results. While 346 (72.4%) participants 
+were classified correctly based on dysglycemia status, this was almost entirely
+due to classifying correctly into the non-dysglycemia status. Examining the
+clustering of the NEFA composition showed poor discrimination between groups
+(see Supplemental Figure S  7 and 
+Supplemental Figure S  8).
 
 # Discussion
 
@@ -382,12 +382,11 @@ higher total NEFA concentrations independently predicted
 lower beta-cell function after 6 years. While we found negative associations with
 palmitic acid (16:0), oleic acid (18:1n-9), and
 linoleic acid (18:2n-6) for the concentration (nmol/mL) modeling, no
-associations were seen
-for the proportion of these fatty acids and further clustering analysis found no
-predictive ability of these NEFA on beta-cell function or dysglycemia. These
-observations suggest that the absolute size of the total NEFA fraction, rather than
-the specific composition of any individual NEFA, likely influences the
-pathogenesis of diabetes.
+associations were seen for the proportion of these fatty acids and further
+clustering analysis found no predictive ability of these individual NEFA on
+beta-cell function or dysglycemia. These observations suggest that the absolute
+size of the total NEFA fraction, rather than its specific composition, likely
+influences the pathogenesis of diabetes.
 
 The role of total NEFA in the etiology of diabetes is well-documented.
 Epidemiological studies have shown that higher NEFA associate with lower insulin
@@ -399,28 +398,29 @@ Experimentally, several potential mechanisms have been elucidated for the role
 of NEFA on beta-cell function, particularly for palmitic acid. Prolonged
 exposure to elevated NEFA can induce apoptosis in the beta-cells, possibly
 through endoplasmic reticulum stress, formation of ceramides, and generation of
-nitric oxide, as well as impairment of proinsulin production and mitochrondrial
+nitric oxide, as well as impairment of proinsulin production and mitochondrial
 function [@Cnop2008a; @Maris2013a; @Giacca2011a; @Xiao2009a].
 The present analysis is the first study to our knowledge to examine the 
-longitudinal association of a broad spectrum of individual NEFA species on
+longitudinal association of a broad spectrum of individual NEFA on
 beta-cell function in a large cohort. We found that there was a strong signal of
-higher total NEFA, palmitic acid, oleic acid, and linoleic acid as
+higher total NEFA, palmitic acid, oleic acid, and linoleic acid modeled as
 concentrations with lower beta-cell function. However, in modeling these fatty
-acids as a mol% and using novel clustering analysis approaches, no individual or
-specific fatty acid species in the NEFA fraction predicted lower beta-cell
+acids as a mol% and using novel clustering analysis approaches, no specific
+fatty acids in the NEFA fraction strongly predicted lower beta-cell
 function, insulin sensitivity, or dysglycemia status. Taken together, these
 results suggest that it is the absolute size of the circulating NEFA fraction,
-irrespective of any specific composition of fatty acid species, that is
+irrespective of any specific composition of fatty acids, that is
 responsible for the hypothesized lipotoxic effects of NEFA on the beta-cells.
 
-Biologically, within a free-living population chronic elevation of NEFA may be 
-mediating it's association through TAG. In normal metabolism, NEFA enters the 
+Biologically, in free-living populations chronic elevation of NEFA may be 
+mediating it's association with metabolic outcomes through TAG. In normal
+metabolism, NEFA enters the
 liver and assists in the production of TAG that is to be processed into very-low
-density lipoproteins (VLDL) [@Nielsen2012a]. As such higher NEFA may contribute 
+density lipoproteins (VLDL) [@Nielsen2012a]. As such, higher NEFA may contribute 
 to hypertriglyceridemia, which is a known risk factor for diabetes. In the
 sensitivity analysis adjusting for TAG, all associations with beta-cell function
 were attenuated, suggesting that NEFA may in fact be mediating it's association
-through TAG.
+with beta-cell dysfunction through higher TAG.
 
 There is substantial experimental evidence highlighting the role of increased 
 NEFA and the subsequent increase in insulin resistance via impairment of insulin 
@@ -428,15 +428,15 @@ signaling cascades, as reviewed in previously published articles
 [@Martins2012a;@Ebbert2013a;@Capurso2012a]. However, in this
 longitudinal analysis, we saw no association of any individual or total
 NEFA with hepatic (1/HOMA-IR) or whole-body insulin sensitivity (ISI). 
-There are some possible explanations for these findings. Previous studies done *in
-vivo* were mostly short term infusion protocols
+There are several possible explanations for these findings. Previous studies
+done *in vivo* were mostly short term infusion protocols
 [@Xiao2009a;@Xiao2006;@Szendroedi2012a;@Kehlenbrink2012a] or pharmocologic
-[@Daniele2014a;@Liang2013a] trials and the observational research was generally
+[@Daniele2014a;@Liang2013a] trials and previous observational research was generally
 cross-sectional or correlational
 [@Miller2012a;@Johns2014a;@Bush2012a;@Ilyasova2010a]. The short time periods of
 these studies and the experimentally-induced
 elevations in NEFA concentrations make it difficult to assess the causal role
-in non-experimental environments over long time frames. Moreover, some studies
+in free-living environments over long time frames. Moreover, some studies
 have found null or weak associations of NEFA and IR 
 [@Gray2013a;@Magkos2012a;@Kehlenbrink2012a;@Johns2014a], suggesting that either
 NEFA has only a minor role in IR or that NEFA is the effect, but not cause, of
@@ -445,7 +445,7 @@ insulin resistant and thus lipolysis of intracellular TAG by hormone-sensitive
 lipase may not respond to the inhibitory action of insulin. As such, IR may 
 develop before elevations in blood NEFA. There is also evidence to suggest that 
 insulin may be involved in NEFA uptake [@Ramos-Roman2012a], further supporting 
-the hypothesis that elevated NEFA is a consequence of higher IR. However, we 
+the hypothesis that elevated NEFA may be a consequence of higher IR. However, we 
 could not examine this potential hypothesis as NEFA was only collected at the
 baseline visit.
 
@@ -460,7 +460,7 @@ NEFA spillover into the blood and a subsequent increase in circulating NEFA
 [@Almandoz2013a], which may be more metabolically active given postprandial 
 activity. Second, the null findings may be due to the high risk population
 examined in PROMISE. It may be that in this population, IR has become well
-established and NEFA may not contribute to IR at this somewhat mode advanced
+established and NEFA may not contribute to IR at this somewhat more advanced
 stage in the pathogenesis of diabetes.
 
 Few studies have examined the composition of NEFA on metabolic functioning. One
@@ -769,7 +769,7 @@ Table: Supplemental Table S  4: Unadjusted generalized estimating equations mode
 
 ![Supplemental Figure S  6: Pattern loadings from partial least squares discriminant analysis to identify potential clusters of NEFA composition within the classes extracted from the latent class mixed model in 463 participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis.](manuscript_files/figure-docx/supFigPlsLoadings-1.png)
 
-![Supplemental Figure S  7: Clustering of extracted components from the partial least squares discriminant analysis for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis. Blue lines indicate dysglycemia conversion or maintanence and red lines indicate no dysglycemia status. See Supplemental Figure S  9 for an example plot showing good discriminatory ability between groups.](manuscript_files/figure-docx/supFigPlsGrpDysgly-1.png)
+![Supplemental Figure S  7: Clustering of extracted components from the partial least squares discriminant analysis for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006).  c("no", "yes")The percent explained variance of each component is shown in brackets on each axis. Blue lines indicate dysglycemia conversion or maintanence and red lines indicate no dysglycemia status. See Supplemental Figure S  9 for an example plot showing good discriminatory ability between groups.](manuscript_files/figure-docx/supFigPlsGrpDysgly-1.png)
 
 ![Supplemental Figure S  8: Pattern loadings from partial least squares discriminant analysis to identify potential clusters of NEFA composition for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis.](manuscript_files/figure-docx/supFigPlsLoadingsDysgly-1.png)
 
