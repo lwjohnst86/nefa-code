@@ -322,7 +322,7 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
     data %>%
         dplyr::filter(VN == 0) %>%
         mason::design_analysis('cor') %>%
-        mason::add_settings(method = 'pearson', obs.usage = 'complete.obs') %>%
+        mason::add_settings(method = 'pearson', use = 'complete.obs') %>%
         mason::add_variables('yvars', y) %>%
         mason::add_variables('xvars', x) %>%
         mason::construct_analysis() %>%
@@ -332,7 +332,6 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
         mason::polish_renaming(function(x)
             gsub('l(ALT|TAG|IGIIR|invHOMA|ISI|ISSI2)', '\\1', x) %>%
                 renaming_outcomes(), 'Vars1') %>%
-        mason::polish_round(2) %>%
         dplyr::mutate(
             order1 = substr(Vars2, nchar(Vars2), nchar(Vars2)),
             order1 = ifelse(order1 == 0, 10, order1),
