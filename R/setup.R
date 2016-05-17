@@ -9,6 +9,7 @@ run_setup <- function() {
     .load_packages()
     .set_options()
     .load_packages()
+    .load_packages()
 }
 
 .load_packages <- function() {
@@ -35,16 +36,11 @@ run_setup <- function() {
     if (!require(dplyr)) install.packages('dplyr')
     # - For github packages:
     # if (!require(package)) packrat::install_github('username/package')
-    if (!require(mason)) {
-        if (!require(curl)) install.packages('curl')
-        packrat::install_github('lwjohnst86/mason')
-    }
-    if (!require(seer)) {
-        if (!require(curl)) install.packages('curl')
-        packrat::install_github('lwjohnst86/seer')
-    }
+
     # How to manage local? Not sure.
     library(carpenter)
+    library(mason)
+    library(seer)
 }
 
 .set_options <- function() {
