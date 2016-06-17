@@ -17,7 +17,7 @@ Running title: NEFA and the pathogenesis of diabetes
 
 <!-- First, middle initial, last, highest academic degree -->
 Author: Luke W. Johnston (1), MSc; Stewart B. Harris (2), MD; Ravi Retnakaran
-(3,4), MD; Bernard Zinman (3,4), MD; Adria Giacca (5), PhD; Zhen Liu (1), PhD;
+(3,4), MD; Adria Giacca (5), PhD; Zhen Liu (1), PhD;
 Richard P. Bazinet (1), PhD; and Anthony J. Hanley (1,6), PhD
 
 <!-- During time of study. -->
