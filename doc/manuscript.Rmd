@@ -207,7 +207,7 @@ nurses were centrally trained.
 
 ## Blood measure assessments
 
-At each examination, an 8-12 hour fasting blood sample was draw from each
+At each examination, an 8-12 hour fasting blood sample was drawn from each
 participant, followed by a 75g oral glucose tolerance test (OGTT) with a 30
 minute and 2 hour blood draw. All blood samples were processed and frozen at
 -70°C. Alanine aminotransferase (ALT) was measured using standard laboratory
@@ -288,7 +288,7 @@ For the primary analysis, generalized estimating equation (GEE) models
 outcome variables and the predictor variables. Given the longitudinal design 
 an auto-regressive of order 1 (AR1) correlation matrix was chosen for the GEE models, 
 though other matrices (eg. exchangeable) had similar fit (data not shown). GEE
-is well suited to longitudinal cohort studies given it's capacity to handle
+is well suited to longitudinal cohort studies given its capacity to handle
 missed visits. The predictor variables and continuous covariates were scaled
 (mean centered and standardized). The NEFA variables were classified as
 *time-independent* (held constant) as they were measured only at the baseline
@@ -443,7 +443,7 @@ measures (all p>0.15). Raw values from the GEE models are shown in
 Three latent classes were extracted from LCMM, with `r lcmm.groups$Freq[2]` 
 participants in the high, `r lcmm.groups$Freq[1]` in the middle, and 
 `r lcmm.groups$Freq[3]`
-in the low beta-cell function groups. The trajectories of the these groups are
+in the low beta-cell function groups. The trajectories of these groups are
 shown in `r cite_sf('lcmm')`. These groups were used as the beta-cell function
 response variables in the PLS-DA analysis. The PLS-DA results show a very poor
 discriminatory ability of the NEFA composition in classifying participants into
@@ -504,13 +504,13 @@ irrespective of any specific composition of fatty acids, that is
 responsible for the hypothesized lipotoxic effects of NEFA on the beta-cells.
 
 Biologically, in free-living populations chronic elevation of NEFA may be 
-mediating it's association with metabolic outcomes through TAG. In normal
+mediating its association with metabolic outcomes through TAG. In normal
 metabolism, NEFA enters the
 liver and assists in the production of TAG that is to be processed into very-low
 density lipoproteins (VLDL) [@Nielsen2012a]. As such, higher NEFA may contribute 
 to hypertriglyceridemia, which is a known risk factor for diabetes. In the
 sensitivity analysis adjusting for TAG, all associations with beta-cell function
-were attenuated, suggesting that NEFA may in fact be mediating it's association
+were attenuated, suggesting that NEFA may in fact be mediating its association
 with beta-cell dysfunction through higher TAG.
 
 There is substantial experimental evidence highlighting the role of increased 
@@ -521,7 +521,7 @@ longitudinal analysis, we saw no association of any individual or total
 NEFA with hepatic (1/HOMA-IR) or whole-body insulin sensitivity (ISI). 
 There are several possible explanations for these findings. Previous studies
 done *in vivo* were mostly short term infusion protocols
-[@Xiao2009a;@Xiao2006;@Szendroedi2012a;@Kehlenbrink2012a] or pharmocologic
+[@Xiao2009a;@Xiao2006;@Szendroedi2012a;@Kehlenbrink2012a] or pharmacologic
 [@Daniele2014a;@Liang2013a] trials and previous observational research was generally
 cross-sectional or correlational
 [@Miller2012a;@Johns2014a;@Bush2012a;@Ilyasova2010a]. The short time periods of
