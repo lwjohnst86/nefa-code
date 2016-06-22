@@ -1,0 +1,220 @@
+---
+title: "LCMM, PLS-DA, and LDA exploration"
+author: "Luke W. Johnston"
+date: "January 19, 2016"
+output: 
+    rmarkdown::html_vignette:
+        toc: true
+---
+
+# Load up packages and data
+
+```{r setup, collapse=TRUE}
+knitr::opts_knit$set(root.dir = '../')
+knitr::opts_chunk$set(collapse = TRUE, fig.height = 8, fig.width = 10)
+```
+
+```{r loadData, message=FALSE}
+source('.Rprofile')
+suppressMessages(run_setup())
+ds <- load_data()
+dim(ds)
+```
+
+# Latent class mixed model
+
+```{r}
+ds.dysgly <-
+    left_join(
+    ds %>%
+        filter(VN == 0),
+    ds %>%
+        filter(!is.na(TotalNE)) %>%
+        mutate_each(funs(ifelse(is.na(.), 0, .)), IFG, IGT) %>%
+        mutate(PreDM = as.numeric(rowSums(.[c('IFG', 'IGT')], na.rm = TRUE))) %>%
+        mutate(FactorDysgly = ifelse(PreDM == 1, 'PreDM',
+                                     ifelse(DM == 1, 'DM',
+                                            'NGT'))) %>%
+        select(SID, VN, FactorDysgly) %>%
+        spread(VN, FactorDysgly) %>%
+        mutate(
+            DetailedConvert = as.factor(paste0(`0`, '-', `1`, '-', `2`)),
+            ConvertDysgly = as.numeric(!grepl('NGT$|NGT-NA$|NGT-NGT-NA$|NGT-NA-NA$',
+                                              DetailedConvert)), 
+            ConvertDM = as.numeric(grepl('-DM$|-DM-DM$|-DM-NA$|-DM-NGT$',
+                                         DetailedConvert)),
+            ConvertPreDM = as.numeric(grepl('-PreDM$|-PreDM-PreDM$|-PreDM-NA$',
+                                            DetailedConvert))
+            #Drop = grepl('-PreDM$|-PreDM-PreDM$|-PreDM-NA$', DetailedConvert)
+            )
+    ) %>%
+    filter(!is.na(TotalNE))
+
+dm.convert <- 
+    table(ds.dysgly$ConvertDM)[2] %>% 
+    {paste0(., ' (', round((. / 477)*100, 0), '%)')}
+predm.convert <- 
+    table(ds.dysgly$ConvertPreDM)[2] %>% 
+    {paste0(., ' (', round((. / 477)*100, 0), '%)')}
+```
+
+
+```{r lccmPkg}
+
+ds.lcmm <- ds %>% 
+    select(SID, lISSI2, VN) %>% 
+    na.omit() %>% 
+    arrange(SID, VN)
+fit <- lcmm(lISSI2 ~ VN,
+            mixture = ~VN, random = ~VN, subject = 'SID',
+            ng = 3, idiag = TRUE, link = '3-equi-splines', 
+            data = ds.lcmm)
+as.data.frame(table(fit$pprob$class)) %>% 
+    rename(Group = Var1, N = Freq)
+
+ds.lcmm2 <- 
+    full_join(ds.lcmm,
+              as.data.frame(fit$pprob[,1:2]),
+              by = 'SID') %>%
+    mutate(class = factor(class, levels = c('High'), labels = c('Mid', 'High', 'Low')))
+ggplot(ds.lcmm2, aes(VN, lISSI2, group = SID, colour = class)) +
+    geom_line(aes(group = SID, colour = class), size = 0.1, alpha = 0.9) +
+    geom_smooth(aes(group = class), method = "loess", size = 2)  +
+    labs(x = "Time", y = "ISSI-2", colour = "Latent Class") +
+    theme_minimal()
+ds <- full_join(ds, ds.lcmm2)
+dim(ds)
+```
+
+# Partial least squares discriminant analysis
+
+```{r caretPkg}
+ds.plsda <- ds %>%
+    filter(VN == 0) %>% 
+    select(class, matches('^ne\\d\\d')) %>% 
+    na.omit()
+
+if (length(nearZeroVar(ds.plsda[, 2:23])) != 0) message('Near zero variance, check into it')
+ds.plsda2 <- predict(preProcess(ds.plsda), ds.plsda)
+y <- as.factor(ds.plsda2[[1]])
+x <- as.matrix(ds.plsda2[2:23])
+fit <- plsda(x, y, probMethod = 'Bayes')
+
+mismatch <- confusionMatrix(predict(fit, x), y) %>% 
+    .$table %>% 
+    as.data.frame %>% 
+    mutate(Match = ifelse(Prediction == Reference, 'yes', 'no')) %>% 
+    group_by(Match) %>% 
+    summarise(N = sum(Freq)) %>% 
+    ungroup() %>% 
+    mutate(Total = sum(N),
+           Percent = round((N / Total) * 100, 1))
+mismatch
+
+plot(fit, plottype = 'loadings')
+plot(fit, plottype = 'correlation')
+
+exp.prop <- round((fit$Xvar/fit$Xtotvar)*100, 2)
+exp.prop
+fit$loadings %>% 
+    as.data.frame.matrix %>% 
+    add_rownames %>% 
+    rename(Comp1 = `Comp 1`, Comp2 = `Comp 2`) %>% 
+    mutate(rowname = rowname %>% 
+               renaming_fa() %>% 
+               factor(., levels = unique(.))) %>% 
+    ggplot(aes(Comp1, Comp2)) +
+    geom_point(size = 0.5) +
+    geom_text(aes(label = rowname), hjust = 0, vjust = 0) +
+    labs(x = paste0('Component 1 (', round(exp.prop[1], 1), '%)'), 
+         y = paste0('Component 2 (', round(exp.prop[2], 1), '%)')) +
+    ggthemes::theme_tufte(11, 'sans') +
+    theme(panel.grid = element_line(),
+          panel.grid.minor = element_blank())
+        
+fit$scores %>% 
+    as.data.frame.matrix %>% 
+    bind_cols(ds.plsda['class']) %>% 
+    rename(Comp1 = `Comp 1`, Comp2 = `Comp 2`) %>% 
+    ggplot(aes(Comp1, Comp2, colour = class)) +
+    stat_density2d(ggplot2::aes(alpha = ..level.., colour = class), size = 2) +
+    scale_alpha(guide = 'none') +
+    scale_color_discrete('LCMM Class') +
+    labs(x = paste0('Component 1 (', round(exp.prop[1], 1), '%)'), 
+         y = paste0('Component 2 (', round(exp.prop[2], 1), '%)')) +
+    ggthemes::theme_tufte(11, 'sans') +
+    theme(panel.grid = element_line(),
+          panel.grid.minor = element_blank())
+
+```
+
+```{r plsdaDysgly}
+plsda_dysgly <- ds.dysgly %>% 
+    mutate(ConvertDysgly = factor(ConvertDysgly, levels = c(0, 1), labels = c('No', 'Yes'))) %>% 
+    analyze_plsda('ConvertDysgly')
+plot_plsda_loadings(plsda_dysgly)
+plot_plsda_grouping(plsda_dysgly)
+calculate_plsda_misclass(plsda_dysgly)
+```
+
+# Linear discriminant analysis
+
+```{r ldaData}
+ds.prep <- ds %>%
+    filter(VN == 0) %>%
+    select(class, matches('^ne\\d\\d')) %>% 
+    mutate_each(funs(as.numeric(scale(.))), -class) %>%
+    rename(Class = class)
+
+df_y1 <- ds.prep %>% 
+    na.omit()
+
+# include also the 3-yr and 6-yr data for training/testing.
+fit_y1 <- MASS::lda(Class ~ ., data = df_y1)
+```
+
+```{r testingLDA}
+fit.class_y1 <- MASS:::predict.lda(fit_y1, newdata = df_y1[, -1])$class %>% 
+    factor(., ordered = TRUE)
+
+table(fit.class_y1, df_y1[[1]])
+
+# Amount of participants who were misclassified
+table(fit.class_y1, df_y1[[1]]) %>% 
+    as.data.frame() %>% 
+    filter(fit.class_y1 != Var2) %>% 
+    summarize(count = sum(Freq))
+
+# Amount of participants who were correctly classified
+# table(fit.class_y1, df_y1[[1]]) %>% 
+#     as.data.frame() %>% 
+#     filter(fit.class_y1 == Var2) %>% 
+#     fit.class_y1 <- predict(fit_y1, newdata = df_y1[, -1])$class %>% 
+#     factor(., ordered = TRUE)summarize(count = sum(Freq))
+
+```
+
+```{r FAperBCF}
+seer::visualize(
+    fit_y1, 'means', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
+```
+
+```{r FAperLD}
+seer::visualize(
+    fit_y1, 'scaling', label.rename.fun = function(x)
+        x %>%
+        gsub('^.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
+        gsub('n(\\d)', 'n-\\1', .)
+    ) %>% 
+    seer::vision_simple()
+```
+
+```{r LDbyBCF}
+seer::visualize(fit_y1, orig.data = df_y1, group.name = 'Class') %>% 
+    seer::vision_simple()
+```
