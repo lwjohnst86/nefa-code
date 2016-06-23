@@ -140,14 +140,14 @@ analyze_plsda <- function(data, variable = 'ClassLCMM') {
 
 # Grab or combine data ----------------------------------------------------
 
-get_gee_data <- function(data) {
+get_gee_data <- function(data, fa = 'pct_ne|^ne') {
     gee_ready_data <- dplyr::full_join(
         data %>%
-            dplyr::select(-matches('pct_ne|^ne'), -TotalNE),
+            dplyr::select(-matches(fa), -TotalNE),
         ## Scale all the fatty acids
         data %>%
             dplyr::filter(VN == 0) %>%
-            dplyr::select(SID, TotalNE, matches('pct_ne|^ne')) %>%
+            dplyr::select(SID, TotalNE, matches(fa)) %>%
             dplyr::mutate_each(funs(as.numeric(scale(
                 .
             ))),-SID),
@@ -271,47 +271,31 @@ plot_plsda_loadings <- function(results.plsda) {
     # Select only the plsda results from the list
     results <- results.plsda$results
 
-    # Explained variance for each component from PLSDA
-    explained.var <- round((results$Xvar / results$Xtotvar) * 100, 2)
-
-    results$loadings %>%
-        as.data.frame.matrix %>%
-        dplyr::add_rownames('nefa') %>%
-        dplyr::rename(Comp1 = `Comp 1`, Comp2 = `Comp 2`) %>%
-        dplyr::mutate(nefa = nefa %>%
-                   renaming_fa() %>%
-                   factor(., levels = unique(.))) %>%
-        ggplot2::ggplot(ggplot2::aes(Comp1, Comp2)) +
-        ggplot2::geom_point(size = 0.5) +
-        ggplot2::geom_text(aes(label = nefa), hjust = 0, vjust = 0) +
-        ggplot2::labs(
-            x = paste0('Component 1 (', round(explained.var[1], 1), '%)'),
-            y = paste0('Component 2 (', round(explained.var[2], 1), '%)')
-        ) +
+    seer::view_plsda_xloadings(results, renaming.x = renaming_fa) +
         graph_theme(minor.grid.lines = TRUE)
 }
 
 plot_plsda_grouping <- function(results.plsda, legend = 'LCMM Class') {
     # Select only the plsda results and class from the list
     results <- results.plsda$results
-    class.lcmm <- results.plsda$data$y
+    grouping <- results.plsda$data$y
 
     # Explained variance for each component from PLSDA
-    explained.var <- round((results$Xvar / results$Xtotvar) * 100, 2)
+    explained.var <- round((results$Xvar / results$Xtotvar) * 100, 1)
 
     plot_data <- results$scores %>%
         as.data.frame.matrix %>%
-        cbind(class.lcmm) %>%
+        cbind(grouping) %>%
         dplyr::rename(Comp1 = `Comp 1`, Comp2 = `Comp 2`)
 
     plot_data %>%
-        ggplot2::ggplot(ggplot2::aes(Comp1, Comp2, colour = class.lcmm)) +
-        ggplot2::stat_density2d(ggplot2::aes(alpha = ..level.., colour = class.lcmm), size = 1) +
+        ggplot2::ggplot(ggplot2::aes(Comp1, Comp2, colour = grouping)) +
+        ggplot2::stat_density2d(ggplot2::aes(alpha = ..level.., colour = grouping), size = 1) +
         ggplot2::scale_alpha(guide = 'none') +
         ggplot2::scale_color_discrete(legend) +
         ggplot2::labs(
-            x = paste0('Component 1 (', round(explained.var[1], 1), '%)'),
-            y = paste0('Component 2 (', round(explained.var[2], 1), '%)')
+            x = paste0('Component 1 (', explained.var[1], '%)'),
+            y = paste0('Component 2 (', explained.var[2], '%)')
         ) +
         graph_theme(minor.grid.lines = TRUE)
 }
@@ -398,13 +382,15 @@ calculate_plsda_misclass <- function(results.plsda) {
                                        results.plsda$data$x), results.plsda$data$y) %>%
         .$table %>%
         as.data.frame %>%
-        dplyr::mutate(Match = ifelse(Prediction == Reference, 'yes', 'no')) %>%
-        dplyr::group_by(Match) %>%
-        dplyr::summarise(N = sum(Freq)) %>%
-        dplyr::ungroup() %>%
-        dplyr::mutate(Total = sum(N),
-                      Percent = paste0(round((N / Total) * 100, 1), '%'),
-                      NPct = paste0(N, ' (', Percent, ')'))
+        dplyr::mutate(
+            Match = ifelse(Prediction == Reference, 'yes', 'no')
+        ) %>%
+        dplyr::group_by(Reference) %>%
+        dplyr::mutate(
+            Total = sum(Freq),
+            Percent = paste0(round((Freq / Total) * 100, 1), '%'),
+            NPct = paste0(Freq, ' (', Percent, ')')
+        )
 
     return(misclass_plsda)
 }
