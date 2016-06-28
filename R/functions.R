@@ -327,7 +327,7 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
         dplyr::mutate(Vars2 = factor(Vars2, unique(Vars2)),
                       Vars1 = factor(Vars1, unique(Vars1)),
                       Correlations = round(Correlations, 2)) %>%
-        seer::visualize_corr_heatmap(
+        seer::view_heatmap(
             y = 'Vars2',
             x = 'Vars1',
             ylab = 'Non-esterified fatty acids (nmol/mL)',

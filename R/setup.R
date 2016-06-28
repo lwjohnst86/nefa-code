@@ -56,7 +56,7 @@ run_setup <- function() {
     # For the document (knitr)
     knitr::opts_chunk$set(
         warning = FALSE, message = FALSE, collapse = TRUE,
-        fig.showtext = TRUE
+        fig.showtext = TRUE, echo = FALSE, dev = c('png', 'postscript')
     )
 }
 
