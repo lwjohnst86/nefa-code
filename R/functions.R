@@ -228,7 +228,7 @@ plot_lcmm_results <- function(results.lcmm) {
         graph_theme()
 }
 
-plot_gee_results <- function(results.gee) {
+plot_gee_results <- function(results.gee, leg = 'bottom') {
     results.gee %>%
         seer::view_main_effect(
             graph.options = 'dot.size',
@@ -237,7 +237,7 @@ plot_gee_results <- function(results.gee) {
             xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
             ylab = 'Non-esterified fatty acids'
             ) +
-        graph_theme(ticks = FALSE)
+        graph_theme(ticks = FALSE, legend.pos = leg)
 }
 
 plot_nefa_distribution <- function(data) {
