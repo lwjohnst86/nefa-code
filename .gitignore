@@ -1,0 +1,11 @@
+.RData
+.Rout
+data/
+.Rhistory
+.Rproj.user
+packrat/lib*/
+packrat/src/
+*.html
+*.docx
+*_files/
+*_cache/

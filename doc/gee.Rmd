@@ -1,0 +1,264 @@
+---
+title: "GEE models"
+author: "Luke W. Johnston"
+output: 
+    rmarkdown::html_vignette:
+        toc: true
+---
+
+# Set up and load dataset
+
+```{r setup, message = TRUE, collapse=TRUE}
+knitr::opts_knit$set(root.dir = '../')
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+```{r}
+source('.Rprofile')
+suppressMessages(run_setup())
+ds <- load_data()
+ds %>% 
+    select(VN, TAG) %>% 
+    na.omit() %>% 
+    group_by(VN) %>% 
+    summarize(n = n())
+
+gee_table <- function(data, caption, p.val = 0.05) {
+    data %>%
+        filter(p.value < p.val) %>%
+        select(Yterms, Xterms, term, unit, estimate, p.value) %>%
+        mutate_each(funs(round(., 2)), estimate, p.value) %>%
+        arrange(unit, Yterms) %>% 
+        pander(caption)
+}
+```
+
+# Prep and wrangle data into GEE form
+
+```{r geeData}
+gee_df <- get_gee_data(ds)
+
+outcomes <- c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')
+outcomes_is <- c('linvHOMA', 'lISI')
+outcomes_bcf <- c('lIGIIR', 'lISSI2')
+ne_pct <- grep('^pct_ne', names(gee_df), value = TRUE)
+ne_conc <- c('TotalNE', grep('^ne\\d\\d', names(gee_df), value = TRUE))
+covariates0 <- c('VN')
+covariates_bcf <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'FamHistDiab')
+covariates <- covariates_is <- covariates_bcf
+covariates_is_tag <- c(covariates_is, 'BaseTAG')
+covariates_bcf_tag <- c(covariates_bcf, 'BaseTAG')
+```
+
+# Unadjusted GEE model
+
+```{r geeResults_Unadj}
+gee_results0 <- dplyr::bind_rows(
+    analyze_gee(gee_df, outcomes, ne_pct, covariates0, 'mol%', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes, ne_conc, covariates0, 'nmol/mL', adj.p = TRUE)
+    ) %>% 
+    tidy_gee_results()
+gee_table(gee_results0, 'Unadjusted')
+```
+
+# Adjusted with or without TAG for IS
+
+```{r geeResults_IS}
+gee_results_is <- bind_rows(
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is, 'mol%', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is, 'nmol/mL', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is_tag, 'mol%', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is_tag, 'nmol/mL', adj.p = TRUE)
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results_is, 'Without or with TAG for IS')
+gee_results_is %>% 
+    select(Yterms, Xterms, sample.total) %>% 
+    group_by(Yterms) %>% 
+    summarise(MinSample = min(sample.total),
+              MaxSample = max(sample.total)) %>% 
+    pander('Sample size for IS')
+```
+
+# Adjusted with or without TAG for BCF
+
+```{r geeResults_BCF}
+gee_results_bcf <- bind_rows(
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf, 'mol%', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf, 'nmol/mL', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf_tag, 'mol% (w/ tag)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf_tag, 'nmol/mL (w/ tag)', adj.p = TRUE)
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results_bcf, 'Without or with TAG for BCF')
+gee_results_bcf %>% 
+    select(Yterms, Xterms, sample.total) %>% 
+    group_by(Yterms) %>% 
+    summarise(MinSample = min(sample.total),
+              MaxSample = max(sample.total)) %>% 
+    pander('Sample size for BCF')
+```
+
+# Adjusting using a single model for both IS and BCF (cancelled)
+
+Decided on using only one model. Not running the below code but keeping it for 
+now for record-keeping.
+
+```{r geeResults_SingleModel, eval = FALSE}
+gee_results <- bind_rows(
+    analyze_gee(gee_df, outcomes, ne_pct, covariates_is, 'mol% (IS model)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes, ne_conc, covariates_is, 'nmol/mL (IS model)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes, ne_pct, covariates_bcf, 'mol% (BCF model)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes, ne_conc, covariates_bcf, 'nmol/mL (BCF model)', adj.p = TRUE)
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results, 'Comparing IS vs BCF models.')
+```
+
+# Identifying which variable changes association for IS
+
+```{r geeResults_VariableInfluence}
+covar_base <- c('VN', 'Sex', 'Ethnicity', 'BaseAge')
+covar_wc <- c(covar_base, 'Waist')
+covar_alt <- c(covar_base, 'ALT')
+covar_fh <- c(covar_base, 'FamHistDiab')
+gee_results <- bind_rows(
+    analyze_gee(gee_df, outcomes_is, ne_pct, covar_base, 'mol% (base)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covar_base, 'nmol/mL (base)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covar_wc, 'mol% (wc)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covar_wc, 'nmol/mL (wc)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covar_fh, 'mol% (fh)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covar_fh, 'nmol/mL (fh)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covar_alt, 'mol% (alt)', adj.p = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covar_alt, 'nmol/mL (alt)', adj.p = TRUE)
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results, 'Covariate influencing results.')
+```
+
+# Grouping NEFA into common classes (SFA, MUFA, PUFA)
+
+```{r geeResults_FAGroupings}
+sfa <- grep('0$', c(ne_conc), value = TRUE)
+mufa <- grep('1n.*$', c(ne_conc), value = TRUE)
+pufa <- grep('[2-6]n.*$', c(ne_conc), value = TRUE)
+n3pufa <- grep('[2-6]n3$', c(ne_conc), value = TRUE)
+n6pufa <- grep('[2-6]n6$', c(ne_conc), value = TRUE)
+
+gee_df2 <- ds %>% 
+    mutate(
+        SFA = rowSums(.[sfa]),
+        pct_SFA = (SFA / TotalNE) * 100,
+        MUFA = rowSums(.[mufa]),
+        pct_MUFA = (MUFA / TotalNE) * 100,
+        PUFA = rowSums(.[pufa]),
+        pct_PUFA = (PUFA / TotalNE) * 100,
+        n3PUFA = rowSums(.[n3pufa]),
+        pct_n3PUFA = (n3PUFA / TotalNE) * 100,
+        n6PUFA = rowSums(.[n6pufa]),
+        pct_n6PUFA = (n6PUFA / TotalNE) * 100
+        ) %>% 
+    get_gee_data(fa = '(^|^pct_).*(SFA|MUFA|PUFA)')
+
+gee_results <- bind_rows(
+    analyze_gee(gee_df2, outcomes, c('SFA', 'MUFA', 'PUFA', 'n3PUFA', 'n6PUFA'), 
+                covariates, 'nmol/mL', adj.p = TRUE), 
+    analyze_gee(gee_df2, outcomes, c('pct_SFA', 'pct_MUFA', 'pct_PUFA', 
+                                     'pct_n3PUFA', 'pct_n6PUFA'), 
+                covariates, 'mol%', adj.p = TRUE)
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results, 'Results using fatty acid classes (saturated, etc).')
+```
+
+# Interaction for IS
+
+```{r geeResults_IS_int}
+gee_results_is_int <- bind_rows(
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is, 'mol%', adj.p = TRUE, int = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is, 'nmol/mL', adj.p = TRUE, int = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is_tag, 'mol% (w/ tag)', adj.p = TRUE, int = TRUE),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is_tag, 'nmol/mL (w/ tag)', adj.p = TRUE, int = TRUE)
+    ) %>% 
+    tidy_gee_results()
+gee_table(gee_results_is_int, 'Interaction for time for IS')
+```
+
+```{r geeResults_IS_int_sex}
+gee_results_is_int_sex <- bind_rows(
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is, 'mol%', adj.p = TRUE, int = TRUE, intvar = 'Sex'),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is, 'nmol/mL', adj.p = TRUE, int = TRUE, intvar = 'Sex'),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is_tag, 'mol% (w/ tag)', adj.p = TRUE, int = TRUE, intvar = 'Sex'),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is_tag, 'nmol/mL (w/ tag)', adj.p = TRUE, int = TRUE, intvar = 'Sex')
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results_is_int_sex, 'Interactions between male and female for IS.')
+```
+
+```{r geeResults_IS_int_ethn}
+gee_results_is_int_ethn <- bind_rows(
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is, 'mol%', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity'),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is, 'nmol/mL', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity'),
+    analyze_gee(gee_df, outcomes_is, ne_pct, covariates_is_tag, 'mol% (w/ tag)', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity'),
+    analyze_gee(gee_df, outcomes_is, ne_conc, covariates_is_tag, 'nmol/mL (w/ tag)', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity')
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results_is_int_ethn, 'Interactions between ethnicities for IS.')
+```
+
+# Interaction for BCF
+
+```{r geeResults_BCF_int}
+gee_results_bcf_int <- bind_rows(
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf, 'mol%', adj.p = TRUE, int = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf, 'nmol/mL', adj.p = TRUE, int = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf_tag, 'mol% (w/ tag)', adj.p = TRUE, int = TRUE),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf_tag, 'nmol/mL (w/ tag)', adj.p = TRUE, int = TRUE)
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results_bcf_int, 'Interactions for time for BCF.')
+```
+
+```{r geeResults_BCF_int_sex}
+gee_results_bcf_int_sex <- bind_rows(
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf, 'mol%', 
+                adj.p = TRUE, int = TRUE, intvar = 'Sex'),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf, 'nmol/mL', 
+                adj.p = TRUE, int = TRUE, intvar = 'Sex'),
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf_tag, 'mol% (w/ tag)', 
+                adj.p = TRUE, int = TRUE, intvar = 'Sex'),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf_tag, 'nmol/mL (w/ tag)', 
+                adj.p = TRUE, int = TRUE, intvar = 'Sex')
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results_bcf_int_sex, 'Interactions between male and female for BCF.')
+```
+
+```{r geeResults_BCF_int_ethn}
+gee_results_bcf_int_ethn <- bind_rows(
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf, 'mol%', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity'),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf, 'nmol/mL', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity'),
+    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates_bcf_tag, 'mol% (w/ tag)', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity'),
+    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates_bcf_tag, 'nmol/mL (w/ tag)', 
+                adj.p = TRUE, int = TRUE, intvar = 'Ethnicity')
+    ) %>% 
+    tidy_gee_results()
+
+gee_table(gee_results_bcf_int_ethn, 'Interactions between ethnicities for BCF.')
+```
