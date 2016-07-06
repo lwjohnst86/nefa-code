@@ -64,7 +64,7 @@ analyze_gee <- function(data, y, x, covar, unit,
         extract_term <- 'Xterm$'
     }
     gee_results <- data %>%
-        mason::design_analysis('gee') %>%
+        mason::design('gee') %>%
         mason::add_settings(family = gaussian('identity'), corstr = 'ar1', cluster.id = 'SID') %>%
         mason::add_variables('yvars', y) %>%
         mason::add_variables('xvars', x) %>%
@@ -75,7 +75,7 @@ analyze_gee <- function(data, y, x, covar, unit,
                 .
             }
         } %>%
-        mason::construct_analysis() %>%
+        mason::construct() %>%
         mason::scrub() %>%
         mason::polish_filter(extract_term, 'term') %>%
         mason::polish_transform_estimates(function(x) (exp(x) - 1) * 100) %>%
@@ -305,11 +305,11 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
                          y = ne_conc) {
     data %>%
         dplyr::filter(VN == 0) %>%
-        mason::design_analysis('cor') %>%
+        mason::design('cor') %>%
         mason::add_settings(method = 'pearson', use = 'complete.obs') %>%
         mason::add_variables('yvars', y) %>%
         mason::add_variables('xvars', x) %>%
-        mason::construct_analysis() %>%
+        mason::construct() %>%
         mason::scrub() %>%
         mason::polish_renaming(renaming_fa, 'Vars2') %>%
         #mason::polish_renaming(renaming_outcomes, 'Vars1') %>%
@@ -417,11 +417,11 @@ calculate_outcomes_pct_change <- function(data) {
         round(0) %>%
         {paste0(min(.), '% to ', max(.), '%')}
 
-    pval <- design_analysis(data, 'gee') %>%
+    pval <- design(data, 'gee') %>%
         add_settings(family = gaussian, corstr = 'ar1', cluster.id = 'SID') %>%
         add_variables('yvars', c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')) %>%
         add_variables('xvars', 'VN') %>%
-        construct_analysis() %>%
+        construct() %>%
         scrub() %>%
         polish_filter('Xterm$', 'term') %>%
         dplyr::summarise(p.value = mean(p.value)) %>%
