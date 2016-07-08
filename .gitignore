@@ -6,6 +6,5 @@ data/
 packrat/lib*/
 packrat/src/
 *.html
-*.docx
 *_files/
 *_cache/
