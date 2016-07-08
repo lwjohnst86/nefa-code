@@ -36,7 +36,7 @@ Corresponding author:
 - Fax number:
 - Email: anthony.hanley@utoronto.ca
 
-Word count: 3620 / 4000
+Word count: 3605 / 4000
 
 Table and figure count: 3 / 4
 
@@ -281,8 +281,8 @@ explanation of GEE, PLS-DA, and LCMM, please see the Supplemental Methods.
 All analyses were performed using R 3.3.1 [@Rbase], along with the R
 packages geepack 1.2.0.1 for GEE <!--[@Hoejsgaard2006a]-->, caret
 6.0.70 for PLS-DA, and lcmm 1.7.5 for
-LCMM. The R code for this manuscript is available at {{add link before
-submission}}. Results were considered statistically significance at p<0.05,
+LCMM. The R code for this manuscript is available at 
+https://figshare.com/s/a45a1e1eec5d9421eba3. Results were considered statistically significance at p<0.05,
 after adjusting for multiple testing using the Benjamini-Hochberg False
 Discovery Rate [@Benjamini1995a].
 
