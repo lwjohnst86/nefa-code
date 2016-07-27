@@ -1,0 +1,36 @@
+Package: nefaDiabetes
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends:
+    R (>= 3.3.1)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    lcmm,
+    caret,
+    fdrtool,
+    captioner,
+    tidyr,
+    ggplot2,
+    pander,
+    knitr,
+    MuMIn,
+    geepack,
+    magrittr,
+    dplyr,
+    mason,
+    carpenter,
+    seer,
+    stats,
+    devtools,
+    pryr,
+    grid,
+    tibble
+Suggests:
+    DiagrammeR
+Remotes: github::lwjohnst86/carpenter
+    github::lwjohnst86/seer
+RoxygenNote: 5.0.1
