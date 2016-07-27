@@ -46,7 +46,7 @@ Word count - Abstract: 242 / 250
 
 Word count - Main text: 3726 / 4000
 
-Table and figure count: 3 / 4
+<!-- Table and figure count: 3 / 4 -->
 
 <!-- Reference limit 39 / 50 -->
 
@@ -216,7 +216,7 @@ Participants aged 30 years and older (n=736) attended the baseline visit
 between 2004-2006. Follow-up examinations in this cohort occur every three years, with three
 examination visits completed to date (2004-2006, 2007-2009, and 2010-2013). 
 Participants are contacted annually by telephone. The
-current study used data on participants who did not have diabetes at baseline,
+current study sample used data on participants who did not have diabetes at baseline,
 who returned for one or more of the follow-up examinations, and who had samples
 available for fatty acid measurements (n=477). A diagram of the sample size at
 each visit is shown in `r cite_sf('consort')`. At each examination,
@@ -500,21 +500,21 @@ with the associations seen in the GEE models.
 
 # Conclusions
 
-In a Canadian population of adults who are at-risk for diabetes, we found that 
+In a Canadian population of adults who were at-risk for diabetes, we found that 
 higher total NEFA concentrations independently predicted lower beta-cell
 function after 6 years. While we found negative associations with palmitic acid
 (16:0), oleic acid (18:1n-9), and linoleic acid (18:2n-6) for the concentration
 (nmol/mL) modeling, no associations were seen for these fatty
 acids as a proportion, an observation that was further confirmed by multivariate
-cluster techniques, which found no predictive ability of these
-individual NEFA on beta-cell function or dysglycemia. These observations suggest
+cluster techniques, which found no ability of these
+individual NEFA to predict beta-cell function or dysglycemia. These observations suggest
 that the absolute size of the total NEFA fraction, rather than its specific
 composition, likely influences the pathogenesis of diabetes, at least within a
 population at-risk for diabetes.
 
 There are a few important limitations to our study. NEFA were only quantified at
 the baseline visit and as such we cannot investigate whether there were 
-concomitant changes in NEFA and the metabolic measures. However, we believe this
+concomitant changes in NEFA and the metabolic measures over time. However, we believe this
 is a strength for our specific objective, as the chance of reverse causality is 
 reduced given that fatty acid and glucose metabolism pathways are tightly 
 integrated. This is also an observational cohort, and there may be some residual
@@ -605,8 +605,9 @@ cross-sectional design.
 
 In conclusion, we found that total NEFA was a strong predictor for lower
 beta-cell function over 6 years, irrespective of the specific composition of the
-NEFA fraction, suggesting that efforts at lower circulating NEFA
-indiscriminately to reduce the risk of diabetes are well warranted. While future
+NEFA fraction, suggesting that efforts at lowering circulating total NEFA
+through medication and/or lifestyle strategies to reduce the risk of diabetes
+are well warranted. While future
 studies are needed to confirm these findings, our results reinforce the
 importance of continuing to investigate the role of circulating NEFA
 concentration on the natural history of diabetes.

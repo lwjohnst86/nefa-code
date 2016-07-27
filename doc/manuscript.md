@@ -39,7 +39,7 @@ Word count - Abstract: 242 / 250
 
 Word count - Main text: 3726 / 4000
 
-Table and figure count: 3 / 4
+<!--Table and figure count: 3 / 4-->
 
 <!-- Reference limit 39 / 50 -->
 
@@ -566,7 +566,7 @@ for final content. All authors read and approved the final manuscript.
 | WC (cm)        |     98.5 (15.5)     |     99.3 (15.7)     |    100.4 (15.7)     |
 | Age (yrs)      |     50.2 (9.8)      |     53.2 (9.7)      |     56.3 (9.5)      |
 | MET            |     44.9 (59.6)     |     48.4 (60.5)     |     44.0 (57.1)     |
-| ALT            |     29.6 (16.0)     |     28.4 (19.5)     |     25.9 (16.9)     |
+| ALT (U/L)      |     29.6 (16.0)     |     28.4 (19.5)     |     25.9 (16.9)     |
 | TAG (mmol/L)   |      1.5 (0.8)      |      1.4 (0.8)      |      1.4 (0.7)      |
 | Chol (mmol/L)  |      5.2 (0.9)      |      5.1 (1.0)      |      5.1 (0.9)      |
 | HDL (mmol/L)   |      1.4 (0.4)      |      1.3 (0.4)      |      1.4 (0.4)      |
@@ -644,30 +644,30 @@ having dysglycemia.
 ![ESM Fig.  1: CONSORT diagram of sample size at each examination visit.](../img/flowDiagramSample.png)
 
 
-| Model           |   QIC   |  Delta  |
-|:----------------|:-------:|:-------:|
-| **log(ISI)**    |         |         |
-| M4              | -1583.2 |   0.0   |
-| M5              | -1583.0 |   0.2   |
-| M6              | -1582.4 |   0.8   |
-| M3              | -1576.3 |   6.9   |
-| M8              | -1573.7 |   9.5   |
-| M2              | -1573.5 |   9.7   |
-| M9              | -1573.1 |  10.0   |
-| M7              | -1572.0 |  11.2   |
-| M1              | -1539.1 |  44.1   |
-| M0              | -1051.1 |  532.1  |
-| **log(ISSI-2)** |         |         |
-| M9              | -2478.2 |   0.0   |
-| M8              | -2477.2 |   1.1   |
-| M7              | -2477.1 |   1.1   |
-| M5              | -2474.0 |   4.2   |
-| M6              | -2473.2 |   5.1   |
-| M2              | -2471.7 |   6.5   |
-| M3              | -2469.7 |   8.5   |
-| M4              | -2468.4 |   9.8   |
-| M1              | -2457.8 |  20.5   |
-| M0              | -2139.0 |  339.2  |
+| Model           |  QIC  |  Delta  |
+|:----------------|:-----:|:-------:|
+| **log(ISI)**    |       |         |
+| M4              | -1583 |    0    |
+| M5              | -1583 |   0.2   |
+| M6              | -1582 |   0.8   |
+| M3              | -1576 |   6.9   |
+| M8              | -1574 |   9.5   |
+| M2              | -1574 |   9.7   |
+| M9              | -1573 |   10    |
+| M7              | -1572 |  11.2   |
+| M1              | -1539 |  44.1   |
+| M0              | -1051 |  532.1  |
+| **log(ISSI-2)** |       |         |
+| M9              | -2478 |    0    |
+| M8              | -2477 |   1.1   |
+| M7              | -2477 |   1.1   |
+| M5              | -2474 |   4.2   |
+| M6              | -2473 |   5.1   |
+| M2              | -2472 |   6.5   |
+| M3              | -2470 |   8.5   |
+| M4              | -2468 |   9.8   |
+| M1              | -2458 |  20.5   |
+| M0              | -2139 |  339.2  |
 
 Table: ESM Table  1: Comparing generalized estimating equation models adjusting for different covariates using Quasi-Likelihood Information Criterion.
 
