@@ -34,13 +34,13 @@ run_setup <- function() {
     if (!require(geepack)) install.packages('geepack')
     if (!require(magrittr)) install.packages('magrittr')
     if (!require(dplyr)) install.packages('dplyr')
+    if (!require(mason)) install.packages('mason')
     # - For github packages:
     # if (!require(package)) packrat::install_github('username/package')
 
     # How to manage local? Not sure.
-    library(carpenter)
-    library(mason)
-    library(seer)
+    library(carpenter) #github: lwjohnst86/carpenter
+    library(seer) #github: lwjohnst86/seer
 }
 
 .set_options <- function() {
@@ -56,7 +56,8 @@ run_setup <- function() {
     # For the document (knitr)
     knitr::opts_chunk$set(
         warning = FALSE, message = FALSE, collapse = TRUE,
-        fig.showtext = TRUE, echo = FALSE, dev = c('cairo_ps')
+        #fig.showtext = TRUE,
+        echo = FALSE, dev = c('cairo_ps')
     )
 }
 
