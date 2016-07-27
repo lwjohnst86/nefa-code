@@ -1,8 +1,10 @@
 Package: nefaDiabetes
-Title: What the Package Does (one line, title case)
+Title: Analysis Code for NEFA and Diabetes Pathogenesis
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Luke", "Johnston", email = "lwjohnst@gmail.com", role = c("aut", "cre"))
+Description: Contains the code used to analysis the data for the manuscript on
+    NEFA composition and the role in insulin sensitivity and beta-cell function
+    in a longitudinal cohort.
 Depends:
     R (>= 3.3.1)
 License: MIT + file LICENSE
