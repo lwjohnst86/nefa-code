@@ -8,12 +8,14 @@
 # Renaming ----------------------------------------------------------------
 
 renaming_table_rows <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('IGIIR', 'IGI/IR', .) %>%
         gsub('ISSI2', 'ISSI-2', .) %>%
         gsub('HOMA', 'HOMA-IR', .) %>%
         gsub('TAG', 'TAG (mmol/L)', .) %>%
         gsub('Chol', 'Chol (mmol/L)', .) %>%
+        gsub('ALT', 'ALT (U/L)', .) %>%
         gsub('LDL', 'LDL (mmol/L)', .) %>%
         gsub('HDL', 'HDL (mmol/L)', .) %>%
         gsub('BaseTotalNE', 'NEFA (nmol/mL)', .) %>%
@@ -23,6 +25,7 @@ renaming_table_rows <- function(x) {
 }
 
 renaming_outcomes <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('linvHOMA', 'log(1/HOMA-IR)', .) %>%
         gsub('lISI', 'log(ISI)', .) %>%
@@ -34,6 +37,7 @@ renaming_outcomes <- function(x) {
 }
 
 renaming_fa <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
         gsub('n(\\d)$', 'n-\\1', .) %>%
@@ -43,11 +47,13 @@ renaming_fa <- function(x) {
 }
 
 renaming_fraction <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('ne', 'Non-esterified', .)
 }
 
 renaming_list <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         renaming_fa() %>%
         renaming_outcomes()
@@ -338,6 +344,19 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
 
 # Calculate or extract for inline -----------------------------------------
 
+calculate_sample <- function(data) {
+    data %>%
+        tbl_df() %>%
+        select(VN, HOMA, ISI, IGIIR, ISSI2) %>%
+        gather(Measure, Value, -VN) %>%
+        na.omit() %>%
+        group_by(Measure, VN) %>%
+        summarize(n = n()) %>%
+        ungroup() %>%
+        #group_by(Measure) %>%
+        summarise(range = paste0(min(n), ' to ', max(n)))
+}
+
 calculate_conversion_dysgly <- function(data, variable = c('ConvertDM', 'ConvertPreDM')) {
     variable <- match.arg(variable)
 
@@ -418,7 +437,7 @@ calculate_outcomes_pct_change <- function(data) {
         {paste0(min(.), '% to ', max(.), '%')}
 
     pval <- design(data, 'gee') %>%
-        add_settings(family = gaussian, corstr = 'ar1', cluster.id = 'SID') %>%
+        add_settings(family = gaussian(), corstr = 'ar1', cluster.id = 'SID') %>%
         add_variables('yvars', c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')) %>%
         add_variables('xvars', 'VN') %>%
         construct() %>%
@@ -510,57 +529,54 @@ table_basic <- function(data, caption) {
                       Sex = ifelse(VN == 0, as.character(Sex), NA),
                       Sex = as.factor(Sex)) %>%
         carpenter::outline_table(
-            c(
-                'BaseTotalNE',
-                'HOMA',
-                'ISI',
-                'IGIIR',
-                'ISSI2',
-                'TAG',
-                'Chol',
-                'BMI',
-                'Waist',
-                'HDL',
-                'FamHistDiab',
-                'Age',
-                'Ethnicity',
-                'Sex',
-                'MET',
-                'ALT',
-                'IFG',
-                'IGT',
-                'DM'
-            ),
+            # c(
+            #     'BaseTotalNE',
+            #     'HOMA',
+            #     'ISI',
+            #     'IGIIR',
+            #     'ISSI2',
+            #     'TAG',
+            #     'Chol',
+            #     'BMI',
+            #     'Waist',
+            #     'HDL',
+            #     'FamHistDiab',
+            #     'Age',
+            #     'Ethnicity',
+            #     'Sex',
+            #     'MET',
+            #     'ALT',
+            #     'IFG',
+            #     'IGT',
+            #     'DM'
+            # ),
             'f.VN'
         ) %>%
-        carpenter::add_rows(c('HOMA', 'ISI'), carpenter::stat_medianIQR, digits = 1) %>%
-        carpenter::add_rows(c('IGIIR', 'ISSI2'), carpenter::stat_medianIQR, digits = 1) %>%
-        carpenter::add_rows(c('BMI', 'Waist'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(c('ALT', 'TAG', 'Chol', 'HDL', 'BaseTotalNE', 'MET', 'Age'),
+        carpenter::add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'),
+                            carpenter::stat_medianIQR, digits = 1) %>%
+        carpenter::add_rows(c('BMI', 'Waist', 'Age', 'MET', 'ALT', 'TAG', 'Chol', 'HDL',
+                              'BaseTotalNE'),
                             carpenter::stat_meanSD,
                             digits = 1) %>%
         carpenter::add_rows(c('Ethnicity', 'Sex'), carpenter::stat_nPct, digits = 0) %>%
-        carpenter::rename_rows(renaming_table_rows) %>%
-        carpenter::rename_columns('Measure', 'Baseline', '3-yr', '6-yr') %>%
-        carpenter::construct_table(caption = caption)
+        carpenter::renaming('rows', renaming_table_rows) %>%
+        carpenter::renaming('header', function(x) c('Measure', 'Baseline', '3-yr', '6-yr')) %>%
+        carpenter::build_table(caption = caption)
 }
 
 table_distribution <- function(data, caption) {
     fatty.acid.species <- grep('^ne\\d\\d|^TotalNE', names(data), value = TRUE)
     grep_nefa <- function(pattern, x = fatty.acid.species)
-        grep(pattern, x, value = TRUE)
+        rev(grep(pattern, x, value = TRUE))
+    nefa <- c(grep_nefa('3$'), grep_nefa('6$'), grep_nefa('7$'),
+              grep_nefa('9$'), grep_nefa('0$'), grep_nefa('TotalNE$'))
     data %>%
         dplyr::filter(VN == 0) %>%
-        carpenter::outline_table(., fatty.acid.species, 'f.VN') %>%
-        carpenter::add_rows(grep_nefa('3$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('6$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('7$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('9$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('0$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('TotalNE$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::rename_columns('NEFA', 'Concentrations (nmol/mL)') %>%
-        carpenter::rename_rows(renaming_fa) %>%
-        carpenter::construct_table(caption = caption)
+        carpenter::outline_table('f.VN') %>%
+        carpenter::add_rows(nefa, carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::renaming('header', function(x) c('NEFA', 'Concentrations (nmol/mL)')) %>%
+        carpenter::renaming('rows', renaming_fa) %>%
+        carpenter::build_table(caption = caption)
 }
 
 # Misc --------------------------------------------------------------------
@@ -588,14 +604,14 @@ tidy_gee_results <- function(results.gee) {
 graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legend.pos = 'bottom') {
     graph.theme <-
         ggplot2::"%+replace%"(
-            ggthemes::theme_tufte(base_size = 10, base_family = 'Arial'),
+            ggthemes::theme_tufte(base_size = 10, base_family = 'sans'),
             ggplot2::theme(
-                axis.line = ggplot2::element_line('black'),
-                axis.line.x = ggplot2::element_line('black'),
-                axis.line.y = ggplot2::element_line('black'),
+                axis.line = ggplot2::element_line('black', size = 0.75),
+                axis.line.x = ggplot2::element_line('black', size = 0.75),
+                axis.line.y = ggplot2::element_line('black', size = 0.75),
                 legend.key.width = grid::unit(0.7, "line"),
                 legend.key.height = grid::unit(0.7, "line"),
-                strip.background = element_blank(),
+                strip.background = ggplot2::element_blank(),
                 plot.margin = grid::unit(c(0.5, 0, 0, 0), "cm"),
                 legend.position = legend.pos
             )
@@ -603,7 +619,7 @@ graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legen
 
     if (!ticks) {
         graph.theme <- ggplot2::"%+replace%"(graph.theme,
-                                            ggplot2::theme(axis.ticks.y = element_blank()))
+                                            ggplot2::theme(axis.ticks.y = ggplot2::element_blank()))
     }
 
     if (minor.grid.lines) {
