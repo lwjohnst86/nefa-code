@@ -2,9 +2,8 @@
 bibliography: 
     - /home/luke/Documents/bibliography/bib/bib-db/nefaDiabetes.bib
     - /home/luke/Documents/bibliography/bib/bib-db/myrefs.bib
-#csl: /home/luke/Documents/bibliography/styles/dependent/diabetes-care.csl
-csl: /home/luke/Documents/bibliography/styles/vancouver-brackets-no-et-al.csl
-output: fost::diabetes_care_manuscript
+    - /home/luke/Documents/bibliography/bib/bib-db/methods.bib
+output: fost::diabetologia_manuscript
 ---
 
 # Title page
@@ -14,22 +13,21 @@ progression in beta-cell dysfunction: The Prospective Metabolism and Islet Cell
 Evaluation (PROMISE) cohort
 
 <!-- 47 characters + spaces -->
-Running title: NEFA and the pathogenesis of diabetes
+<!--Running title: NEFA and the pathogenesis of diabetes-->
 
-<!-- First, middle initial, last, highest academic degree -->
-Author: Luke W. Johnston (1), MSc; Stewart B. Harris (2), MD; Ravi Retnakaran
-(3,4), MD; Adria Giacca (5), PhD; Zhen Liu (1), PhD;
-Richard P. Bazinet (1), PhD; and Anthony J. Hanley (1,3,6), PhD
+<!-- First, middle initial, last -->
+Author: Luke W. Johnston (1); Stewart B. Harris (2); Ravi Retnakaran
+(3,4); Adria Giacca (5); Zhen Liu (1);
+Richard P. Bazinet (1); and Anthony J. Hanley (1,3,6)
 
-<!-- During time of study. -->
-Affiliation:
+Institutions of origin:
 
-(1) Department of Nutritional Sciences, University of Toronto, Toronto, Ontario, Canada.
-(2) Centre for Studies in Family Medicine, University of Western Ontario, London, Ontario, Canada.
-(3) Division of Endocrinology, University of Toronto, Toronto, ON, Canada.
-(4) Lunenfeld Tanenbaum Research Institute, Mount Sinai Hospital, Toronto, Ontario, Canada.
-(5) Department of Physiology, University of Toronto, Toronto, Ontario, Canada.
-(6) Dalla Lana School of Public Health, University of Toronto, Toronto, Ontario, Canada.
+ (1) Department of Nutritional Sciences, University of Toronto, Toronto, Ontario, Canada.
+ (2) Centre for Studies in Family Medicine, University of Western Ontario, London, Ontario, Canada.
+ (3) Division of Endocrinology, University of Toronto, Toronto, ON, Canada.
+ (4) Lunenfeld Tanenbaum Research Institute, Mount Sinai Hospital, Toronto, Ontario, Canada.
+ (5) Department of Physiology, University of Toronto, Toronto, Ontario, Canada.
+ (6) Dalla Lana School of Public Health, University of Toronto, Toronto, Ontario, Canada.
 
 Corresponding author:
 
@@ -44,29 +42,31 @@ Corresponding author:
 - Fax number:
 - Email: anthony.hanley@utoronto.ca
 
-Word count: 3605 / 4000
+Word count - Abstract: 242 / 250
+
+Word count - Main text: 3726 / 4000
 
 Table and figure count: 3 / 4
 
-<!-- Reference limit 39 / 40 -->
+<!-- Reference limit 39 / 50 -->
 
 # Abstract
 <!--243 / 250 words-->
 
-Objective: Our aim was to determine the longitudinal associations of individual
+Aim: Our aim was to determine the longitudinal associations of individual
 non-esterified fatty acids (NEFA) on changes in insulin sensitivity (IS) and
 beta-cell function over 6 years in a cohort of individuals who are at-risk for
 diabetes.
 
-Research Design and Methods: In the PROMISE cohort, 477 participants had serum
+Methods: In the PROMISE cohort, 477 participants had serum
 NEFA measured at the baseline visit and completed an OGTT at 3 time points over
 6 years. Outcome variables were calculated using the OGTT values. IS was
 assessed using 1/HOMA-IR and the Matsuda index, while beta-cell function was
 assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin
 Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were
-used, adjusting for time, waist, sex, ethnicity, baseline age, ALT, and family
-history of diabetes. NEFA were analyzed as both concentrations and proportions
-(mol%) of the total fraction.
+used, adjusting for time, waist, sex, ethnicity, baseline age, alanine
+aminotransferase, and family history of diabetes. NEFA were analyzed as both
+concentrations (nmol/mL) and proportions (mol%) of the total fraction.
 
 Results: IS and beta-cell function declined by 14-27% while BMI did not
 significantly change over 6 years of follow-up. Total NEFA, 16:0, 18:1n-9, and
@@ -79,6 +79,26 @@ Conclusions: Total NEFA concentration was a strong predictor of lower beta-cell
 function over 6 years. Our results suggest that the association with beta-cell 
 function is due to the absolute size of the serum NEFA fraction, rather than the
 specific fatty acid composition.
+
+## Keywords:
+
+insulin sensitivity; beta-cell function; longitudinal cohort; non-esterified
+fatty acids; diabetes pathogenesis; fatty acid composition
+
+## Abbreviations:
+
+- GEE: Generalized estimating equations
+- LCMM: Latent curve mixed models
+- PLS-DA: Partial least squares regression discriminant analysis
+- IGI/IR: Insulinogenic index over HOMA-IR
+- ISI: Insulin Sensitivity Index (Matsuda index)
+- ISSI-2: Insulin Secretion-Sensitivity Index-2
+- ALT: Alanine aminotransferase
+- TAG: Triacylglyceride
+- PROMISE: Prospective Metabolism and Islet Cell Evaluation Cohort
+- QIC: Quasi-Likelihood Information Criterion
+- MAQ: Modified Activity Questionnaire
+- WC: Waist circumference
 
 <!-- outline
 
@@ -113,19 +133,19 @@ ds0yr <- filter(ds, VN == 0)
 
 ```{r caption_setup}
 ## Include captions below using `captioner` package
-fig <- captioner(prefix = 'Figure')
+fig <- captioner(prefix = 'Fig.')
 cite_f <- pryr::partial(fig, display = 'cite')
-sfig <- captioner(prefix = 'Supplemental Figure S')
+sfig <- captioner(prefix = 'ESM Fig.')
 cite_sf <- pryr::partial(sfig, display = 'cite')
 tab <- captioner(prefix = 'Table')
 cite_t <- pryr::partial(tab, display = 'cite')
-stab <- captioner(prefix = 'Supplemental Table S')
+stab <- captioner(prefix = 'ESM Table')
 cite_st <- pryr::partial(stab, display = 'cite')
 # usage: cite_st('basicChar')
 
 tab_basic <- tab('basicChar', 'Basic characteristics of the PROMISE participants at each of the 3 clinic visits.')
-fig_dist <- fig('nefaDist', 'Concentrations (nmol/mL) of each non-esterified fatty acid in PROMISE participants at the baseline visit (2004-2006).')
-fig_gee <- fig('gee', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort.  Generalized estimating equation models were adjusted for time, sex, ethnicity, baseline age, WC, ALT, and family history of diabetes. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with the largest dot representing a significant (p<0.05) association.')
+fig_dist <- fig('nefaDist', 'Concentrations (nmol/mL) of each NEFA in PROMISE participants at the baseline visit (2004-2006).')
+fig_gee <- fig('gee', 'Longitudinal associations of individual NEFA (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. Fully adjusted generalized estimating equation models. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with the largest dot representing a significant (p<0.05) association.')
 
 sfig_consort <- sfig('consort', 'CONSORT diagram of sample size at each examination visit.')
 stab_qic <- stab('qic', 'Comparing generalized estimating equation models adjusting for different covariates using Quasi-Likelihood Information Criterion.')
@@ -137,15 +157,15 @@ ALT, and family history of diabetes. Outcome variables were log-transformed, pre
 stab_gee_unadj <- stab('gee_unadj', 'Unadjusted generalized estimating equation models of the longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort.  GEE models are only adjusted for time. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, with significant (p<0.05) associations indicated by asterisk.')
 sfig_lcmm <- sfig('lcmm', 'Latent class mixed model (LCMM) analysis to identify individual classes of trajectories for log(ISSI-2) over the 6 years in the PROMISE cohort. LCMM is a technique that identifies groups of participants that share a similar underlying trajectory in beta-cell function over the 6 years (e.g. no change compared to declines in ISSI-2). Red lines indicate individuals with a high beta-cell function who stayed high, green represents those in the middle, and blue represents those who had the lowest beta-cell function.')
 sfig_plsda_groups <- sfig('plsda_groups', '')
-sfig_plsda_loadings <- sfig('plsda_loadings', 'Pattern loadings from partial least squares discriminant analysis (PLS-DA) to identify potential clusters of NEFA composition within the classes extracted from the latent class mixed model in 463 participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis. The solid line represents an explained variance of 100% while the dashed line represents an explained variance of 50%. See the Supplemental Methods for a description of PLS-DA and an explanation of interpreting this plot.')
+sfig_plsda_loadings <- sfig('plsda_loadings', 'Pattern loadings from partial least squares discriminant analysis (PLS-DA) to identify potential clusters of NEFA composition within the classes extracted from the latent class mixed model in 463 participants from the baseline PROMISE visit (2004-2006). The percent explained variance of each component is shown in brackets on each axis. The solid line represents an explained variance of 100% while the dashed line represents an explained variance of 50%. See the ESM Methods for a description of PLS-DA and an explanation of interpreting this plot.')
 sfig_plsda_groups_dysgly <- sfig('plsda_groups_dysgly', '')
-sfig_plsda_loadings_dysgly <- sfig('plsda_loadings_dysgly', 'Pattern loadings from partial least squares discriminant analysis (PLS-DA) to identify potential clusters of NEFA composition for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006). See the Supplemental Methods for a description of PLS-DA and an explanation of interpreting this plot. The percent explained variance of each component is shown in brackets on each axis. The solid line represents an explained variance of 100% while the dashed line represents an explained variance of 50%.')
-sfig_plsda_example <- sfig('plsda_example', 'Example results of a high discriminatory ability to classify groups accurately when using partial least squares discriminatory analysis (PLS-DA). Discriminatory ability is evident from the amount of separation between the two groups. In this case, PLS-DA was 82% accurate at correctly classifying groups. See the Supplemental Methods for a description of PLS-DA and for interpreting this plot.')
-sfig_plsda_groups <- sfig('plsda_groups', paste0('Clustering of extracted components from the partial least squares discriminant analysis (PLS-DA) on the classes extracted from the latent class mixed model (LCMM) in 463 participants from the baseline PROMISE visit (2004-2006). See the Supplemental Methods for a description of PLS-DA and interpreting this plot. The percent explained variance of each component is shown in brackets on each axis. Red, green, and blue lines indicate participants classified as high, middle, and low for beta-cell function, respectively, from the LCMM analysis. See ', cite_sf('plsda_example'), ' for a hypothetical example plot showing good discriminatory ability between groups.'))
-sfig_plsda_groups_dysgly <- sfig('plsda_groups_dysgly', paste0('Clustering of extracted components from the partial least squares discriminant analysis for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006).  See the Supplemental Methods for a description of PLS-DA and interpreting this plot. The percent explained variance of each component is shown in brackets on each axis. Blue lines indicate dysglycemia conversion or maintanence and red lines indicate no dysglycemia status. See ', cite_sf('plsda_example'), ' for a hypothetical example plot showing good discriminatory ability between groups.'))
+sfig_plsda_loadings_dysgly <- sfig('plsda_loadings_dysgly', 'Pattern loadings from partial least squares discriminant analysis (PLS-DA) to identify potential clusters of NEFA composition for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006). See the ESM Methods for a description of PLS-DA and an explanation of interpreting this plot. The percent explained variance of each component is shown in brackets on each axis. The solid line represents an explained variance of 100% while the dashed line represents an explained variance of 50%.')
+sfig_plsda_example <- sfig('plsda_example', 'Example results of a high discriminatory ability to classify groups accurately when using partial least squares discriminatory analysis (PLS-DA). Discriminatory ability is evident from the amount of separation between the two groups. In this case, PLS-DA was 82% accurate at correctly classifying groups. See the ESM Methods for a description of PLS-DA and for interpreting this plot.')
+sfig_plsda_groups <- sfig('plsda_groups', paste0('Clustering of extracted components from the partial least squares discriminant analysis (PLS-DA) on the classes extracted from the latent class mixed model (LCMM) in 463 participants from the baseline PROMISE visit (2004-2006). See the ESM Methods for a description of PLS-DA and interpreting this plot. The percent explained variance of each component is shown in brackets on each axis. Red, green, and blue lines indicate participants classified as high, middle, and low for beta-cell function, respectively, from the LCMM analysis. See ', cite_sf('plsda_example'), ' for a hypothetical example plot showing good discriminatory ability between groups.'))
+sfig_plsda_groups_dysgly <- sfig('plsda_groups_dysgly', paste0('Clustering of extracted components from the partial least squares discriminant analysis for dysglycemia (IFG, IGT, DM) conversion status over the 6-years in the participants from the baseline PROMISE visit (2004-2006).  See the ESM Methods for a description of PLS-DA and interpreting this plot. The percent explained variance of each component is shown in brackets on each axis. Blue lines indicate dysglycemia conversion or maintanence and red lines indicate no dysglycemia status. See ', cite_sf('plsda_example'), ' for a hypothetical example plot showing good discriminatory ability between groups.'))
 ```
 
-# Background
+# Introduction
 
 Total non-esterified fatty acids (NEFA) have been well documented to influence 
 the pathogenesis of type 2 diabetes mellitus. Experimental work has shown that 
@@ -183,7 +203,7 @@ that higher palmitic acid and lower PUFA such as
 eicosapentaenoic acid in the NEFA fraction would associate with declining insulin sensitivity and
 beta-cell function over 6 years.
 
-# Research Design and Methods
+# Methods
 
 Participants from London and Toronto, Canada, were recruited into the 
 Prospective Metabolism and Islet cell Evaluation (PROMISE) cohort. Eligibility 
@@ -192,7 +212,8 @@ diabetes mellitus, including obesity, hypertension, family history of diabetes,
 and/or a history of gestational diabetes or birth of a macrosomic infant. 
 Participants aged 30 years and older (n=736) attended the baseline visit
 between 2004-2006. Follow-up examinations in this cohort occur every three years, with three
-examination visits completed to date (2004-2006, 2007-2009, and 2010-2013).  The
+examination visits completed to date (2004-2006, 2007-2009, and 2010-2013). 
+Participants are contacted annually by telephone. The
 current study used data on participants who did not have diabetes at baseline,
 who returned for one or more of the follow-up examinations, and who had samples
 available for fatty acid measurements (n=477). A diagram of the sample size at
@@ -323,14 +344,14 @@ the majority of the associations in the GEE models) and for those
 who converted to or maintained dysglycemia status (either IFG, IGT, or DM) over
 the 6 years. Latent class mixed models (LCMM) were used to extract the underlying
 trajectories of beta-cell function (ISSI-2) over the 6 years. For more detailed
-explanation of GEE, PLS-DA, and LCMM, please see the Supplemental Methods.
+explanation of GEE, PLS-DA, and LCMM, please see the ESM Methods.
 
 All analyses were performed using R `r getRversion()` [@Rbase], along with the R
-packages geepack `r packageVersion('geepack')` for GEE <!--[@Hoejsgaard2006a]-->, caret
+packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a], caret
 `r packageVersion('caret')` for PLS-DA, and lcmm `r packageVersion('lcmm')` for
 LCMM. The R code for this manuscript is available at https://figshare.com/s/a45a1e1eec5d9421eba3. Results were considered statistically significance at p<0.05,
 after adjusting for multiple testing using the Benjamini-Hochberg False
-Discovery Rate [@Benjamini1995a].
+Discovery Rate [@Benjamini1995a]. STROBE was used as a guideline for reporting [@Vandenbroucke2007b].
 
 # Results
 
@@ -386,6 +407,7 @@ sex.npct <- calculate_factor_npercent(ds0yr$Sex, 'Female')
 ethn.npct <- calculate_factor_npercent(ds0yr$Ethnicity, 'European')
 fhd.npct <- calculate_factor_npercent(ds0yr$FamHistDiab, 'Yes')
 est.gee <- calculate_gee_magnitude(gee_results)
+sample.outcomes <- calculate_sample(ds)
 ```
 
 ## Basic characteristics of the PROMISE cohort
@@ -488,6 +510,25 @@ that the absolute size of the total NEFA fraction, rather than its specific
 composition, likely influences the pathogenesis of diabetes, at least within a
 population at-risk for diabetes.
 
+There are a few important limitations to our study. NEFA were only quantified at
+the baseline visit and as such we cannot investigate whether there were 
+concomitant changes in NEFA and the metabolic measures. However, we believe this
+is a strength for our specific objective, as the chance of reverse causality is 
+reduced given that fatty acid and glucose metabolism pathways are tightly 
+integrated. This is also an observational cohort, and there may be some residual
+confounding we have not considered or that could not be measured. Nonetheless,
+potential covariates were empirically analyzed prior to inclusion into the
+GEE models to best understand and minimize potential
+confounding. Finally, our cohort consists of individuals at-risk for diabetes, 
+who are primarily female and European-ancestry and as such our results may not be
+generalizable to other populations. However, given these limitations, our study
+also has several strengths, including the longitudinal design and the rigorous
+statistical techniques and methods applied, which are specifically suited to
+investigating temporal relationships and to handling the multivariate nature of
+the data. Lastly, our cohort contains highly detailed and comprehensive
+variable measurements at each collection visit, and has both concentration and
+mol% data for the fatty acids.
+
 The role of total NEFA in the etiology of diabetes is well-documented.
 Epidemiological studies have shown that higher NEFA associate with lower insulin
 secretion and a higher risk for developing diabetes 
@@ -560,43 +601,40 @@ healthy compared to individuals with diabetes [@Liu2010a]. However, both studies
 limited by smaller sample sizes (approximately 100 subjects) and the
 cross-sectional design.
 
-There are a few important limitations to our study. NEFA were only quantified at
-the baseline visit and as such we cannot investigate whether there were 
-concomitant changes in NEFA and the metabolic measures. However, we believe this
-is a strength for our specific objective, as the chance of reverse causality is 
-reduced given that fatty acid and glucose metabolism pathways are tightly 
-integrated. This is also an observational cohort, and there may be some residual
-confounding we have not considered or that could not be measured. Nonetheless,
-potential covariates were empirically analyzed prior to inclusion into the
-GEE models to best understand and minimize potential
-confounding. Finally, our cohort consists of individuals at-risk for diabetes, 
-who are primarily female and European-ancestry and as such our results may not be
-generalizable to other populations. However, given these limitations, our study
-also has several strengths, including the longitudinal design and the rigorous
-statistical techniques and methods applied, which are specifically suited to
-investigating temporal relationships and to handling the multivariate nature of
-the data. Lastly, our cohort contains highly detailed and comprehensive
-variable measurements at each collection visit, and has both concentration and
-mol% data for the fatty acids.
-
-<!--
-A limitation of these methods, excluding LCMM,
-is that they can not be adjusted for covariates.
--->
-
 In conclusion, we found that total NEFA was a strong predictor for lower
 beta-cell function over 6 years, irrespective of the specific composition of the
-NEFA fraction. While future studies are needed to confirm these findings, our
-results reinforce the importance of continuing to investigate the role of
-circulating NEFA concentration on the natural history of diabetes.
+NEFA fraction, suggesting that efforts at lower circulating NEFA
+indiscriminately to reduce the risk of diabetes are well warranted. While future
+studies are needed to confirm these findings, our results reinforce the
+importance of continuing to investigate the role of circulating NEFA
+concentration on the natural history of diabetes.
 
-## Acknowledgements
+# Acknowledgements
 
 The authors thank Jan Neuman, Paula Van Nostrand, Stella Kink, and Annette
 Barnie of the Leadership Sinai Centre for Diabetes, Mount Sinai Hospital,
 Toronto, Canada and Sheila Porter and Mauricio Marin of the Centre for Studies
 in Family Medicine, University of Western Ontario, London, Canada for their 
 expert technical assistance and dedication in their work for PROMISE. 
+
+## Funding
+
+This study was supported by grants from the Canadian Diabetes Association (CDA),
+the Canadian Institutes for Health Research, and the University of
+Toronto Banting and Best Diabetes Centre; LWJ is supported by a CDA
+Doctoral Student Research Award; RR is supported by a Heart and Stroke
+Foundation of Ontario Mid-Career Investigator Award; SBH holds the CDA Chair in
+National Diabetes Management and the Ian McWhinney Chair of Family Medicine
+Studies at the University of Western Ontario; RBP holds a Tier II Canada
+Research Chair in Brain Lipid Metabolism; AJH holds a Tier II Canada Research
+Chair in Diabetes Epidemiology. 
+
+## Duality of interest
+
+The authors report no potential conflicts of interest relevant to this study.
+
+## Contribution statement
+
 The authors had the following responsibility: LWJ conducted research, analyzed
 data, and wrote the paper; RR, ZL, and SBH designed research, conducted
 research, and provided essential materials (infrastructure and clinical
@@ -604,30 +642,21 @@ resources); RR, SBH, RPB, and AG provided intellectual feedback on the
 paper; RPB conducted research, provided essential reagents and materials; AJH
 designed research, assisted with interpretation, and provided intellectual
 feedback on all versions of the paper; LWJ and AJH had primary responsibility
-for final content. All authors read and approved the final manuscript. AJH is
-the guarantor of this work and, as such, had full access to all the data in the
-study and takes responsibility for the integrity of the data and the accuracy of
-the data analysis.
+for final content. All authors read and approved the final manuscript.
 
-This study was supported by grants from the Canadian Diabetes Association (CDA),
-the Canadian Institutes for Health Research (CIHR), and the University of
-Toronto Banting and Best Diabetes Centre (BBDC); LWJ is supported by a CDA
-Doctoral Student Research Award; RR is supported by a Heart and Stroke
-Foundation of Ontario Mid-Career Investigator Award; SBH holds the CDA Chair in
-National Diabetes Management and the Ian McWhinney Chair of Family Medicine
-Studies at the University of Western Ontario; RBP holds a Tier II Canada
-Research Chair in Brain Lipid Metabolism; AJH holds a Tier II Canada Research
-Chair in Diabetes Epidemiology. The authors report no potential conflicts of
-interest relevant to this study.
+# References
 
-Portions of the results in the present analysis have been presented in
-abstract form at the following conferences: International Symposium on Diabetes
-& Nutrition (2015); Biennial Congress of the International Society for the Study
-of Fatty Acids and Lipids (2014); International Diabetes Federation World
-Diabetes Congress (2015); American Diabetes Association Scientific Sessions
-(2014, 2015).
+# Tables
 
-# Figures
+```{r table1}
+table_basic(ds, caption = tab_basic)
+```
+
+Note: Values are in median (IQR), mean (SD), and n (%). The proportion of ethnic
+and sex groups did not change over the 6 years. Outcome variables sample size
+ranges from `r sample.outcomes` over the 3 visits.
+
+# Figure legends
 
 ```{r figure1, fig.cap=fig_dist}
 plot_nefa_distribution(ds)
@@ -637,18 +666,9 @@ plot_nefa_distribution(ds)
 plot_gee_results(gee_results, leg = 'none')
 ```
 
-# Tables
+# ESM Material
 
-```{r table1}
-table_basic(ds, caption = tab_basic)
-```
-
-Note: Values are in median (IQR), mean (SD), and n (%). The proportion of ethnic
-and sex groups did not change over the 6 years.
-
-# Supplemental Material
-
-## Supplemental Methods
+## ESM Methods
 
 Generalized estimating equations (GEE) is analogous to mixed effects models, 
 except it emphasizes population-level trends over individual-level trends that 
@@ -693,11 +713,11 @@ with dysglycemia have a positive value for component 1 and the fatty acid 16:0 a
 has a positive value for component 1, this indicates that 16:0 is predictive of
 having dysglycemia.
 
-## Supplemental Tables and Figures
+## ESM Tables and Figures
 
 ![`r sfig_consort`](../img/flowDiagramSample.png)
 
-```{r onlineSupplementalTableS1}
+```{r ESM_Table1}
 prep_qic <- gee_df %>%
     dplyr::select(
         SID, VN, lISSI2, lISI, TotalNE, Sex, Ethnicity, MET, ALT, BaseAge,
@@ -790,45 +810,43 @@ considered equivalent).  Models were:
 - M8: M2 + ALT + family history of diabetes
 - M9: M8 + time by NEFA interaction
 
-```{r onlineSupplementalTableS2}
+```{r ESM_Table2}
 table_distribution(ds, stab_dist)
 ```
 
-```{r onlineSupplementalFigureS2, fig.cap=sfig_corr}
+```{r ESM_Fig2, fig.cap=sfig_corr}
 plot_heatmap(ds)
 ```
 
-```{r onlineSupplementalFigureS3, fig.cap=sfig_gee}
+```{r ESM_Fig3, fig.cap=sfig_gee}
 plot_gee_results(gee_results_unadj)
 ```
 
-```{r onlineSupplementalTableS3_4}
+```{r ESM_Table3_4}
 table_gee(gee_results, stab_gee)
 table_gee(gee_results_unadj, stab_gee_unadj)
 ```
 
-```{r onlineSupplementalFigureS4, fig.cap=sfig_lcmm}
+```{r ESM_Fig4, fig.cap=sfig_lcmm}
 plot_lcmm_results(lcmm_data)
 ```
 
-```{r onlineSupplementalFigureS5, fig.cap=sfig_plsda_groups}
+```{r ESM_Fig5, fig.cap=sfig_plsda_groups}
 plot_plsda_grouping(plsda_results, 'Beta-cell function')
 ```
 
-```{r onlineSupplementalFigureS6, fig.cap=sfig_plsda_loadings, fig.width=7, fig.height=7}
+```{r ESM_Fig6, fig.cap=sfig_plsda_loadings, fig.width=7, fig.height=7}
 plot_plsda_loadings(plsda_results)
 ```
 
-```{r onlineSupplementalFigureS7, fig.cap=sfig_plsda_groups_dysgly}
+```{r ESM_Fig7, fig.cap=sfig_plsda_groups_dysgly}
 plot_plsda_grouping(plsda_dysgly, 'Dysglycemia')
 ```
 
-```{r onlineSupplementalFigureS8, fig.cap=sfig_plsda_loadings_dysgly, fig.width=7, fig.height=7}
+```{r ESM_Fig8, fig.cap=sfig_plsda_loadings_dysgly, fig.width=7, fig.height=7}
 plot_plsda_loadings(plsda_dysgly)
 ```
 
-```{r onlineSupplementalFigureS9, fig.cap=sfig_plsda_example}
+```{r ESM_Fig9, fig.cap=sfig_plsda_example}
 plot_plsda_grouping(example_plsda_results(), 'Example groups')
 ```
-
-# References 
