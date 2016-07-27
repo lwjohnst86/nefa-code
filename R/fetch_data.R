@@ -1,33 +1,39 @@
-#' Fetch data from the master dataset.
+#' Fetch data from the original source
 #'
 #' This function fetchs the main dataset, keeps variables relevant to
 #' the analysis, restrict the sample size as needed, and lastly save
-#' the new dataset as an `.RData` file. The dot in front of the function hides
-#' it from the global environment.
+#' the new dataset as an `.RData` file.
 #'
-.fetch_data <- function() {
+#' @return Saves the wrangled data into the data/ folder.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' fetch_data()
+#' }
+fetch_data <- function() {
     # Load the master dataset,
     ds.prep <- PROMISE::PROMISE_data %>%
-        filter(VN %in% c(1, 3, 6)) %>%
+        dplyr::filter(VN %in% c(1, 3, 6)) %>%
         ## Kick out Canoers
-        filter(is.na(Canoe)) %>%
-        tbl_df()
+        dplyr::filter(is.na(Canoe)) %>%
+        dplyr::tbl_df()
 
     print(paste0('Original dataset rows are ', dim(ds.prep)[1], ' and columns are ', dim(ds.prep)[2]))
 
     ##' Munge and wrangle the data into the final version.
     ds <-
-        full_join(ds.prep,
+        dplyr::full_join(ds.prep,
                   ds.prep %>%
-                      filter(VN == 1) %>%
-                      select(SID, BaseAge = Age, BaseTAG = TAG)) %>%
-        select(
+                      dplyr::filter(VN == 1) %>%
+                      dplyr::select(SID, BaseAge = Age, BaseTAG = TAG)) %>%
+        dplyr::select(
             SID, VN, BMI, Waist, HOMA, ISI, IGIIR, ISSI2, TAG, LDL, HDL, Chol,
-            ALT, CRP, FamHistDiab, matches('meds'), Age, Sex, Ethnicity,
+            ALT, CRP, FamHistDiab, dplyr::matches('meds'), Age, Sex, Ethnicity,
             IFG, IGT, DM, MET, BaseAge, AlcoholPerWk, TobaccoUse, SelfEdu, Occupation,
-            TotalNE, matches('^ne\\d+'), Glucose0, Glucose120, BaseTAG
+            TotalNE, dplyr::matches('^ne\\d+'), Glucose0, Glucose120, BaseTAG
         ) %>%
-        mutate(
+        dplyr::mutate(
             BaseTotalNE = TotalNE,
             FamHistDiab =
                 plyr::mapvalues(FamHistDiab, c(0, 1:12),
@@ -42,19 +48,19 @@
             lTAG = log(TAG),
             MedsLipidsChol = ifelse(is.na(MedsLipidsChol), 0, MedsLipidsChol)
         ) %>%
-        arrange(SID, VN) %>%
-        group_by(SID) %>%
-        fill(TotalNE, matches('^ne\\d+')) %>%
-        ungroup()
+        dplyr::arrange(SID, VN) %>%
+        dplyr::group_by(SID) %>%
+        tidyr::fill(TotalNE, dplyr::matches('^ne\\d+')) %>%
+        dplyr::ungroup()
 
     ds <- ds %>%
-        full_join(ds %>%
-                      filter(VN == 1) %>%
-                      select(SID, TotalNE, matches('^ne\\d+')) %>%
-                      mutate_each(funs((. / TotalNE) * 100), matches('^ne\\d+')) %>%
-                      select(-TotalNE) %>%
-                      setNames(paste0('pct_', names(.))) %>%
-                      rename(SID = pct_SID),
+        dplyr::full_join(ds %>%
+                      dplyr::filter(VN == 1) %>%
+                      dplyr::select(SID, TotalNE, dplyr::matches('^ne\\d+')) %>%
+                      dplyr::mutate_each(dplyr::funs((. / TotalNE) * 100), dplyr::matches('^ne\\d+')) %>%
+                      dplyr::select(-TotalNE) %>%
+                      stats::setNames(paste0('pct_', names(.))) %>%
+                      dplyr::rename(SID = pct_SID),
                   by = 'SID')
 
         # full_join(
@@ -81,7 +87,7 @@
         #     by = 'SID'
         # ) %>%
     ds <- ds %>%
-        mutate(
+        dplyr::mutate(
             VN = plyr::mapvalues(VN, c(1, 3, 6), c(0, 1, 2)),
             f.VN = factor(VN, c(0, 1, 2), c('yr0', 'yr3', 'yr6')),
             Dysgly = plyr::mapvalues(as.character(IFG + IGT + DM), c('0', '1'), c('No', 'Yes')),
@@ -100,8 +106,8 @@
                       'Other', 'South Asian')
                 )
         ) %>%
-        arrange(SID, VN) %>%
-        filter(!is.na(TotalNE))
+        dplyr::arrange(SID, VN) %>%
+        dplyr::filter(!is.na(TotalNE))
 
     print(paste0('Working dataset rows are ', dim(ds)[1], ' and columns are ', dim(ds)[2]))
 
@@ -110,6 +116,8 @@
         message('There are duplicate values.')
 
     # Final dataset object
-    # Save the dataset as an RData file.
-    saveRDS(ds, file = file.path('data', 'data.Rds'))
+    project_data <- ds
+
+    # Save the dataset to the data/ folder.
+    devtools::use_data(project_data, overwrite = TRUE)
 }
