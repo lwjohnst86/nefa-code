@@ -8,12 +8,14 @@
 # Renaming ----------------------------------------------------------------
 
 renaming_table_rows <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('IGIIR', 'IGI/IR', .) %>%
         gsub('ISSI2', 'ISSI-2', .) %>%
         gsub('HOMA', 'HOMA-IR', .) %>%
         gsub('TAG', 'TAG (mmol/L)', .) %>%
         gsub('Chol', 'Chol (mmol/L)', .) %>%
+        gsub('ALT', 'ALT (U/L)', .) %>%
         gsub('LDL', 'LDL (mmol/L)', .) %>%
         gsub('HDL', 'HDL (mmol/L)', .) %>%
         gsub('BaseTotalNE', 'NEFA (nmol/mL)', .) %>%
@@ -23,6 +25,7 @@ renaming_table_rows <- function(x) {
 }
 
 renaming_outcomes <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('linvHOMA', 'log(1/HOMA-IR)', .) %>%
         gsub('lISI', 'log(ISI)', .) %>%
@@ -34,6 +37,7 @@ renaming_outcomes <- function(x) {
 }
 
 renaming_fa <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('.*(\\d\\d)(\\d)', '\\1:\\2', .) %>%
         gsub('n(\\d)$', 'n-\\1', .) %>%
@@ -43,11 +47,13 @@ renaming_fa <- function(x) {
 }
 
 renaming_fraction <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         gsub('ne', 'Non-esterified', .)
 }
 
 renaming_list <- function(x) {
+    `%>%` <- magrittr::`%>%`
     x %>%
         renaming_fa() %>%
         renaming_outcomes()
@@ -65,7 +71,7 @@ analyze_gee <- function(data, y, x, covar, unit,
     }
     gee_results <- data %>%
         mason::design('gee') %>%
-        mason::add_settings(family = gaussian('identity'), corstr = 'ar1', cluster.id = 'SID') %>%
+        mason::add_settings(family = stats::gaussian('identity'), corstr = 'ar1', cluster.id = 'SID') %>%
         mason::add_variables('yvars', y) %>%
         mason::add_variables('xvars', x) %>%
         mason::add_variables('covariates', covar) %>% {
@@ -100,7 +106,7 @@ analyze_gee <- function(data, y, x, covar, unit,
 analyze_lcmm <- function(data, lc.var = 'lISSI2') {
     data.prep <- data %>%
         dplyr::select_('SID', lc.var, 'VN') %>%
-        na.omit() %>%
+        stats::na.omit() %>%
         dplyr::arrange(SID, VN)
     lcmm_results <- lcmm::lcmm(
         lISSI2 ~ VN,
@@ -115,7 +121,7 @@ analyze_lcmm <- function(data, lc.var = 'lISSI2') {
 analyze_plsda <- function(data, variable = 'ClassLCMM') {
     data.prep <- data %>%
         dplyr::filter(VN == 0) %>%
-        dplyr::select(contains(variable), matches('^pct_ne\\d\\d')) %>%
+        dplyr::select(dplyr::contains(variable), dplyr::matches('^pct_ne\\d\\d')) %>%
         na.omit()
 
     if (length(caret::nearZeroVar(data.prep[2:dim(data.prep)[2]])) != 0)
@@ -143,12 +149,12 @@ analyze_plsda <- function(data, variable = 'ClassLCMM') {
 get_gee_data <- function(data, fa = 'pct_ne|^ne') {
     gee_ready_data <- dplyr::full_join(
         data %>%
-            dplyr::select(-matches(fa), -TotalNE),
+            dplyr::select(-dplyr::matches(fa), -TotalNE),
         ## Scale all the fatty acids
         data %>%
             dplyr::filter(VN == 0) %>%
-            dplyr::select(SID, TotalNE, matches(fa)) %>%
-            dplyr::mutate_each(funs(as.numeric(scale(
+            dplyr::select(SID, TotalNE, dplyr::matches(fa)) %>%
+            dplyr::mutate_each(dplyr::funs(as.numeric(scale(
                 .
             ))),-SID),
         by = 'SID'
@@ -179,7 +185,7 @@ get_dysglycemia_data <- function(data) {
                 dplyr::filter(VN == 0),
             data %>%
                 dplyr::filter(!is.na(TotalNE)) %>%
-                dplyr::mutate_each(funs(ifelse(is.na(.), 0, .)), IFG, IGT) %>%
+                dplyr::mutate_each(dplyr::funs(ifelse(is.na(.), 0, .)), IFG, IGT) %>%
                 dplyr::mutate(PreDM = as.numeric(rowSums(.[c('IFG', 'IGT')], na.rm = TRUE))) %>%
                 dplyr::mutate(FactorDysgly = ifelse(
                     PreDM == 1, 'PreDM',
@@ -222,7 +228,7 @@ plot_lcmm_results <- function(results.lcmm) {
     results.lcmm %>%
         ggplot2::ggplot(ggplot2::aes(f.VN, lISSI2, group = SID, colour = ClassLCMM)) +
         ggplot2::geom_line(ggplot2::aes(group = SID, colour = ClassLCMM), size = 0.1, alpha = 0.9) +
-        ggplot2::geom_smooth(aes(group = ClassLCMM), method = "loess", size = 2)  +
+        ggplot2::geom_smooth(ggplot2::aes(group = ClassLCMM), method = "loess", size = 2)  +
         ggplot2::labs(x = "Time", y = "log(ISSI-2)", colour = "Latent Class") +
         ggplot2::scale_x_discrete(labels = c('Baseline', 'Year 3', 'Year 6'), expand = c(0.05, 0.05)) +
         graph_theme()
@@ -243,8 +249,8 @@ plot_gee_results <- function(results.gee, leg = 'bottom') {
 plot_nefa_distribution <- function(data) {
     data %>%
         dplyr::filter(VN == 0) %>%
-        dplyr::select(SID, matches('^ne\\d')) %>%
-        dplyr::filter(complete.cases(.)) %>%
+        dplyr::select(SID, dplyr::matches('^ne\\d')) %>%
+        dplyr::filter(stats::complete.cases(.)) %>%
         tidyr::gather(Measure, Value,-SID) %>%
         dplyr::mutate(Measure = renaming_fa(Measure) %>%
                    gsub('ne_', '', .)) %>%
@@ -254,7 +260,7 @@ plot_nefa_distribution <- function(data) {
             order1 = ifelse(order1 == 'l', 20, order1),
             order1 = as.integer(order1)
         ) %>%
-        dplyr::arrange(desc(order1)) %>%
+        dplyr::arrange(dplyr::desc(order1)) %>%
         dplyr::select(-order1) %>%
         dplyr::mutate(Measure = Measure %>%
                    factor(., levels = unique(.))) %>%
@@ -338,6 +344,19 @@ plot_heatmap <- function(data, x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT',
 
 # Calculate or extract for inline -----------------------------------------
 
+calculate_sample <- function(data) {
+    data %>%
+        dplyr::tbl_df() %>%
+        dplyr::select(VN, HOMA, ISI, IGIIR, ISSI2) %>%
+        tidyr::gather(Measure, Value, -VN) %>%
+        stats::na.omit() %>%
+        dplyr::group_by(Measure, VN) %>%
+        dplyr::summarize(n = n()) %>%
+        dplyr::ungroup() %>%
+        #group_by(Measure) %>%
+        dplyr::summarise(range = paste0(min(n), ' to ', max(n)))
+}
+
 calculate_conversion_dysgly <- function(data, variable = c('ConvertDM', 'ConvertPreDM')) {
     variable <- match.arg(variable)
 
@@ -364,7 +383,7 @@ calculate_ngroups_lcmm <- function(results.lcmm) {
 calculate_percent_nefa_contribution <- function(data) {
     over_10pct_nefa <- data %>%
         dplyr::filter(VN == 0) %>%
-        dplyr::select(matches('pct_ne')) %>%
+        dplyr::select(dplyr::matches('pct_ne')) %>%
         tidyr::gather(fat, value) %>%
         dplyr::group_by(fat) %>%
         dplyr::summarise(pct = round(mean(value, na.rm = TRUE), 1)) %>%
@@ -399,9 +418,9 @@ calculate_outcomes_pct_change <- function(data) {
     prep.data <- data %>%
         dplyr::select(f.VN, HOMA, ISI, IGIIR, ISSI2) %>%
         tidyr::gather(Measure, Value,-f.VN) %>%
-        na.omit() %>%
+        stats::na.omit() %>%
         dplyr::group_by(Measure, f.VN) %>%
-        dplyr::summarise(med = median(Value),
+        dplyr::summarise(med = stats::median(Value),
                          n = n()) %>%
         dplyr::ungroup()
 
@@ -417,13 +436,13 @@ calculate_outcomes_pct_change <- function(data) {
         round(0) %>%
         {paste0(min(.), '% to ', max(.), '%')}
 
-    pval <- design(data, 'gee') %>%
-        add_settings(family = gaussian, corstr = 'ar1', cluster.id = 'SID') %>%
-        add_variables('yvars', c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')) %>%
-        add_variables('xvars', 'VN') %>%
-        construct() %>%
-        scrub() %>%
-        polish_filter('Xterm$', 'term') %>%
+    pval <- mason::design(data, 'gee') %>%
+        mason::add_settings(family = stats::gaussian(), corstr = 'ar1', cluster.id = 'SID') %>%
+        mason::add_variables('yvars', c('linvHOMA', 'lISI', 'lIGIIR', 'lISSI2')) %>%
+        mason::add_variables('xvars', 'VN') %>%
+        mason::construct() %>%
+        mason::scrub() %>%
+        mason::polish_filter('Xterm$', 'term') %>%
         dplyr::summarise(p.value = mean(p.value)) %>%
         dplyr::mutate(p.value = format.pval(p.value, digits = 2, eps = 0.001))
 
@@ -478,7 +497,7 @@ extract_gee_estimateCI <- function(data) {
 
 table_gee <- function(results, caption, digits = 1) {
     gee_table_prep <- results %>%
-        dplyr::mutate_each(funs(trim_ws(format(
+        dplyr::mutate_each(dplyr::funs(trim_ws(format(
             round(., digits), nsmall = digits
         ))), estimate, conf.low, conf.high) %>%
         dplyr::mutate(
@@ -510,57 +529,54 @@ table_basic <- function(data, caption) {
                       Sex = ifelse(VN == 0, as.character(Sex), NA),
                       Sex = as.factor(Sex)) %>%
         carpenter::outline_table(
-            c(
-                'BaseTotalNE',
-                'HOMA',
-                'ISI',
-                'IGIIR',
-                'ISSI2',
-                'TAG',
-                'Chol',
-                'BMI',
-                'Waist',
-                'HDL',
-                'FamHistDiab',
-                'Age',
-                'Ethnicity',
-                'Sex',
-                'MET',
-                'ALT',
-                'IFG',
-                'IGT',
-                'DM'
-            ),
+            # c(
+            #     'BaseTotalNE',
+            #     'HOMA',
+            #     'ISI',
+            #     'IGIIR',
+            #     'ISSI2',
+            #     'TAG',
+            #     'Chol',
+            #     'BMI',
+            #     'Waist',
+            #     'HDL',
+            #     'FamHistDiab',
+            #     'Age',
+            #     'Ethnicity',
+            #     'Sex',
+            #     'MET',
+            #     'ALT',
+            #     'IFG',
+            #     'IGT',
+            #     'DM'
+            # ),
             'f.VN'
         ) %>%
-        carpenter::add_rows(c('HOMA', 'ISI'), carpenter::stat_medianIQR, digits = 1) %>%
-        carpenter::add_rows(c('IGIIR', 'ISSI2'), carpenter::stat_medianIQR, digits = 1) %>%
-        carpenter::add_rows(c('BMI', 'Waist'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(c('ALT', 'TAG', 'Chol', 'HDL', 'BaseTotalNE', 'MET', 'Age'),
+        carpenter::add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'),
+                            carpenter::stat_medianIQR, digits = 1) %>%
+        carpenter::add_rows(c('BMI', 'Waist', 'Age', 'MET', 'ALT', 'TAG', 'Chol', 'HDL',
+                              'BaseTotalNE'),
                             carpenter::stat_meanSD,
                             digits = 1) %>%
         carpenter::add_rows(c('Ethnicity', 'Sex'), carpenter::stat_nPct, digits = 0) %>%
-        carpenter::rename_rows(renaming_table_rows) %>%
-        carpenter::rename_columns('Measure', 'Baseline', '3-yr', '6-yr') %>%
-        carpenter::construct_table(caption = caption)
+        carpenter::renaming('rows', renaming_table_rows) %>%
+        carpenter::renaming('header', function(x) c('Measure', 'Baseline', '3-yr', '6-yr')) %>%
+        carpenter::build_table(caption = caption)
 }
 
 table_distribution <- function(data, caption) {
     fatty.acid.species <- grep('^ne\\d\\d|^TotalNE', names(data), value = TRUE)
     grep_nefa <- function(pattern, x = fatty.acid.species)
-        grep(pattern, x, value = TRUE)
+        rev(grep(pattern, x, value = TRUE))
+    nefa <- c(grep_nefa('3$'), grep_nefa('6$'), grep_nefa('7$'),
+              grep_nefa('9$'), grep_nefa('0$'), grep_nefa('TotalNE$'))
     data %>%
         dplyr::filter(VN == 0) %>%
-        carpenter::outline_table(., fatty.acid.species, 'f.VN') %>%
-        carpenter::add_rows(grep_nefa('3$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('6$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('7$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('9$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('0$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::add_rows(grep_nefa('TotalNE$'), carpenter::stat_meanSD, digits = 1) %>%
-        carpenter::rename_columns('NEFA', 'Concentrations (nmol/mL)') %>%
-        carpenter::rename_rows(renaming_fa) %>%
-        carpenter::construct_table(caption = caption)
+        carpenter::outline_table('f.VN') %>%
+        carpenter::add_rows(nefa, carpenter::stat_meanSD, digits = 1) %>%
+        carpenter::renaming('header', function(x) c('NEFA', 'Concentrations (nmol/mL)')) %>%
+        carpenter::renaming('rows', renaming_fa) %>%
+        carpenter::build_table(caption = caption)
 }
 
 # Misc --------------------------------------------------------------------
@@ -573,7 +589,7 @@ trim_ws <- function (x) {
 tidy_gee_results <- function(results.gee) {
     results.gee %>%
         dplyr::rename(unadj.p.value = p.value, p.value = adj.p.value) %>%
-        dplyr::arrange(desc(order1)) %>%
+        dplyr::arrange(dplyr::desc(order1)) %>%
         dplyr::mutate(Yterms = factor(
             Yterms,
             levels = c('log(1/HOMA-IR)', 'log(ISI)',
@@ -588,14 +604,14 @@ tidy_gee_results <- function(results.gee) {
 graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legend.pos = 'bottom') {
     graph.theme <-
         ggplot2::"%+replace%"(
-            ggthemes::theme_tufte(base_size = 10, base_family = 'Arial'),
+            ggthemes::theme_tufte(base_size = 10, base_family = 'sans'),
             ggplot2::theme(
-                axis.line = ggplot2::element_line('black'),
-                axis.line.x = ggplot2::element_line('black'),
-                axis.line.y = ggplot2::element_line('black'),
+                axis.line = ggplot2::element_line('black', size = 0.75),
+                axis.line.x = ggplot2::element_line('black', size = 0.75),
+                axis.line.y = ggplot2::element_line('black', size = 0.75),
                 legend.key.width = grid::unit(0.7, "line"),
                 legend.key.height = grid::unit(0.7, "line"),
-                strip.background = element_blank(),
+                strip.background = ggplot2::element_blank(),
                 plot.margin = grid::unit(c(0.5, 0, 0, 0), "cm"),
                 legend.position = legend.pos
             )
@@ -603,7 +619,7 @@ graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legen
 
     if (!ticks) {
         graph.theme <- ggplot2::"%+replace%"(graph.theme,
-                                            ggplot2::theme(axis.ticks.y = element_blank()))
+                                            ggplot2::theme(axis.ticks.y = ggplot2::element_blank()))
     }
 
     if (minor.grid.lines) {
@@ -620,6 +636,7 @@ graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legen
 }
 
 example_plsda_results <- function() {
+    library(caret)
     data(mdrr)
     set.seed(1)
     inTrain <- sample(seq(along = mdrrClass), 450)
