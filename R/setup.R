@@ -1,55 +1,27 @@
-#' Code preamble
-#' =============
+# Setup description -------------------------------------------------------
+#
+# These functions are used to setup your files so that all options are in one
+# location, and references via the function call.
+#
+# These functions can be accessed using either `library(projectname)` or
+# `devtools::load_all()` (Ctrl-Shift-L in RStudio).
+
+#' Set options for all documents and scripts.
 #'
-#' Install packages if they are not installed and load them. Set options for
-#' the packages.
+#' @export
+#' @importFrom magrittr %>%
 #'
-run_setup <- function() {
-    # Run the following packages for setup
-    .load_packages()
-    .set_options()
-    .load_packages()
-    .load_packages()
-}
-
-.load_packages <- function() {
-    # May need to run this function another time if a package needs to be
-    # installed.
-    #
-    # Add your packages you want to use here, using the following format:
-    # - For pre-bundled packages
-
-    # - For CRAN packages:
-    # if (!require(package)) install.packages('package')
-    if (!require(lcmm)) install.packages('lcmm')
-    if (!require(caret)) install.packages('caret')
-    if (!require(fdrtool)) install.packages('fdrtool')
-    if (!require(captioner)) install.packages('captioner')
-    if (!require(tidyr)) install.packages('tidyr')
-    if (!require(ggplot2)) install.packages('ggplot2')
-    if (!require(pander)) install.packages('pander')
-    if (!require(knitr)) install.packages('knitr')
-    if (!require(DiagrammeR)) install.packages('DiagrammeR')
-    if (!require(MuMIn)) install.packages('MuMIn')
-    if (!require(geepack)) install.packages('geepack')
-    if (!require(magrittr)) install.packages('magrittr')
-    if (!require(dplyr)) install.packages('dplyr')
-    if (!require(mason)) install.packages('mason')
-    # - For github packages:
-    # if (!require(package)) packrat::install_github('username/package')
-
-    # How to manage local? Not sure.
-    library(carpenter) #github: lwjohnst86/carpenter
-    library(seer) #github: lwjohnst86/seer
-}
-
-.set_options <- function() {
+#' @examples
+#'
+#' set_options()
+#'
+set_options <- function() {
     # Set the options here for individual packages
 
     # For tables (pander)
-    panderOptions('table.split.table', Inf)
-    panderOptions('table.style', 'rmarkdown')
-    panderOptions('table.alignment.default',
+    pander::panderOptions('table.split.table', Inf)
+    pander::panderOptions('table.style', 'rmarkdown')
+    pander::panderOptions('table.alignment.default',
                   function(df)
                       ifelse(sapply(df, is.numeric), 'center', 'left'))
 
