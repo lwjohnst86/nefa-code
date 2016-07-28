@@ -351,7 +351,9 @@ explanation of GEE, PLS-DA, and LCMM, please see the ESM Methods.
 All analyses were performed using R `r getRversion()` [@Rbase], along with the R
 packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a], caret
 `r packageVersion('caret')` for PLS-DA, and lcmm `r packageVersion('lcmm')` for
-LCMM. The R code for this manuscript is available at https://figshare.com/s/a45a1e1eec5d9421eba3. Results were considered statistically significance at p<0.05,
+LCMM. The R code for this manuscript is available at 
+https://dx.doi.org/10.6084/m9.figshare.3472433
+. Results were considered statistically significance at p<0.05,
 after adjusting for multiple testing using the Benjamini-Hochberg False
 Discovery Rate [@Benjamini1995a]. STROBE was used as a guideline for reporting [@Vandenbroucke2007b].
 
