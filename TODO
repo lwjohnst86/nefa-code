@@ -3,4 +3,36 @@ TODO Reorganized code and analysis flow to fit new prodigenr setup
 TODO Created file for response to reviewers
 TODO First draft response to Reviewer 1
 TODO First draft response to Reviewer 2
-TODO Added TODO items based on reviewer comments and Tony's thoughts
+DONE Added TODO items based on reviewer comments and Tony's thoughts
+TODO Added vignette exploring meds use and NEFA
+TODO Included meds use and influence on NEFA in manuscript
+TODO Moved non-GEE modeling methods and results into supplemental
+TODO Added regular PLS to manuscript (as done in TAGFA)
+TODO Changed title to be more agnostic in results
+TODO Fixed abstract as per reviewer 2
+TODO Included prevalent/incident diabetes and prediabetes in results
+TODO Clarified in methods (and code) that diabetes cases were excluded
+TODO Used HOMA2 instead of HOMA
+TODO Ran sensitivity analysis with and without waist
+TODO Included equations in text of either methods or supplemental
+TODO Clarified which variables were time dependent/independenta
+TODO Included p-value in table 1 # (yea?)
+TODO Clarified outcome change in results, used GEE for p value
+TODO Included unadjusted (time only) GEE figure
+TODO Included unadjusted (time only) GEE in text in results
+TODO Added interaction testing before and after adjustment in vignette
+TODO Changed to using YearsFromBaseline, compared in vignette
+TODO Clarified interpretation of GEE estimates in methods and results
+TODO Included DAG figures from DAGitty in supplemental
+TODO Discussed over-adjustment in methods and discussion # maybe?
+TODO Ran a sensitivity analysis stratified by sex in vignette
+TODO Ran sensitivity analysis using confounders as time independent (gee.Rmd)
+TODO Added reference as per Editor's request
+TODO Moved PLS-DA and other, non-GEE modeling over into vignettes
+TODO Moved non-manuscript files over into vignette
+TODO Second draft of response, sent to Tony # Create branch
+TODO Sent to co-authors # create branch
+TODO Added edits as per co-authors suggestions
+TODO Resubmitted to Diabetologia
+>>> v1.0.0
+    Resubmitted to Diabetologia
