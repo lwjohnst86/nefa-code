@@ -3,19 +3,29 @@
 
 ## Referee: 1
 
-First, I would like to congratulate you for the exhaustive and complete
+1. *First, I would like to congratulate you for the exhaustive and complete
 research work that has been done for this paper. I think the statistical study
 is very successful and useful for researchers who have accumulated a large
 database and need a method with the ability to handle a large number of
 variables and their interactions. I really liked read in the discussion the
 negative points of the study, with which I fully agree, and not an attempt to
 hide the limitations of any scientific work. In retrospect, perhaps it will miss
-data that clarify the pre-diabetic state, or not, of the patients (HbA1c or
-C-peptide). I think it would be good for the study know if some patients were
-taking any medication that could affect the results. Although it is a
+data that **clarify the pre-diabetic state, or not, of the patients (HbA1c or
+C-peptide)**. I think it would be good for the study know if some patients were
+taking **any medication that could affect the results**. Although it is a
 complicated scientific work to understand for researchers who do not usually use
 this kind of statistical studies, I believe that is described in a very
-appropriate and clear manner.
+appropriate and clear manner.*
+
+    We thank the reviewer for these comments. {{not sure about comment on
+    pre-diabetes}}. In the PROMISE cohort, we collected medication use data from
+    all participants. While most participants took some form of medication over
+    the 6 years, during the times of data collection, few ({{get number}}) were
+    on medications. However, for those who were taking medications that could
+    influence the results, sensitivity analyses revealed they did not
+    substantially influence NEFA concentrations, the outcome measures, nor the
+    GEE model results {{need to run/confirm this}}. These results have been
+    appended to the ESM {{yes?}}.
 
 ## Referee: 2
 

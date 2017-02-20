@@ -1,9 +1,9 @@
 
 TODO Reorganized code and analysis flow to fit new prodigenr setup
-TODO First draft response to Reviewer 1
+DONE First draft response to Reviewer 1
 TODO First draft response to Reviewer 2
 DONE Added TODO items based on reviewer comments and Tony's thoughts
-TODO Added vignette exploring meds use and NEFA
+TODO Added vignette exploring meds use and NEFA (look into fibrates)
 TODO Included meds use and influence on NEFA in manuscript
 TODO Moved non-GEE modeling methods and results into supplemental
 TODO Added regular PLS to manuscript (as done in TAGFA)
