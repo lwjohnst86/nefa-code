@@ -121,13 +121,11 @@ the p-value...?
 -->
 
 ```{r knit_setup, echo=FALSE}
-#knitr::opts_knit$set(root.dir = '../')
+knitr::opts_chunk$set(echo = FALSE, dev = c('cairo_ps'))
 ```
 
 ```{r setup, message=FALSE, echo=FALSE}
-#source('.Rprofile')
-devtools::load_all()
-set_options()
+devtools::load_all('.')
 ds <- project_data
 ds0yr <- dplyr::filter(ds, VN == 0)
 ```
