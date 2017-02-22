@@ -1,3 +1,6 @@
+---
+output: fost::default_manuscript
+---
 
 # Responses to reviewers
 
@@ -18,7 +21,7 @@ this kind of statistical studies, I believe that is described in a very
 appropriate and clear manner."*
 
     We thank the reviewer for these comments. {{not sure about comment on
-    pre-diabetes}}. In the PROMISE cohort, we collected medication use data from
+    pre-diabetes}}. In the PROMISE cohort, we collected medication data from
     all participants. While most participants took some form of medication over
     the 6 years, during the times of data collection, few ({{get number}}) were
     on medications. However, for those who were taking medications that could
@@ -81,8 +84,9 @@ time variable instead of adjusting for time"*
     analyses used more explicitly. Incident diabetes cases are presented only
     for descriptive purposes and were not included in any further analysis. We
     thank the reviewer for the suggestion and agree that using time since
-    baseline is a better variable to adjust for; they have been replaced in GEE
-    models, though the change does not substantially impact the final results.
+    baseline is a better variable to adjust for; the time variable has been
+    replaced in GEE models, though the change does not substantially impact the
+    final results. {{confirm}}
 
 3. *"Results in the abstract: a major problem in my view with the
 interpretation of the results is that all characteristics are taken as
@@ -127,6 +131,8 @@ and hypothesis"*
     
         We have included the equations for the outcome measures as requested. In
         addition, we replaced HOMA-IR with HOMA2-%S from the HOMA2 Calculator.
+        The results were not substantially different after the replacement of
+        HOMA-IR. {{confirm}}
         
     - *"In the statistical analysis you state that co-variates were
     time-dependent. This is not true for age at baseline, family history, sex,
@@ -143,7 +149,7 @@ and hypothesis"*
         {{bit confused about this one. Will need to look into the wording in the
         manuscript.}}
 
-7. RESULTS:
+7. *"RESULTS:"*
     - *"Please give ns in Table 1."* ... *"It would be also nice to see, how
     many participants had 1, 2 or 3 time points in the analysis."*
     
@@ -152,11 +158,11 @@ and hypothesis"*
     - *"How were the changes calculated (GEE?) in the basic characteristics of
     the PROMISE cohort section?"*
     
-        {{not completely sure what is meant here}} The changes as reported in
-        the results of the outcome variables are simple median differences
-        between the baseline and 6-year visit. The p-value {{confirm this is
-        added}} representing the difference was computed using an unadjusted GEE
-        model.
+        {{not completely sure what is meant here}} The changes over time as
+        reported in the results of the outcome variables are simple median
+        differences between the baseline and 6-year visit. The p-value {{confirm
+        this is added}} representing the difference was computed using an
+        unadjusted GEE model.
     
     - *"I suggest to include the unadjusted data to the main paper (ESM Figure 3)
     and describe these findings as we do not know the exact model where
@@ -164,7 +170,7 @@ and hypothesis"*
     
         The unadjusted results and figure has been added to the main paper and
         described in the results section. We've also added a sensitivity
-        analysis confirming which covariate attenuates the associations.
+        analysis confirming which covariate(s) attenuates the associations.
     
     - *"In a trajectory analysis, the interaction between time and the main
     predictor (NEFA in this case) is of major interest. The authors check for
@@ -182,11 +188,13 @@ and hypothesis"*
         report on the results in the paper. In simple terms, the reviewer is
         correct that without an interaction term the model is essentially
         "repeated cross-sectional analyses", however, GEE handles the analysis
-        in a slightly more nuanced method. GEE calculates the estimates of the
+        in a slightly more nuanced approach. GEE calculates the estimates of the
         association of NEFA on the outcomes at any given time point, taking into
         consideration the inherent multivariate structure of the repeated
-        measurements of the outcome variables. This nuance provides
-        substantially more power to the model and the proceeding results.
+        measurements of the outcome variables. As such, inherent similarities in
+        the outcome measurements over time within a subject are included in the
+        computation of the GEE estimates. This nuance provides substantially
+        more power to the model and the proceeding results.
     
     - *"The model building is based on literature data which is the right way to
     build the models but a more detailed discussion on over-adjustment is
@@ -223,7 +231,7 @@ and hypothesis"*
         analyses stratified by sex and ethnicity. We mention the results of this
         analysis in the results.
 
-8. DISCUSSION
+8. *"DISCUSSION"*
     - *"I would like to see more on the DAGs that underlies the selected
     variables in the models. That would either confirm the way the analysis is
     currently performed, or would show that some of the adjustments are
