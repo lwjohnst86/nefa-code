@@ -30,7 +30,7 @@ TODO Ran a sensitivity analysis stratified by sex in vignette
 TODO Ran sensitivity analysis using confounders as time independent (gee.Rmd)
 TODO Added reference as per Editor's request
 TODO Moved PLS-DA and other, non-GEE modeling over into vignettes
-TODO Moved non-manuscript files over into vignette
+DONE Moved non-manuscript files over into vignette
 TODO Second draft of response, sent to Tony # Create branch
 TODO Sent to co-authors # create branch
 TODO Added edits as per co-authors suggestions
