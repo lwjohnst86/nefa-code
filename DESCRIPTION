@@ -32,7 +32,10 @@ Imports:
     grid,
     tibble
 Suggests:
-    DiagrammeR
+    DiagrammeR,
+    knitr,
+    rmarkdown
 Remotes: github::lwjohnst86/carpenter
     github::lwjohnst86/seer
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr
