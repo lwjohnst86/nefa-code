@@ -13,9 +13,9 @@ database and need a method with the ability to handle a large number of
 variables and their interactions. I really liked read in the discussion the
 negative points of the study, with which I fully agree, and not an attempt to
 hide the limitations of any scientific work. In retrospect, perhaps it will miss
-data that **clarify the pre-diabetic state, or not, of the patients (HbA1c or
-C-peptide)**. I think it would be good for the study know if some patients were
-taking **any medication that could affect the results**. Although it is a
+data that clarify the pre-diabetic state, or not, of the patients (HbA1c or
+C-peptide). I think it would be good for the study know if some patients were
+taking any medication that could affect the results. Although it is a
 complicated scientific work to understand for researchers who do not usually use
 this kind of statistical studies, I believe that is described in a very
 appropriate and clear manner."*
