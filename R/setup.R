@@ -9,7 +9,6 @@
 #' Set options for all documents and scripts.
 #'
 #' @export
-#' @importFrom magrittr %>%
 #'
 #' @examples
 #'
@@ -31,3 +30,6 @@ set_options <- function() {
     )
 }
 
+#' @importFrom magrittr %>%
+#' @export
+`%>%` <- magrittr::`%>%`
