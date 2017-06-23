@@ -91,9 +91,11 @@ fetch_data <- function() {
     if (any(duplicated(ds[c('SID', 'VN')])))
         message('There are duplicate values.')
 
-    # Final dataset object
-    project_data <- ds
-
     # Save the dataset to the data/ folder.
+    project_data <- ds
     devtools::use_data(project_data, overwrite = TRUE)
+
+    # Save the variable names as an internal dataset
+    vars <- names(project_data)
+    devtools::use_data(vars, internal = TRUE, overwrite = TRUE)
 }
