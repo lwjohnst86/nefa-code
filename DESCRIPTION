@@ -13,7 +13,6 @@ LazyData: true
 Imports:
     lcmm,
     caret,
-    fdrtool,
     captioner,
     tidyr,
     ggplot2,
@@ -30,12 +29,14 @@ Imports:
     devtools,
     pryr,
     grid,
-    tibble
+    tibble,
+    rfigshare,
+    forcats
 Suggests:
     DiagrammeR,
     knitr,
     rmarkdown
-Remotes: github::lwjohnst86/carpenter
-    github::lwjohnst86/seer
-RoxygenNote: 5.0.1
+Remotes:
+    github:lwjohnst86/seer
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
