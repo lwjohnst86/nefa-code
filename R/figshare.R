@@ -6,7 +6,8 @@ library(rfigshare)
 # 3. git commit the files
 # 4. git archive --format=zip --output=git-nefa-code.zip manuscript-code #(branch name)
 # 5. then run the below code
-id <- fs_new_article("Analysis code for study on non-esterified fatty acids and the pathogenesis of diabetes",
+send_to_figshare <- function() {
+fs_new_article("Analysis code for study on non-esterified fatty acids and the pathogenesis of diabetes",
                      "R code used for the analysis in the NEFA manuscript.",
                      type = "fileset",
                      # there was a problem with the authors...
@@ -18,5 +19,7 @@ id <- fs_new_article("Analysis code for study on non-esterified fatty acids and 
                               "cohort", "longitudinal"),
                      categories = c("Diseases", "Pathogenesis", "Epidemiology"),
                      #links = "link to github",
-                     files = "git-nefa-code.zip",
+                    links = "https://github.com/lwjohnst86/nefa-code",
+                     files = "code-archive.zip",
                      visibility = "draft")
+}
