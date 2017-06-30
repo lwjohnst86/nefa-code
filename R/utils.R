@@ -1,8 +1,14 @@
 
 # Misc --------------------------------------------------------------------
 
-# Trim white space
-trim_ws <- trimws
+#' Round a number to precisely the digit indicated (e.g. "1.0", not "1").
+#'
+#' @param x numeric vector
+#' @param digits digits to round to
+#'
+precise_rounding <- function(x, digits = 1) {
+    trimws(format(round(x, digits = digits), nsmall = digits))
+}
 
 graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legend.pos = 'bottom') {
     graph.theme <-
