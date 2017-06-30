@@ -68,20 +68,8 @@ fetch_data <- function() {
             VN = plyr::mapvalues(VN, c(1, 3, 6), c(0, 1, 2)),
             f.VN = factor(VN, c(0, 1, 2), c('yr0', 'yr3', 'yr6')),
             Dysgly = plyr::mapvalues(as.character(IFG + IGT + DM), c('0', '1'), c('No', 'Yes')),
-            Ethnicity =
-                plyr::mapvalues(
-                    Ethnicity,
-                    c(
-                        'African',
-                        'European',
-                        'First Nations',
-                        'Latino/a',
-                        'Other',
-                        'South Asian'
-                    ),
-                    c('Other', 'European', 'Other', 'Latino/a',
-                      'Other', 'South Asian')
-                )
+            Ethnicity = forcats::fct_other(Ethnicity, keep = c("European", "Latino/a", "South Asian")),
+            BiEthnicity = forcats::fct_other(Ethnicity, keep = "European", other_level = "Non-European")
         ) %>%
         dplyr::arrange(SID, VN) %>%
         dplyr::filter(!is.na(TotalNE))
