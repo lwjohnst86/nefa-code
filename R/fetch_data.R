@@ -5,6 +5,7 @@
 #' the new dataset as an `.RData` file.
 #'
 #' @return Saves the wrangled data into the data/ folder.
+#' @export
 #'
 fetch_data <- function() {
     # Load the master dataset,
