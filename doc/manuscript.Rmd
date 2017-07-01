@@ -120,17 +120,11 @@ the p-value...?
 
 -->
 
-```{r knit_setup, echo=FALSE}
-knitr::opts_chunk$set(echo = FALSE, dev = c('cairo_ps'))
-```
-
-```{r setup, message=FALSE, echo=FALSE}
+```{r setup, echo=FALSE}
 devtools::load_all('.')
-ds <- project_data
-ds0yr <- dplyr::filter(ds, VN == 0)
 ```
 
-```{r caption_setup}
+```{r captions}
 ## Include captions below using `captioner` package
 library(captioner)
 fig <- captioner(prefix = 'Fig.')
