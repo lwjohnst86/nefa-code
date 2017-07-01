@@ -59,3 +59,14 @@ plot_lcmm_results <- function(data, results, lc_var = "lISSI2") {
         graph_theme()
 }
 
+# Untested right now. Worked previously.
+calculate_ngroups_lcmm <- function(results.lcmm) {
+    n_by_group <- results.lcmm$pprob$class %>%
+        table %>%
+        as.data.frame
+    names(n_by_group) <- c('Group', 'Freq')
+    n_by_group <-
+        dplyr::mutate(n_by_group, Group = factor(Group, labels = c('Mid', 'High', 'Low')))
+
+    return(n_by_group)
+}
