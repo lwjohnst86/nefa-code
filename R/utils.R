@@ -43,3 +43,7 @@ graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legen
 
     return(graph.theme)
 }
+
+format_p <- function(x) {
+   format.pval(x, digits = 2, eps = 0.001)
+}
