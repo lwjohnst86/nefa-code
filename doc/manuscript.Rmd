@@ -88,8 +88,6 @@ fatty acids; diabetes pathogenesis; fatty acid composition
 ## Abbreviations:
 
 - GEE: Generalized estimating equations
-- LCMM: Latent curve mixed models
-- PLS-DA: Partial least squares regression discriminant analysis
 - IGI/IR: Insulinogenic index over HOMA-IR
 - ISI: Insulin Sensitivity Index (Matsuda index)
 - ISSI-2: Insulin Secretion-Sensitivity Index-2
