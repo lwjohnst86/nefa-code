@@ -135,18 +135,9 @@ stab <- captioner(prefix = 'ESM Table')
 cite_st <- pryr::partial(stab, display = 'cite')
 # usage: cite_st('basicChar')
 
-tab_basic <- tab('basicChar', 'Basic characteristics of the PROMISE participants at each of the 3 clinic visits.')
-fig_dist <- fig('nefaDist', 'Concentrations (nmol/mL) of each NEFA in PROMISE participants at the baseline visit (2004-2006).')
-fig_gee <- fig('gee', 'Longitudinal associations of individual NEFA (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. Fully adjusted generalized estimating equation models. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with the largest dot representing a significant (p<0.05) association.')
-
-sfig_consort <- sfig('consort', 'CONSORT diagram of sample size at each examination visit.')
-stab_qic <- stab('qic', 'Comparing generalized estimating equation models adjusting for different covariates using Quasi-Likelihood Information Criterion.')
-stab_dist <- stab('nefaDist', 'Raw concentration values (nmol/mL) of each non-esterified fatty acid in the PROMISE cohort at the baseline visit (2004-2006). Values are presented as mean (SD).')
-sfig_corr <- sfig('corr', 'Pearson correlation heatmap of non-esterified fatty acids (nmol/mL) and basic PROMISE participant characteristics for the baseline visit (2004-2006). Darkness of the colour indicates the magnitude of the correlation, with orange indicating positive and blue indicating negative correlations.')
-sfig_gee <- sfig('gee', 'Unadjusted generalized estimating equation modeling of the longitudinal association of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over 6 years in the PROMISE cohort. GEE models are only adjusted for time. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with the largest dot representing a significant (p<0.05) association (*).')
-stab_gee <- stab('gee', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. GEE models were adjusted for time, sex, ethnicity, baseline age, WC,
-ALT, and family history of diabetes. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, with significant (p<0.05) associations indicated by asterisk (*).')
-stab_gee_unadj <- stab('gee_unadj', 'Unadjusted generalized estimating equation models of the longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort.  GEE models are only adjusted for time. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, with significant (p<0.05) associations indicated by asterisk.')
+tab_basic <- tab('basic', 'Basic characteristics of the PROMISE participants at each of the three clinic visits.')
+fig_dist <- fig('nefa', 'Concentrations (nmol/mL) of each NEFA in PROMISE participants at the baseline visit (2004-2006).')
+fig_gee <- fig('gee', 'Longitudinal associations of individual NEFA (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. Fully adjusted generalized estimating equation models, adjusting for time, WC, sex, ethnicity, baseline age, ALT, and family history of diabetes. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with the {{largest dot}} representing a significant (p<0.05) association.')
 ```
 
 # Introduction
