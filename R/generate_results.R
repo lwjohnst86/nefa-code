@@ -1,4 +1,16 @@
 
+#' Generate and save all the outputs of the analyses as datasets.
+#'
+#' @return Saves the various outputs of the analyses as datasets.
+#' @export
+generate_results <- function() {
+    generate_results_corr()
+    generate_results_gee()
+    generate_results_lcmm()
+    generate_data_dysgly()
+
+    invisible()
+}
 
 #' Generate and save the results from the GEE modeling as a dataset.
 #'
@@ -46,11 +58,16 @@ generate_results_corr <- function() {
     devtools::use_data(corr_results, overwrite = TRUE)
 }
 
-#' Generate and save all the outputs of the analyses as datasets.
+#' Generate results for LCMM modeling as a dataset.
 #'
-#' @return Saves the various outputs of the analyses as datasets.
-#' @export
-generate_results <- function() {
-    generate_results_corr()
-    generate_results_gee()
+generate_results_lcmm <- function() {
+    lcmm_results <- analyze_lcmm(project_data)
+    # Save output of results into dataset
+    devtools::use_data(lcmm_results, overwrite = TRUE)
+}
+
+generate_data_dysgly <- function() {
+    dysgly_data <- incident_dysglycemia_data(project_data)
+    # Save output of results into dataset
+    devtools::use_data(dysgly_data, overwrite = TRUE)
 }
