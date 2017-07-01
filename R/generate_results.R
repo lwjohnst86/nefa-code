@@ -8,6 +8,7 @@ generate_results <- function() {
     generate_results_gee()
     generate_results_lcmm()
     generate_data_dysgly()
+    generate_results_pls()
 
     invisible()
 }
@@ -66,8 +67,22 @@ generate_results_lcmm <- function() {
     devtools::use_data(lcmm_results, overwrite = TRUE)
 }
 
+#' Generate dataset that contains incident dysglycemia data.
+#'
 generate_data_dysgly <- function() {
     dysgly_data <- incident_dysglycemia_data(project_data)
     # Save output of results into dataset
     devtools::use_data(dysgly_data, overwrite = TRUE)
+}
+
+#' Generate dataset that has the PLS modeling results.
+#'
+generate_results_pls <- function() {
+    # Cross-validated (half size of dataset)
+    pls_cv_results <- analyze_pls(project_data, y = "lISSI2", cv = TRUE)
+    devtools::use_data(pls_cv_results, overwrite = TRUE)
+
+    # Full dataset
+    pls_full_results <- analyze_pls(project_data, y = "lISSI2", cv = FALSE)
+    devtools::use_data(pls_full_results, overwrite = TRUE)
 }
