@@ -61,7 +61,7 @@ diabetes.
 Methods: In the PROMISE cohort, 477 participants had serum
 NEFA measured at the baseline visit and completed an OGTT at 3 time points over
 6 years. Outcome variables were calculated using the OGTT values. IS was
-assessed using 1/HOMA-IR and the Matsuda index, while beta-cell function was
+assessed using HOMA2-%S and the Matsuda index, while beta-cell function was
 assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin
 Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were
 used, adjusting for time, waist, sex, ethnicity, baseline age, alanine
@@ -255,9 +255,9 @@ analysis of the phospholipid and cholesteryl ester fractions).
 ## Outcome variables
 
 Insulin sensitivity and beta-cell function indices were computed using the OGTT 
-glucose and insulin data. Insulin sensitivity was assessed using 1/HOMA-IR (1
-divided by HOMA-IR) [@Matthews1985] and the Insulin Sensitivity Index (ISI)
-[@Matsuda1999]. HOMA-IR largely reflects hepatic insulin resistance, while ISI
+glucose and insulin data. Insulin sensitivity was assessed using HOMA2-%S [@Levy1998a]
+and the Insulin Sensitivity Index (ISI)
+[@Matsuda1999]. HOMA2-%S largely reflects hepatic insulin sensitivity, while ISI
 reflects whole-body insulin sensitivity [@AbdulGhani2007].  Beta-cell function
 was assessed using the Insulinogenic Index [@Wareham1995] over HOMA-IR (IGI/IR)
 and the Insulin Secretion-Sensitivity Index-2 (ISSI-2) [@Retnakaran2009]. IGI/IR
@@ -283,7 +283,7 @@ MET-hours per week.
 ## Statistical analysis
 
 The primary outcome variables for this analysis were 
-1/HOMA-IR, ISI, IGI/IR, and ISSI-2; outcome variables were log-transformed for
+HOMA2-%S, ISI, IGI/IR, and ISSI-2; outcome variables were log-transformed for
 the statistical modeling. The primary predictor variables for this analysis were
 22 individual NEFA as mole percent (mol%) of the total fraction and as
 concentration (nmol/mL). Pearson correlation coefficients were computed to
@@ -471,7 +471,7 @@ NEFA and the subsequent increase in insulin resistance via impairment of insulin
 signaling cascades, as reviewed in previously published articles 
 [@Martins2012a;@Ebbert2013a;@Capurso2012a]. However, in this longitudinal
 analysis, we saw no association of any individual or total NEFA with hepatic
-(1/HOMA-IR) or whole-body insulin sensitivity (ISI). We identified
+(HOMA2-%S) or whole-body insulin sensitivity (ISI). We identified
 WC as having a powerful attenuating effect on the associations between
 unadjusted and adjusted models. There are some possible explanations for our
 null findings for the insulin sensitivity measures and the influence of WC on
