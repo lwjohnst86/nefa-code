@@ -3,6 +3,7 @@
 
 renaming_table_rows <- function(x) {
     x %>%
+        gsub('HOMA2_S', 'HOMA2-%S', .) %>%
         gsub('IGIIR', 'IGI/IR', .) %>%
         gsub('ISSI2', 'ISSI-2', .) %>%
         gsub('HOMA', 'HOMA-IR', .) %>%
@@ -19,6 +20,7 @@ renaming_table_rows <- function(x) {
 
 renaming_outcomes <- function(x) {
     x %>%
+        gsub('lHOMA2_S', 'log(HOMA2-%S)', .) %>%
         gsub('linvHOMA', 'log(1/HOMA-IR)', .) %>%
         gsub('lHOMA2_S', 'log(HOMA2-%S)', .) %>%
         gsub('lISI', 'log(ISI)', .) %>%
