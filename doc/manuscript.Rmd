@@ -8,8 +8,8 @@ output: fost::diabetologia_manuscript
 
 # Title page
 
-Title: Total non-esterified fatty acids, but not individual fatty acids, predict
-progression in beta-cell dysfunction: The Prospective Metabolism and Islet Cell
+Title: Association of non-esterified fatty acid composition with insulin
+sensitivity and beta-cell dysfunction in the Prospective Metabolism and Islet Cell
 Evaluation (PROMISE) cohort
 
 <!-- 47 characters + spaces -->
