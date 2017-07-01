@@ -399,40 +399,11 @@ ISI, which showed that males had a 12% higher ISI for every SD increase in
 20:3n-6 compared to females. Raw values from the GEE models are shown in `r cite_st('gee')` for
 fully adjusted models and `r cite_st('gee_unadj')` for unadjusted models.
 
-## Latent trajectories and differences in NEFA composition
-
-Three latent classes were extracted from LCMM, with `r lcmm.groups$Freq[2]` 
-participants in the high, `r lcmm.groups$Freq[1]` in the middle, and 
-`r lcmm.groups$Freq[3]`
-in the low beta-cell function groups. The trajectories of these groups are
-shown in `r cite_sf('lcmm')`. These groups were used as the beta-cell function
-response variables in the PLS-DA analysis, which was used to confirm the results
-of the GEE modeling, but in a multivariate environment (all NEFA in a single
-model). The PLS-DA results show a very poor discriminatory ability of the
-NEFA composition in classifying participants into the correct beta-cell function
-latent class. The percent of participants correctly predicted to belonging to
-their group (i.e. those predicted in the low group and actually belonging to the
-low group) was `r misclass.n.percent.bcf$Percent[9]` in the low group,
-`r misclass.n.percent.bcf$Percent[5]` in the middle group, and 
-`r misclass.n.percent.bcf$Percent[1]` in the high group (the distribution of the
-groupings based on the components from PLS-DA are shown in `r cite_sf('plsda_groups')`). 
-The loadings plot of the NEFA composition against the extracted PLS-DA
-components is shown in `r cite_sf('plsda_loadings')` and is used to identify
-fatty acids that contribute the most explained variance to the beta-cell
-function groupings. However, because of the high rate of misclassification, no
-meaningful predictive information can be extracted even if any NEFA does
-contribute to the explained variance (e.g. 16:0). The PLS-DA analysis using
-conversion to or maintenance of dysglycemia status over the 6 years as the
-response variable showed similar poor discriminatory ability, though better than
-the beta-cell function trajectory results. While 
-`r misclass.n.percent.dysgly$Percent[1]`
-of participants were correctly predicted to not have dysglycemia, only 
-`r misclass.n.percent.dysgly$Percent[4]` were correctly predicted to have
-dysglycemia (see `r cite_sf('plsda_groups_dysgly')` for the distribution of 
-dysglycemia status based on the components from the PLS-DA and 
-`r cite_sf('plsda_loadings_dysgly')` for the loadings plot of the NEFA composition
-by extracted PLS-DA components). The results from the PLS-DA analysis are consistent
-with the associations seen in the GEE models.
+```{r figure2, dependson='geeData', fig.cap=fig_gee}
+gee_results %>% 
+    dplyr::filter(model == "Adjusted") %>% 
+    plot_gee_main()
+```
 
 # Conclusions
 
