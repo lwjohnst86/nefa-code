@@ -324,78 +324,28 @@ While GEE accounts for the longitudinal design of the data, this approach is
 limited in that it cannot analyze the inherent multivariate nature of the
 composition of the NEFA fraction. Therefore, to confirm the results of the GEE
 analyses in a multivariate environment (all NEFA variables in a single model),
-partial least squares discriminant analysis (PLS-DA) was used to identify the
-patterns of NEFA composition against beta-cell function (using ISSI-2, which had
-the majority of the associations in the GEE models) and for those
-who converted to or maintained dysglycemia status (either IFG, IGT, or DM) over
-the 6 years. Latent class mixed models (LCMM) were used to extract the underlying
-trajectories of beta-cell function (ISSI-2) over the 6 years. For more detailed
-explanation of GEE, PLS-DA, and LCMM, please see the ESM Methods.
+partial least squares 
 
 All analyses were performed using R `r getRversion()` [@Rbase], along with the R
-packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a], caret
-`r packageVersion('caret')` for PLS-DA, and lcmm `r packageVersion('lcmm')` for
-LCMM. The R code for this manuscript is available at 
-https://dx.doi.org/10.6084/m9.figshare.3472433
-. Results were considered statistically significance at p<0.05,
+packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a].
+The R code for this manuscript is available at 
+https://dx.doi.org/10.6084/m9.figshare.3472433. Results were considered statistically significance at p<0.05,
 after adjusting for multiple testing using the Benjamini-Hochberg False
 Discovery Rate [@Benjamini1995a]. STROBE was used as a guideline for reporting [@Vandenbroucke2007b].
 
 # Results
 
-```{r variableAndDataSet, message=FALSE, results='hide'}
-gee_df <- get_gee_data(ds)
-dysgly_data <- get_dysglycemia_data(ds)
+```{r inline_results}
+pct_nefa <- calc_pct_nefa(project_data)
+chg_outcomes <- calc_outcomes_chg_n(project_data)
+dm_incid <- calc_conversion_dysgly('ConvertDM')
+predm_incid <- calc_conversion_dysgly('ConvertPreDM')
 
-outcomes_is <- c('linvHOMA', 'lISI')
-outcomes_bcf <- c('lIGIIR', 'lISSI2')
-outcomes <- c(outcomes_is, outcomes_bcf)
-ne_pct <- grep('^pct_ne', names(gee_df), value = TRUE)
-ne_conc <- c('TotalNE', grep('^ne\\d\\d', names(gee_df), value = TRUE))
-covariates <- c('VN', 'Waist', 'Sex', 'Ethnicity', 'BaseAge', 'ALT', 'FamHistDiab')
-```
-
-```{r geeData, cache=TRUE}
-gee_results <- dplyr::bind_rows(
-    analyze_gee(gee_df, outcomes_is, ne_pct, covariates, 'mol%', adj.p = TRUE),
-    analyze_gee(gee_df, outcomes_is, ne_conc, covariates, 'nmol/mL', adj.p = TRUE),
-    analyze_gee(gee_df, outcomes_bcf, ne_pct, covariates, 'mol%', adj.p = TRUE),
-    analyze_gee(gee_df, outcomes_bcf, ne_conc, covariates, 'nmol/mL', adj.p = TRUE)
-    ) %>% 
-    tidy_gee_results()
-
-gee_results_unadj <- dplyr::bind_rows(
-    analyze_gee(gee_df, outcomes_is, ne_pct, 'VN', 'mol%', adj.p = TRUE),
-    analyze_gee(gee_df, outcomes_is, ne_conc, 'VN', 'nmol/mL', adj.p = TRUE),
-    analyze_gee(gee_df, outcomes_bcf, ne_pct, 'VN', 'mol%', adj.p = TRUE),
-    analyze_gee(gee_df, outcomes_bcf, ne_conc, 'VN', 'nmol/mL', adj.p = TRUE)
-    ) %>% 
-    tidy_gee_results()
-```
-
-```{r lcmmPls, cache=TRUE, results='hide'}
-# include also the 3-yr and 6-yr data for training/testing.
-lcmm_results <- analyze_lcmm(ds)
-lcmm_data <- combine_lcmm_data(ds, lcmm_results)
-plsda_results <- analyze_plsda(lcmm_data)
-plsda_dysgly <- dysgly_data %>% 
-    dplyr::mutate(ConvertDysgly = factor(ConvertDysgly, levels = c(0, 1), labels = c('No', 'Yes'))) %>% 
-    analyze_plsda('ConvertDysgly')
-```
-
-```{r inlineResults}
-percent.nefa <- calculate_percent_nefa_contribution(ds) 
-misclass.n.percent.bcf <- calculate_plsda_misclass(plsda_results)
-misclass.n.percent.dysgly <- calculate_plsda_misclass(plsda_dysgly)
-percent.change.outcomes <- calculate_outcomes_pct_change(ds)
-lcmm.groups <- calculate_ngroups_lcmm(lcmm_results)
-dm.convert <- calculate_conversion_dysgly(dysgly_data, 'ConvertDM')
-predm.convert <- calculate_conversion_dysgly(dysgly_data, 'ConvertPreDM')
-sex.npct <- calculate_factor_npercent(ds0yr$Sex, 'Female')
-ethn.npct <- calculate_factor_npercent(ds0yr$Ethnicity, 'European')
-fhd.npct <- calculate_factor_npercent(ds0yr$FamHistDiab, 'Yes')
-est.gee <- calculate_gee_magnitude(gee_results)
-sample.outcomes <- calculate_sample(ds)
+ds0yr <- dplyr::filter(project_data, VN == 0)
+female <- calc_npercent(ds0yr$Sex, 'Female')
+european <- calc_npercent(ds0yr$Ethnicity, 'European')
+famhist <- calc_npercent(ds0yr$FamHistDiab, 'Yes')
+est_gee <- calculate_gee_magnitude(gee_results)
 ```
 
 ## Basic characteristics of the PROMISE cohort
