@@ -32,7 +32,8 @@ Imports:
     tibble,
     rfigshare,
     forcats,
-    aide
+    aide,
+    showtext
 Suggests:
     DiagrammeR,
     knitr,
