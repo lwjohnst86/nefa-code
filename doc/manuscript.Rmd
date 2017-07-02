@@ -548,7 +548,13 @@ ranges from `r sample.outcomes` over the 3 visits.
 plot_nefa_distribution()
 ```
 
-```{r figure2_gee, dependson='geeData', fig.cap=fig_gee}
+```{r figure2_gee_unadj, fig.cap=fig_gee_unadj}
+gee_results %>% 
+    dplyr::filter(model == "Unadjusted") %>% 
+    plot_gee_main()
+```
+
+```{r figure2_gee_adj, fig.cap=fig_gee_adj}
 gee_results %>% 
     dplyr::filter(model == "Adjusted") %>% 
     plot_gee_main()
