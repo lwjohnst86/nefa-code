@@ -3,7 +3,7 @@
 #'
 #' @param variable which dysgly variable to use
 #'
-calc_conversion_dysgly <- function(variable = c('ConvertDM', 'ConvertPreDM')) {
+calc_incid_dysgly <- function(variable = c('ConvertDM', 'ConvertPreDM')) {
     variable <- match.arg(variable)
 
     conversion <-
@@ -133,3 +133,4 @@ calc_followup_time <- function(data = project_data) {
         dplyr::ungroup() %>%
         dplyr::summarise(MeanFollowup = aide::ave_sd(YearsFromBaseline)) %>%
         .[[1]]
+}
