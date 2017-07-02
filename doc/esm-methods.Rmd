@@ -1,0 +1,59 @@
+---
+output: fost::diabetologia_manuscript
+---
+
+```{r setup, include=FALSE}
+devtools::load_all()
+set_options()
+knitr::opts_chunk$set(results = "asis")
+```
+
+# ESM Methods
+
+## Equations for outcomes
+
+The equations for calculating the outcome variables are listed below. HOMA2-%S was 
+calculated using the Excel found at https://www.dtu.ox.ac.uk/homacalculator/.
+
+```{r}
+PROMISE.methods::insert_formula("ISI")
+```
+
+```{r}
+PROMISE.methods::insert_formula("HOMA")
+```
+
+```{r}
+PROMISE.methods::insert_formula("IGIIR")
+```
+
+```{r}
+PROMISE.methods::insert_formula("ISSI2")
+```
+
+Area under the curve (AUC) for both glucose (G) and insulin (I) was computed
+using the trapezoidal rule. ISI~OGTT~ (ISI) uses all the glucose and insulin
+values from the oral glucose tolerance (the overall mean).
+
+## Further description of statistical methods
+
+Generalized estimating equations (GEE) is analogous to mixed effects models, 
+except it emphasizes population-level trends over individual-level trends that 
+mixed models use. Because it can handle autocorrelations in the outcome (as 
+would be seen in variables measured over time), GEE modeling is well suited to
+longitudinal data. Latent class mixed models (LCMM) is a form of mixed effects
+modeling that tries to categorize individuals into groups that have similar
+clusters; in the case of the present analysis are the trajectories in beta-cell
+function over time. Because mixed models use the participant as the random
+effect, LCMM can identify individuals who similarly change over time.
+
+Partial least squares (PLS) regression is a technique similar to principal
+component analysis (PCA) that is designed to extract meaningful information from
+multivariate, high dimensionality data (e.g. as in metabolomic and other -omic type 
+analyses). These types of methods try to extract as much of the variance in the 
+data into a smaller number of components or factors. The difference between PCA 
+and PLS is that PLS is a supervised method, while PCA is not. This means that
+PLS uses a response variable(s), i.e. an outcome or **Y**, to describe the
+variation in the predictors (**X**) while PCA only describes the variation 
+inherent in **X**. Because of this, PLS can be better at predicting the 
+contributions of predictor variables against an outcome variable. 
