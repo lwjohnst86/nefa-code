@@ -31,12 +31,14 @@ Imports:
     grid,
     tibble,
     rfigshare,
-    forcats
+    forcats,
+    aide
 Suggests:
     DiagrammeR,
     knitr,
     rmarkdown
 Remotes:
-    github:lwjohnst86/seer
+    github:lwjohnst86/seer,
+    github:lwjohnst86/aide
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
