@@ -19,7 +19,7 @@ calc_conversion_dysgly <- function(variable = c('ConvertDM', 'ConvertPreDM')) {
 #'
 #' @param data project data
 #'
-calc_pct_nefa <- function(data) {
+calc_pct_nefa <- function(data = project_data) {
     over_10pct_nefa <- data %>%
         dplyr::filter(VN == 0) %>%
         dplyr::select(dplyr::matches('pct_ne')) %>%
@@ -38,7 +38,7 @@ calc_pct_nefa <- function(data) {
 #'
 #' @param data project data
 #'
-calc_outcomes_chg_n <- function(data) {
+calc_outcomes_chg_n <- function(data = project_data) {
     prep_data <- data %>%
         dplyr::select(f.VN, HOMA2_S, ISI, IGIIR, ISSI2) %>%
         tidyr::gather(Measure, Value,-f.VN) %>%
