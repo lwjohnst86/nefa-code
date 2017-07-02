@@ -294,7 +294,8 @@ and beta-cell function measures, the differences in QIC values were less than
 10 between the models, suggesting similar fit. As such, we selected the model
 that had the fewest covariates and that had similar fit between the outcome
 measures (M8). The final GEE model was adjusted for time, sex, ethnicity,
-baseline age, WC, ALT, and family history of diabetes. After scaling,
+baseline age, WC, ALT, and family history of diabetes. Sex, ethnicity, and baseline 
+age were time-*independent* variables. After scaling,
 log-transforming, and exponentiating, the GEE estimates are
 interpreted as an expected percent difference in the outcome variable for every
 standard deviation (SD) increase in the predictor variable given the covariates are held constant.
