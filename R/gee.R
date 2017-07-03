@@ -1,6 +1,9 @@
 #' Get the dataset organized and wrangled into a format for the GEE analysis.
 #'
 prep_gee_data <- function(data) {
+    data <- data %>%
+        dplyr::filter(DM != 1)
+
     data_without_fa <- dplyr::select(data, -dplyr::matches('pct_ne|^ne'), -TotalNE)
 
     data_with_fa_scaled <- data %>%
