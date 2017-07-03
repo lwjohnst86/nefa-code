@@ -11,13 +11,13 @@ fetch_data <- function() {
     # Load the master dataset,
     ds.prep <- PROMISE::PROMISE %>%
         dplyr::filter(VN %in% c(1, 3, 6)) %>%
-        ## Kick out Canoers
+        # Kick out Canoers
         dplyr::filter(is.na(Canoe)) %>%
         dplyr::tbl_df()
 
     print(paste0('Original dataset rows are ', dim(ds.prep)[1], ' and columns are ', dim(ds.prep)[2]))
 
-    ##' Munge and wrangle the data into the final version.
+    # Munge and wrangle the data into the final version.
     ds <- ds.prep %>%
         dplyr::select(
             SID, VN, BMI, Waist, HOMA, ISI, IGIIR, ISSI2, TAG, LDL, HDL, Chol,
