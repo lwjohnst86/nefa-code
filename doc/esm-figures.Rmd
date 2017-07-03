@@ -1,0 +1,31 @@
+---
+output: fost::diabetologia_manuscript
+---
+
+```{r setup, include=FALSE}
+devtools::load_all()
+set_options()
+
+# Include captions below using `captioner` package via library(captioner)
+sfig <- captioner::captioner(prefix = 'ESM Fig.')
+cite_sf <- pryr::partial(sfig, display = 'cite')
+
+sfig_consort <- sfig('consort', 'CONSORT diagram of sample size at each examination visit.')
+sfig_dag <- sfig("dagitty", "Directed acyclic graph taken from DAGitty (DAGitty.net).")
+sfig_corr_conc <- sfig('corr_conc', 'Pearson correlation heatmap of non-esterified fatty acids (*nmol/mL*) and basic PROMISE participant characteristics for the baseline visit (2004-2006). Darkness of the colour indicates the magnitude of the correlation, with orange indicating positive and blue indicating negative correlations.')
+sfig_corr_pct <- sfig('corr_pct', 'Pearson correlation heatmap of non-esterified fatty acids (*mol%*) and basic PROMISE participant characteristics for the baseline visit (2004-2006). Darkness of the colour indicates the magnitude of the correlation, with orange indicating positive and blue indicating negative correlations.')
+```
+
+# ESM Figures
+
+![`r sfig_consort`](../img/flowDiagramSample.png)
+
+![`r sfig_dag`](../img/dagitty.png)
+
+```{r ESM_Fig3, fig.cap=sfig_corr_conc}
+plot_corr_heatmap(corr_results_conc, unit = "nmol/mL")
+```
+
+```{r ESM_Fig4, fig.cap=sfig_corr_pct}
+plot_corr_heatmap(corr_results_pct, unit = "mol%")
+```
