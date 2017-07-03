@@ -4,7 +4,7 @@
 #' @param x Variables on the X-axis
 #' @param y Variables on the Y-axis
 analyze_corr <- function(x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT', 'lTAG', 'Chol', 'HDL', 'LDL'),
-                         y = ne_conc) {
+                         y) {
 
     baseline_data <- project_data %>%
         dplyr::filter(VN == 0)
