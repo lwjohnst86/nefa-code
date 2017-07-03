@@ -31,12 +31,12 @@ analyze_corr <- function(x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT', 'lTAG', 
 #' Plot the correlations into a heatmap.
 #'
 #' @param results Correlation results
-plot_corr_heatmap <- function(results) {
+plot_corr_heatmap <- function(results, unit) {
     results %>%
         seer::view_heatmap(
             y = 'Vars2',
             x = 'Vars1',
-            ylab = 'Non-esterified fatty acids (nmol/mL)',
+            ylab = paste0('Non-esterified fatty acids (', unit, ")"),
             number.colours = 5,
             values.text = FALSE
         ) +
