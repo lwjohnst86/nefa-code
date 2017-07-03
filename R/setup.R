@@ -8,12 +8,6 @@
 
 #' Set options for all documents and scripts.
 #'
-#' @export
-#'
-#' @examples
-#'
-#' set_options()
-#'
 set_options <- function() {
     # Set the options here for individual packages
 
