@@ -8,7 +8,6 @@
 #' @param y Y or outcome variable.
 #' @param x X or exposure variables of interest.
 #'
-#' @export
 prep_pls_data <- function(data, y, x) {
     data %>%
         dplyr::filter(VN == 0) %>%
@@ -26,7 +25,6 @@ prep_pls_data <- function(data, y, x) {
 #' @param ncomp Number of components.
 #' @param cv Whether to use CV.
 #'
-#' @export
 analyze_pls <- function(data, y, x = ne_pct, ncomp = NULL, cv = TRUE) {
     data %>%
         prep_pls_data(y = y, x = x) %>%
@@ -44,7 +42,6 @@ analyze_pls <- function(data, y, x = ne_pct, ncomp = NULL, cv = TRUE) {
 #'
 #' @param data PLS output results.
 #'
-#' @export
 plot_pls <- function(data) {
     seer::view_pls_xloadings(data, renaming.x = renaming_fa, dot.colour = "black") +
         graph_theme(minor.grid.lines = FALSE)
@@ -58,7 +55,6 @@ plot_pls <- function(data) {
 #' @param test The test data to predict from.
 #' @param ncomps The component to predict on.
 #'
-#' @export
 calc_pred_corr <- function(model, test, ncomps = 1) {
     predicted <- stats::predict(model, ncomp = ncomps, newdata = test)
     measured <- as.matrix(stats::model.response(
