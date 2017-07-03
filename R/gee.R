@@ -100,10 +100,11 @@ plot_gee_main <- function(results) {
             xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
             ylab = 'Non-esterified fatty acids'
             ) +
-        graph_theme(ticks = FALSE) +
+        graph_theme(ticks = FALSE, legend.pos = "right") +
         ggplot2::facet_grid(unit~Yterms, switch = 'y',
                             scales = 'free_y',
-                            space = 'free_y')
+                            space = 'free_y') +
+        ggplot2::theme(panel.spacing = grid::unit(0.6, "lines"))
 }
 
 #' Create a table from the GEE results.
