@@ -83,7 +83,7 @@ calc_outcomes_chg_n <- function(data = project_data) {
 calc_npercent <- function(x, group = c('Yes', 'Female', 'European')) {
     nums <- table(x)
     pct <- (nums[group]/sum(nums)) * 100
-    data.frame(
+    list(
         n = nums[group],
         pct = paste0(round(pct, 1), '%'),
         npct = paste0(nums[group], ' (', paste0(round(pct, 1), '%)'))
