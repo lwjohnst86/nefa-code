@@ -54,9 +54,13 @@ generate_results_gee <- function() {
 #' Generate and save the results of the correlation analysis as a dataset.
 #'
 generate_results_corr <- function() {
-    corr_results <- analyze_corr()
+    corr_results_conc <- analyze_corr(y = ne_conc)
     # Save output of results into dataset
-    devtools::use_data(corr_results, overwrite = TRUE)
+    devtools::use_data(corr_results_conc, overwrite = TRUE)
+
+    corr_results_pct <- analyze_corr(y = ne_pct)
+    # Save output of results into dataset
+    devtools::use_data(corr_results_pct, overwrite = TRUE)
 }
 
 #' Generate results for LCMM modeling as a dataset.
