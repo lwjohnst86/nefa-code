@@ -168,6 +168,27 @@ gee_results_adj_int_time %>%
 # Interactions with sex 
 
 ```{r gee_results_int_sex}
+gee_results_unadj_int_sex <- bind_rows(
+    analyze_gee(
+        project_data,
+        outcomes,
+        ne_pct,
+        c("YearsFromBaseline", "Sex"),
+        'mol%',
+        mod = "Int with sex",
+        intvar = "Sex"
+        ), 
+    analyze_gee(
+        project_data,
+        outcomes,
+        ne_conc,
+        c("YearsFromBaseline", "Sex"),
+        'nmol/mL',
+        mod = "Int with sex",
+        intvar = "Sex")
+    ) %>% 
+    tidy_gee_results()
+
 gee_results_adj_int_sex <- bind_rows(
     analyze_gee(
         project_data,
@@ -191,6 +212,9 @@ gee_results_adj_int_sex <- bind_rows(
 ```
 
 ```{r tab_gee_int_sex}
+gee_results_unadj_int_sex %>% 
+    table_gee_int("Interactions with sex in unadjusted models.")
+
 gee_results_adj_int_sex %>% 
     table_gee_int("Interactions with sex in fully adjusted models.")
 ```
@@ -198,6 +222,27 @@ gee_results_adj_int_sex %>%
 # Interactions with ethnicity
 
 ```{r gee_results_int_ethn}
+gee_results_unadj_int_ethn <- bind_rows(
+    analyze_gee(
+        project_data,
+        outcomes,
+        ne_pct,
+        c("YearsFromBaseline", "BiEthnicity"),
+        'mol%',
+        mod = "Int with ethnicity",
+        intvar = "BiEthnicity"
+        ), 
+    analyze_gee(
+        project_data,
+        outcomes,
+        ne_conc,
+        c("YearsFromBaseline", "BiEthnicity"),
+        'nmol/mL',
+        mod = "Int with ethnicity",
+        intvar = "BiEthnicity")
+    ) %>% 
+    tidy_gee_results()
+
 gee_results_adj_int_ethn <- bind_rows(
     analyze_gee(
         project_data,
@@ -220,7 +265,10 @@ gee_results_adj_int_ethn <- bind_rows(
     tidy_gee_results()
 ```
 
-```{r}
+```{r tab_gee_int_ethn}
+gee_results_unadj_int_ethn %>% 
+    table_gee_int("Interactions with ethnicity in unadjusted models.")
+
 gee_results_adj_int_ethn %>% 
     table_gee_int("Interactions with ethnicity in fully adjusted models.")
 ```
