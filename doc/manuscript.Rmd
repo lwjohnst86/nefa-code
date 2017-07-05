@@ -312,7 +312,7 @@ While GEE accounts for the longitudinal design of the data, this approach is
 limited in that it cannot analyze the inherent multivariate nature of the
 composition of the NEFA fraction. Therefore, to confirm the results of the GEE
 analyses in a multivariate environment (all NEFA variables in a single model),
-partial least squares 
+partial least squares (PLS) was used with the outcomes as the independent variable.
 
 All analyses were performed using R `r getRversion()` [@Rbase], along with the R
 packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a].
