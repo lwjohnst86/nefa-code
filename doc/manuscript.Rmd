@@ -378,19 +378,22 @@ analyses revealed that adjustment for WC was responsible for attenuating the
 unadjusted results. The magnitude of association for each of these variables was
 fairly consistent for each beta-cell function measure. For every one SD increase
 in any of these three NEFA variables, there was an average predicted
-`r est.gee$est[1]`% lower IGI/IR and `r est.gee$est[2]`% lower ISSI-2 at each
+`r est_gee$est[1]`% lower IGI/IR and `r est_gee$est[2]`% lower ISSI-2 at each
 clinic visit. However, in contrast to these results using NEFA modeled as
 concentrations, none of the NEFA variables modeled as mol% were associated with
 the outcomes. Adjusting for TAG attenuated all associations with IGI/IR and
-ISSI-2 (data not shown). Sensitivity analyses to examine the association with
+ISSI-2 (data not shown), though this may be due to the fact that only a subset
+of participants at the 6 year visit had TAG measured. Sensitivity analyses to
+examine the association with
 the sum of fatty acid classes (saturated vs unsaturated) revealed similar
 findings as seen with the adjusted GEE model for total NEFA (data not shown).
 There were no significant interaction effects between time, sex, or ethnicity
-and the individual NEFA on any of the outcome measures, except for a single
-marginally significant (p=0.04) interaction between sex, 20:3n-6 (mol%), and
-ISI, which showed that males had a 12% higher ISI for every SD increase in
-20:3n-6 compared to females. Raw values from the GEE models are shown in `r cite_st('gee')` for
+and the individual NEFA on any of the outcome measures.
+Raw values from the GEE models are shown in `r cite_st('gee')` for
 fully adjusted models and `r cite_st('gee_unadj')` for unadjusted models.
+Consistent with the GEE modeling, results from modeling all NEFA in a
+multivariate environment using PLS showed no discernible clustering nor was it
+predictive of the outcomes (data not shown).
 
 # Conclusions
 
