@@ -324,43 +324,48 @@ Discovery Rate [@Benjamini1995a]. STROBE was used as a guideline for reporting [
 # Results
 
 ```{r inline_results}
-pct_nefa <- calc_pct_nefa(project_data)
+nefa <- calc_pct_nefa(project_data)
 chg_outcomes <- calc_outcomes_chg_n(project_data)
-dm_incid <- calc_conversion_dysgly('ConvertDM')
-predm_incid <- calc_conversion_dysgly('ConvertPreDM')
 
 ds0yr <- dplyr::filter(project_data, VN == 0)
 female <- calc_npercent(ds0yr$Sex, 'Female')
 european <- calc_npercent(ds0yr$Ethnicity, 'European')
 famhist <- calc_npercent(ds0yr$FamHistDiab, 'Yes')
-est_gee <- calculate_gee_magnitude(gee_results)
+est_gee <- gee_results %>% 
+    dplyr::filter(model == "Adjusted") %>% 
+    calc_gee_magnitude()
 ```
 
 ## Basic characteristics of the PROMISE cohort
 
 For this study, there were 
-`r sex.npct$npct` females and `r ethn.npct$npct` had European-ancestry.
+`r female$npct` females and `r european$npct` had European-ancestry (see 
+`r cite_t("basic")`). The mean follow-up time was `r calc_followup_time()`
+years, where `r calc_pct_full_visits()`% of participants attended all three
+visits.
 The average age of the participants was `r aide::average(ds0yr$Age)` years 
 (`r aide::stddev(ds0yr$Age)` SD) and the average BMI was
 `r aide::average(ds0yr$BMI)` (`r aide::stddev(ds0yr$BMI)` SD). Most of the 
-participants, `r fhd.npct$npct`, had a family history of diabetes.
+participants, `r famhist$npct`, had a family history of diabetes.
 Insulin sensitivity and beta-cell function measures showed a significant median
 decline between
-`r percent.change.outcomes$chg` (p`r percent.change.outcomes$p`) over the 6
+`r pct_outcomes$chg` (p`r pct_outcomes$p`) over the 6
 years in this analysis of the PROMISE cohort.
-Consistent with this decline, there were `r dm.convert`
-participants who developed diabetes while `r predm.convert` participants either
-converted to or maintained IFG or IGT status over the 6 years.
-<!-- maintain vs convert -->
+Consistent with this decline, there were `r calc_incid_dysgly("ConvertDM")`
+and `r calc_incid_dysgly("ConvertPreDM")`incident cases of diabetes and pre-diabetes (IFG and IGT),
+respectively, over the 6-years. Incident diabetes cases were excluded from further GEE
+analyses.
 
-`r cite_f('nefaDist')` shows the compositional distribution of NEFA in the study
+`r cite_f('nefa')` shows the compositional distribution of NEFA in the study
 participants. Four individual NEFA made up the vast majority 
-(`r sum(percent.nefa$pct)`%) of the total NEFA fraction. The largest contributors
-were `r percent.nefa$c[1]`, `r percent.nefa$c[2]`, `r percent.nefa$c[3]`, and 
-`r percent.nefa$c[4]`. Raw concentration values are shown in `r cite_st('nefaDist')`. 
+(`r sum(nefa$pct)`%) of the total NEFA fraction. The largest contributors
+were `r nefa$c[1]`, `r nefa$c[2]`, `r nefa$c[3]`, and 
+`r nefa$c[4]`. Raw concentration values are shown in `r cite_st('nefa')`. 
+There were no differences in individual NEFA for those who did compared to those
+who did not take medications to manage blood lipids (data not shown).
 All individual NEFA as well as the total fraction had
 correlations that ranged from weak to null (r<0.3) with participant
-characteristics (see `r cite_sf('corr')`).
+characteristics (see `r cite_sf('corr_conc')` and `r cite_sf("corr_pct")`).
 
 ## GEE modeling
 
