@@ -134,3 +134,25 @@ calc_followup_time <- function(data = project_data) {
         dplyr::summarise(MeanFollowup = aide::ave_sd(YearsFromBaseline)) %>%
         .[[1]]
 }
+
+#' Calculate the number of participants who attended one, two, or three visits.
+#'
+#' @param data Project data.
+#'
+calc_n_for_visits <- function(data = project_data) {
+    data %>%
+        dplyr::select(SID, VN, f.VN) %>%
+        stats::na.omit() %>%
+        tidyr::spread(f.VN, VN) %>%
+        dplyr::mutate(Visits = paste(yr0, yr3, yr6, sep = '-')) %>%
+        .$Visits %>%
+        table()
+}
+
+
+#' Percent of participants who attended each of the 3 visits.
+#'
+calc_pct_full_visits <- function() {
+    pct_val <- calc_n_for_visits()[1] / sum(calc_n_for_visits())
+    precise_rounding(pct_val * 100)
+}
