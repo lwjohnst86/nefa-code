@@ -287,18 +287,20 @@ visit, while the outcome variables and covariates were set as *time-dependent*.
 No imputation was conducted on missing values.
 
 Covariate selection was based on previous literature, directed acyclic graph 
-[@Greenland1999a] recommendations, and quasi-likelihood information criterion 
-(QIC). `r cite_st('qic')` shows the covariates compared using QIC. While the
-final GEE model selected as best fitting differed between insulin sensitivity
-and beta-cell function measures, the differences in QIC values were less than
-10 between the models, suggesting similar fit. As such, we selected the model
+[@Greenland1999a] recommendations (see `r cite_sf("dag")`), and quasi-likelihood information criterion 
+(QIC). `r cite_st('qic')` shows the covariates compared using QIC. To reduce
+complexity between models using either insulin sensitivity or beta-cell function
+measures, only the model that had similar good fit for both was used. 
+As such, we selected the model
 that had the fewest covariates and that had similar fit between the outcome
-measures (M8). The final GEE model was adjusted for time, sex, ethnicity,
-baseline age, WC, ALT, and family history of diabetes. Sex, ethnicity, and baseline 
+measures (M9). The final GEE model was adjusted for years from baseline (time),
+sex (female or male), ethnicity (European ancestry or non-European ancestry),
+baseline age, WC, ALT, and MET (physical activity). Sex, ethnicity, and baseline 
 age were time-*independent* variables. After scaling,
 log-transforming, and exponentiating, the GEE estimates are
 interpreted as an expected percent difference in the outcome variable for every
-standard deviation (SD) increase in the predictor variable given the covariates are held constant.
+standard deviation (SD) increase in the predictor variable given the covariates
+are held constant.
 Since TAG is a risk factor for diabetes and since NEFA contribute to TAG
 production, TAG may act as a mediator between NEFA and the outcomes. To
 determine the role of TAG in the association between NEFA and the outcomes, TAG
