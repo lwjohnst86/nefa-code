@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1215"
+   height="768"
+   style="font-family: Arial, sans-serif;"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="dagitty-issi2.svg">
+  <metadata
+     id="metadata182">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs180" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1914"
+     inkscape:window-height="1040"
+     id="namedview178"
+     showgrid="false"
+     inkscape:zoom="1.6528257"
+     inkscape:cx="652.5944"
+     inkscape:cy="139.48436"
+     inkscape:window-x="0"
+     inkscape:window-y="37"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <g
+     id="g4310"
+     inkscape:export-filename="/home/luke/Documents/research-projects/nefaDiabetes/img/dagitty-issi2.png"
+     inkscape:export-xdpi="300"
+     inkscape:export-ydpi="300">
+    <g
+       id="g4"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path6"
+         d="M479.14,604.05L429.88,684.96"
+         fill="none"
+         stroke-width="1.5"
+         stroke="black" />
+      <path
+         id="path8"
+         transform="translate(429.8792311814887,684.9596949476828) rotate(-58.6672411672987)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="black" />
+    </g>
+    <g
+       id="g10"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path12"
+         d="M508.01,595.67L629.13,631.13"
+         fill="none"
+         stroke-width="1.5"
+         stroke="black" />
+      <path
+         id="path14"
+         transform="translate(629.1341522884554,631.1336290632385) rotate(196.31818748746068)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="black" />
+    </g>
+    <g
+       id="g16"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path18"
+         d="M431.49,691.66L627.45,526.25"
+         fill="none"
+         stroke-width="1.5"
+         stroke="green" />
+      <path
+         id="path20"
+         transform="translate(627.4452417635292,526.2479621961688) rotate(139.83230355968794)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="green" />
+    </g>
+    <g
+       id="g22"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path24"
+         d="M487.92,465.87L622.24,506.88"
+         fill="none"
+         stroke-width="1.5"
+         stroke="green" />
+      <path
+         id="path26"
+         transform="translate(622.2355866968005,506.8835493889544) rotate(196.9803778765023)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="green" />
+    </g>
+    <g
+       id="g28"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path30"
+         d="M420.73,687.26L464.05,480.59"
+         fill="none"
+         stroke-width="1.5"
+         stroke="green" />
+      <path
+         id="path32"
+         transform="translate(464.0482028655364,480.5875175543838) rotate(101.83869711015578)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="green" />
+    </g>
+    <g
+       id="g34"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path36"
+         d="M724.01,455.38L493.99,460.52"
+         fill="none"
+         stroke-width="1.5"
+         stroke="black" />
+      <path
+         id="path38"
+         transform="translate(493.9926082415825,460.5204600171476) rotate(-1.2793550242889582)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="black" />
+    </g>
+    <g
+       id="g40"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path42"
+         d="M727.51,463.49L666.94,502.23"
+         fill="none"
+         stroke-width="1.5"
+         stroke="black" />
+      <path
+         id="path44"
+         transform="translate(666.9394766464412,502.22577597435406) rotate(-32.60330749493415)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="black" />
+    </g>
+    <g
+       id="g46"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path48"
+         d="M633.96,641.60L440.90,696.23"
+         fill="none"
+         stroke-width="1.5"
+         stroke="red" />
+      <path
+         id="path50"
+         transform="translate(440.9036528470847,696.2298714266059) rotate(-15.801227021093316)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="red" />
+    </g>
+    <g
+       id="g52"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path54"
+         d="M658.66,524.61L800.66,680.01"
+         fill="none"
+         stroke-width="1.5"
+         stroke="green" />
+      <path
+         id="path56"
+         transform="translate(800.6565618420706,680.0064946090599) rotate(227.57907092466374)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="green" />
+    </g>
+    <g
+       id="g58"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path60"
+         d="M437.00,701.69L792.00,695.38"
+         fill="none"
+         stroke-width="1.5"
+         stroke="green" />
+      <path
+         id="path62"
+         transform="translate(792.0047290681918,695.3846784940342) rotate(178.98210889650784)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="green" />
+    </g>
+    <g
+       id="g64"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path66"
+         d="M811.54,514.99L816.28,675.01"
+         fill="none"
+         stroke-width="1.5"
+         stroke="black" />
+      <path
+         id="path68"
+         transform="translate(816.2786620495099,675.0087248540186) rotate(268.3041189673634)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="black" />
+    </g>
+    <g
+       id="g70"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path72"
+         d="M726.70,552.83L668.91,621.71"
+         fill="none"
+         stroke-width="1.5"
+         stroke="red" />
+      <path
+         id="path74"
+         transform="translate(668.9050501115977,621.7062661777534) rotate(-50.00076715048765)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="red" />
+    </g>
+    <g
+       id="g76"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path78"
+         d="M747.11,554.72L806.34,676.98"
+         fill="none"
+         stroke-width="1.5"
+         stroke="red" />
+      <path
+         id="path80"
+         transform="translate(806.3437901250585,676.9811679060803) rotate(244.15178179853166)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="red" />
+    </g>
+    <g
+       id="g82"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path84"
+         d="M552.74,529.56L636.56,622.07"
+         fill="none"
+         stroke-width="1.5"
+         stroke="black" />
+      <path
+         id="path86"
+         transform="translate(636.5597237796549,622.0746558461992) rotate(227.82097569614498)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="black" />
+    </g>
+    <g
+       id="g88"
+       style="cursor: move;"
+       class="path">
+      <path
+         id="path90"
+         d="M529.58,530.81L502.57,574.31"
+         fill="none"
+         stroke-width="1.5"
+         stroke="black" />
+      <path
+         id="path92"
+         transform="translate(502.57276395286533,574.3142774697217) rotate(-58.167709336015825)"
+         d="M-1,0L15,5L15,-5Z"
+         class="arrowfront"
+         fill="white"
+         stroke-width="1.5"
+         stroke="black" />
+    </g>
+    <g
+       id="g94"
+       transform="translate(489,591)"
+       style="cursor: move;">
+      <path
+         id="path96"
+         stroke="#bed403"
+         fill="#bed403"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect98"
+         y="22.866666793823242"
+         x="-13.866666793823242"
+         height="14.733333587646484"
+         width="27.733333587646484"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text100"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">MET</text>
+    </g>
+    <g
+       id="g102"
+       transform="translate(417,702)"
+       style="cursor: move;">
+      <path
+         id="path104"
+         stroke="#000000"
+         fill="#bed403"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect106"
+         y="22.866666793823242"
+         x="-16.899999618530273"
+         height="14.733333587646484"
+         width="34.66666793823242"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text108"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">NEFA</text>
+      <path
+         id="path110"
+         fill="#000000"
+         d="M-4,-6L7,0L-4,6Z" />
+    </g>
+    <g
+       id="g112"
+       transform="translate(653,637)"
+       style="cursor: move;">
+      <path
+         id="path114"
+         stroke="#bed403"
+         fill="#bed403"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect116"
+         y="22.866666793823242"
+         x="-15.600000381469727"
+         height="14.733333587646484"
+         width="31.200000762939453"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text118"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">Waist</text>
+    </g>
+    <g
+       id="g120"
+       transform="translate(817,695)"
+       style="cursor: move;">
+      <path
+         id="path122"
+         stroke="#000000"
+         fill="#00a2e0"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect124"
+         y="22.866666793823242"
+         x="-15.600000381469727"
+         height="14.733333587646484"
+         width="31.200000762939453"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text126"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">ISSI2</text>
+      <path
+         id="path128"
+         fill="#000000"
+         d="M-2,-6L2,-6L2,6L-2,6Z" />
+    </g>
+    <g
+       id="g130"
+       transform="translate(646,513)"
+       style="cursor: move;">
+      <path
+         id="path132"
+         stroke="#00a2e0"
+         fill="#00a2e0"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect134"
+         y="22.866666793823242"
+         x="-13"
+         height="14.733333587646484"
+         width="26"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text136"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">TAG</text>
+    </g>
+    <g
+       id="g138"
+       transform="translate(469,461)"
+       style="cursor: move;">
+      <path
+         id="path140"
+         stroke="#00a2e0"
+         fill="#00a2e0"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect142"
+         y="22.866666793823242"
+         x="-11.266666412353516"
+         height="14.733333587646484"
+         width="22.53333282470703"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text144"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">ALT</text>
+    </g>
+    <g
+       id="g146"
+       transform="translate(744,455)"
+       style="cursor: move;">
+      <path
+         id="path148"
+         stroke="#00a2e0"
+         fill="#00a2e0"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect150"
+         y="22.866666793823242"
+         x="-40.29999923706055"
+         height="14.733333587646484"
+         width="80.5999984741211"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text152"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">AlcoholPerWk</text>
+    </g>
+    <g
+       id="g154"
+       transform="translate(811,500)"
+       style="cursor: move;">
+      <path
+         id="path156"
+         stroke="#00a2e0"
+         fill="#00a2e0"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect158"
+         y="22.866666793823242"
+         x="-37.266666412353516"
+         height="14.733333587646484"
+         width="74.53333282470703"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text160"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">FamHistDiab</text>
+    </g>
+    <g
+       id="g162"
+       transform="translate(739,541)"
+       style="cursor: move;">
+      <path
+         id="path164"
+         stroke="#ff7777"
+         fill="#ff7777"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect166"
+         y="22.866666793823242"
+         x="-24.266666412353516"
+         height="14.733333587646484"
+         width="48.53333282470703"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text168"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">Ethnicity</text>
+    </g>
+    <g
+       id="g170"
+       transform="translate(540,518)"
+       style="cursor: move;">
+      <path
+         id="path172"
+         stroke="#bed403"
+         fill="#bed403"
+         d="M 0 0 m 20, 0 a 20,15 0 1,1 -40,0 a 20,15 0 1,1 40,0"
+         z-index="1"
+         stroke-width="2"
+         fill-opacity="0.7" />
+      <rect
+         id="rect174"
+         y="22.866666793823242"
+         x="-11.266666412353516"
+         height="14.733333587646484"
+         width="22.53333282470703"
+         fill="#ffffff"
+         class="textbg" />
+      <text
+         id="text176"
+         text-anchor="middle"
+         y="35"
+         class="nodelabel">Sex</text>
+    </g>
+  </g>
+</svg>
