@@ -98,7 +98,7 @@ fatty acids; diabetes pathogenesis; fatty acid composition
 - MAQ: Modified Activity Questionnaire
 - WC: Waist circumference
 
-```{r setup, echo=FALSE}
+```{r setup, include=FALSE}
 devtools::load_all('.')
 set_options()
 ```
