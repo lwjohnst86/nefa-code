@@ -315,6 +315,15 @@ famhist <- calc_npercent(ds0yr$FamHistDiab, 'Yes')
 est_gee <- gee_results %>% 
     dplyr::filter(model == "Adjusted") %>% 
     calc_gee_magnitude()
+
+sig_fa_unadj <- gee_results %>% 
+    dplyr::filter(model == "Unadjusted", p.value < 0.05) %>% 
+    dplyr::select(Yterms, Xterms, unit) %>% 
+    dplyr::mutate(Xterms = ifelse(Xterms == "Total", "total NEFA", as.character(Xterms)))
+sig_fa_adj <- gee_results %>% 
+    dplyr::filter(model == "Adjusted", p.value < 0.05) %>% 
+    dplyr::select(Yterms, Xterms, unit) %>% 
+    dplyr::mutate(Xterms = ifelse(Xterms == "Total", "total NEFA", as.character(Xterms)))
 ```
 
 ## Basic characteristics of the PROMISE cohort
