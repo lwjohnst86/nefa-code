@@ -26,5 +26,4 @@ set_options <- function() {
 }
 
 #' @importFrom magrittr %>%
-#' @export
 `%>%` <- magrittr::`%>%`
