@@ -533,7 +533,7 @@ table_basic(project_data, caption = tab_basic)
 
 Note: Values are in median (IQR), mean (SD), and n (%). The proportion of ethnic
 and sex groups did not change over the 6 years. Outcome variables sample size
-ranges from `r sample.outcomes` over the 3 visits.
+ranges from `r chg_outcomes$n` over the 3 visits.
 
 ```{r figure1_nefa, fig.cap=fig_dist}
 plot_nefa_distribution()
