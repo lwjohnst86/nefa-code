@@ -551,6 +551,4 @@ gee_results %>%
     plot_gee_main()
 ```
 
-
-
 # References
