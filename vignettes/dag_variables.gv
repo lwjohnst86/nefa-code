@@ -57,6 +57,11 @@ Ethnicity  Waist
 Sex   ISI Waist MET
 Age  ISI
 
+
+# Minimal sufficient adjustment sets for estimating the total effect of NEFA on ISI:
+# - MET, Sex
+# - MET, Waist
+
 # For DAGity: ISSI2
 MET 1
 NEFA E
@@ -80,3 +85,7 @@ NEFA    ISSI2
 FamHistDiab    ISSI2
 Ethnicity  Waist  ISSI2
 Sex    Waist MET
+
+# Minimal sufficient adjustment sets for estimating the total effect of NEFA on ISSI2:
+# - Ethnicity
+# - MET, Waist
