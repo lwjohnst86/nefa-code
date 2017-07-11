@@ -351,8 +351,8 @@ characteristics (see `r cite_sf('corr_conc')` and `r cite_sf("corr_pct")`).
 ## GEE modeling
 
 A number of associations were seen in the unadjusted GEE models 
-(see `r cite_sf('gee')`), particularly for NEFA modeled as a concentration.
-While full model adjustment (`r cite_f('gee')`) attenuated most of these
+(see `r cite_f('gee_unadj')`), particularly for NEFA modeled as a concentration.
+While full model adjustment (`r cite_f('gee_adj')`) attenuated most of these
 associations, total NEFA, 16:0, 18:1n-9, and 18:2n-6 (all as nmol/mL)
 continued to show negative associations with IGI/IR and ISSI-2. Sensitivity
 analyses revealed that adjustment for WC was responsible for attenuating the
@@ -370,8 +370,8 @@ the sum of fatty acid classes (saturated vs unsaturated) revealed similar
 findings as seen with the adjusted GEE model for total NEFA (data not shown).
 There were no significant interaction effects between time, sex, or ethnicity
 and the individual NEFA on any of the outcome measures.
-Raw values from the GEE models are shown in `r cite_st('gee')` for
-fully adjusted models and `r cite_st('gee_unadj')` for unadjusted models.
+Raw values from the GEE models are shown in `r cite_st('gee_unadj')` for
+unadjusted models and `r cite_st('gee_adj')` for fully adjusted models.
 Consistent with the GEE modeling, results from modeling all NEFA in a
 multivariate environment using PLS showed no discernible clustering nor was it
 predictive of the outcomes (data not shown).
