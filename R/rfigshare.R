@@ -4,7 +4,7 @@
 # 3. git commit the files
 # 4. git archive --format=zip --output=code-archive.zip code
 # 5. Then run the below code
-send_to_new_figshare <- function() {
+send_to_figshare_new <- function() {
     rfigshare::fs_new_article(
         "Analysis code for poster on triacylglycerol DNL on components of the Metabolic Syndrome in PROMISE",
         "Analysis code for a poster for the American Diabetes Association Scientific Sessions in 2017",
