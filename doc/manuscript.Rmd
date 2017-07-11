@@ -330,7 +330,7 @@ The average age of the participants was `r aide::average(ds0yr$Age)` years
 participants, `r famhist$npct`, had a family history of diabetes.
 Insulin sensitivity and beta-cell function measures showed a significant median
 decline between
-`r pct_outcomes$chg` (p`r pct_outcomes$p`) over the 6
+`r chg_outcomes$chg` (p`r chg_outcomes$p`) over the 6
 years in this analysis of the PROMISE cohort.
 Consistent with this decline, there were `r calc_incid_dysgly("ConvertDM")`
 and `r calc_incid_dysgly("ConvertPreDM")`incident cases of diabetes and pre-diabetes (IFG and IGT),
