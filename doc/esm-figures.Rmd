@@ -11,8 +11,8 @@ sfig <- captioner::captioner(prefix = 'ESM Fig.')
 cite_sf <- pryr::partial(sfig, display = 'cite')
 
 sfig_consort <- sfig('consort', 'CONSORT diagram of sample size at each examination visit.')
-sfig_dag_isi <- sfig("dag_isi", "Directed acyclic graph taken from DAGitty (DAGitty.net) for the potential causal pathway between NEFA and ISI.")
-sfig_dag_issi2 <- sfig("dag_issi2", "Directed acyclic graph taken from DAGitty (DAGitty.net) for the potential causal pathway between NEFA and ISSI-2.")
+sfig_dag_isi <- sfig("dag_isi", "Directed acyclic graph taken from DAGitty (DAGitty.net) for the potential causal pathway between NEFA and ISI. DAGitty recommended a minimal adjustment of waist, sex, and MET (physical activity).")
+sfig_dag_issi2 <- sfig("dag_issi2", "Directed acyclic graph taken from DAGitty (DAGitty.net) for the potential causal pathway between NEFA and ISSI-2. DAGitty recommended a minimal adjustment of waist, ethnicity, and MET (physical activity).")
 sfig_corr_conc <- sfig('corr_conc', 'Pearson correlation heatmap of non-esterified fatty acids (*nmol/mL*) and basic PROMISE participant characteristics for the baseline visit (2004-2006). Darkness of the colour indicates the magnitude of the correlation, with orange indicating positive and blue indicating negative correlations.')
 sfig_corr_pct <- sfig('corr_pct', 'Pearson correlation heatmap of non-esterified fatty acids (*mol%*) and basic PROMISE participant characteristics for the baseline visit (2004-2006). Darkness of the colour indicates the magnitude of the correlation, with orange indicating positive and blue indicating negative correlations.')
 ```
@@ -25,10 +25,10 @@ sfig_corr_pct <- sfig('corr_pct', 'Pearson correlation heatmap of non-esterified
 
 ![`r sfig_dag_issi2`](../img/dagitty-issi2.png)
 
-```{r ESM_Fig3, fig.cap=sfig_corr_conc}
+```{r ESM_Fig4, fig.cap=sfig_corr_conc}
 plot_corr_heatmap(corr_results_conc, unit = "nmol/mL")
 ```
 
-```{r ESM_Fig4, fig.cap=sfig_corr_pct}
+```{r ESM_Fig5, fig.cap=sfig_corr_pct}
 plot_corr_heatmap(corr_results_pct, unit = "mol%")
 ```
