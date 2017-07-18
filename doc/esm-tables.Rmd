@@ -45,8 +45,9 @@ between them are considered equivalent).  Models were:
 - M7: M3 + family history of diabetes
 - M8: M3 + smoking status
 - M9: M3 + ALT + physical activity
-- M10: M3 + NEFA by time interaction
-- M11: M9 + NEFA by time interaction
+- M10: M3 + medication use for lipid and cholesterol control
+- M11: M3 + NEFA by time interaction
+- M12: M9 + NEFA by time interaction
 
 ```{r ESM_Table2}
 table_distribution(project_data, stab_dist)
