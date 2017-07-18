@@ -316,6 +316,8 @@ est_gee <- gee_results %>%
     dplyr::filter(model == "Adjusted") %>% 
     calc_gee_magnitude()
 
+meds_use <- table(project_data$MedsLipidsChol, project_data$VN)[2, c(1, 3)]
+    
 sig_fa_unadj <- gee_results %>% 
     dplyr::filter(model == "Unadjusted", p.value < 0.05) %>% 
     dplyr::select(Yterms, Xterms, unit) %>% 
