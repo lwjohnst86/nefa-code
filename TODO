@@ -13,6 +13,7 @@ DONE Moved non-GEE modeling methods and results into supplemental
 DONE Added regular PLS to manuscript/analysis (as done in TAGFA)
 DONE Changed title to be more agnostic in results
 TODO Fixed abstract as per reviewer 2
+TODO Identify which covariates could confounders, mediators, etc.
 TODO Fixed the consort diagram for exclusion of prevalent diabetes cases # yea?
 TODO Included prevalent/incident diabetes and prediabetes in results
 DONE Clarified in methods (and code) that diabetes cases were excluded
@@ -21,14 +22,17 @@ DONE Ran sensitivity analysis with and without waist
 DONE Included equations in text of either methods or supplemental
 DONE Clarified which variables were time dependent/independenta
 TODO Included p-value in table 1 # (yea?)
-TODO Update GEE results section with new results from new model
+DONE Update GEE results section with new results from new model
 DONE Clarified outcome change in results, used GEE for p value
 DONE Included unadjusted (time only) GEE figure
-TODO Included unadjusted (time only) GEE in text in results
+DONE Included unadjusted (time only) GEE in text in results
 DONE Added interaction testing before and after adjustment in vignette
 DONE Changed to using YearsFromBaseline
-TODO Clarified interpretation of GEE estimates in methods and results
-TODO Included DAG figures from DAGitty in supplemental
+DONE Clarified interpretation of GEE estimates in methods and results
+DONE Included DAG figures from DAGitty in supplemental
+TODO Add info on medication use
+TODO Clarify that results of non-interaction GEE are more nuanced than a simple
+    repeated x-sec analysis
 TODO Discussed over-adjustment in methods and discussion # maybe?
 TODO Ran a sensitivity analysis stratified by sex in vignette
 TODO Ran sensitivity analysis using confounders as time independent (gee.Rmd)
