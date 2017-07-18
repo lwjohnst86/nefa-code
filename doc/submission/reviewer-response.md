@@ -48,30 +48,31 @@ to methods and interpretation remains."*
 - *"After the trajectory analysis they run partial least-squares discriminant
 analyses (PLS-DA) with groups defined by beta-cell trajectories (latent class
 analysis) and defined by glycemic status as outcomes. While the primary analysis
-is well-described and easy to follow, **these additional analyses are described
+is well-described and easy to follow, these additional analyses are described
 mostly in the online appendix and much harder to interpret for the general
 reader. In my opinion, these do not add substantial information to the paper and
 the conclusion, and I would move these to the online appendix or drop them from
-the paper.** I think that the paper needs a major revision however both the
+the paper. I think that the paper needs a major revision however both the
 dataset and the study questions are adequate and important thus conditional
 acceptance is reasonable."*
 
-    Given that GEE models do not take into account the high dimensionality of
+    We'd like to thank the reviewer for this suggestion. Given that GEE models
+    do not take into account the high dimensionality (i.e. intercorrelation) of
     the NEFA composition data, we ran the PLS analyses in order to confirm the
     GEE results when using a multivariate approach. Use of the LCMM analysis
-    allowed us to take include the longitudinal data in the PLS analysis.
+    allowed us to include the longitudinal data in the PLS analysis.
     However, we agree with the reviewer that these analyses, while interesting
-    in their confirmation of the GEE findings, do not contribute to the overall
-    manuscript. In light of this reviewer's comments, we decided to move {{or
-    drop?}} the analyses into the ESM, including the description of the methods
-    and results.
+    in their confirmation of the GEE findings, do not contribute substantially
+    to the overall manuscript. In light of this reviewer's comments, we decided
+    to drop these analyses from the paper to keep the overall message of the
+    manuscript clearer and more focused.
 
 1. *"Title of the paper: it is a statement of the results. I would prefer to leave
 it open ended without an interpretation of the results, as with different levels
 of adjustments the results and conclusion will change substantially. See also
 comments on the results section."*
 
-    As suggested, we've made the title results agnostic.
+    As suggested, we've made the title agnostic.
 
 2. *"Methods in the abstract: a) Please give some information on the cohort
 characteristics: age, sex, high risk of diabetes but no prevalent disease at
@@ -80,13 +81,13 @@ patients? - these should go in the main methods section); c) adjustment for time
 – I would prefer to state that time since baseline was used as the underlying
 time variable instead of adjusting for time"*
 
-    We have made the requested changes to the methods and stated the exact
-    analyses used more explicitly. Incident diabetes cases are presented only
-    for descriptive purposes and were not included in any further analysis. We
-    thank the reviewer for the suggestion and agree that using time since
-    baseline is a better variable to adjust for; the time variable has been
-    replaced in GEE models, though the change does not substantially impact the
-    final results. {{confirm}}
+    We have made as many of the requested changes to the methods as the reviewer
+    suggested without going over the word limit. Incident diabetes cases are
+    presented for descriptive purposes though were not included in any GEE
+    analysis. We thank the reviewer for the suggestion regarding time adjustment
+    and agree that using time since baseline is a better variable to adjust for
+    in the GEE models; the time variable has been replaced in GEE models, though
+    the change does not substantially impact the final results.
 
 3. *"Results in the abstract: a major problem in my view with the
 interpretation of the results is that all characteristics are taken as
@@ -99,15 +100,23 @@ the unadjusted and the fully adjusted results here."*
 
     The specifics of the covariates are expanded upon in the methods section. We
     have included the unadjusted results in the main manuscript and have 
-    described it in the results and discussion sections, in addition to making
-    the changes to the abstract.
+    described it in the results and discussion sections, in addition to briefly
+    describing them in the abstract (keeping within the word limit).
 
 4. *"Conclusions in abstract: I have a different interpretation of the results,
 particularly because adjustment waist may be an over-adjustment."*
 
     We have included a sensitivity analysis identifying which exact covariate
-    attenuates the results between the unadjusted and adjusted models. {{briefly
-    describe the results here}}.
+    attenuates the results between the unadjusted and adjusted models; the
+    covariate is waist circumference. While inclusion of this variable
+    attenuates most of the associations, we believe that adjustment of this
+    variable is necessary given that biologically NEFA come from the adipose
+    tissue during fasting and hypothetically more adipose tissue would indicate
+    higher NEFA. Since other aspects of adipose tissue (e.g. role in
+    inflammation and appetite regulation) could also impact insulin sensitivity
+    and beta-cell function, we believe it is an important confounder to adjust
+    for. We have included in the conclusions a discussion on how adjustment of
+    waist circumference influences the model and the interpretation.
 
 5. *"INTRODUCTION: a clear and well-written introduction with a clear objective
 and hypothesis"*
@@ -123,31 +132,55 @@ and hypothesis"*
     visits where diabetes was treated."*
     
         We have clarified how we dealt with incident diabetes cases. Briefly, we
-        only report incident diabetes and dysglycemia cases in the text, but in
-        the modeling these were excluded. {{not sure how to address a) and b)...}}
+        only report incident diabetes and dysglycemia cases in the text to
+        describe the cohort, but in statistical analyses and modeling, these
+        cases were excluded. Regarding a) within the main PROMISE cohort,
+        prevalent diabetes cases were not excluded from the study as they
+        continued to be followed; prevalent diabetes cases did not have fatty
+        acids measured. For b) any participant is followed until they request to
+        be removed from the study; some participants missed the 3-yr visit, but
+        came in for the 6-yr visit. We have included wording within the results
+        on the sample and percentage who attended at least two visits andLastly,
+        c) because diabetes can effect the values of the OGTT-derived indices
+        due to medication the patient is taking and due to diabetes itself
+        impacting beta-cell function and insulin resistance, we excluded them
+        from all analyses; often, these participants did not even complete an
+        OGTT since it is discouraged that these patients consume that much
+        glucose. To restate, diabetes cases were not included in GEE or other
+        analyses.
     
     - *"I would prefer to see the equations for the outcome measures. Why not use
     HOMA2-IS instead of 1/HOMA-IR?"*
     
-        We have included the equations for the outcome measures as requested. In
-        addition, we replaced HOMA-IR with HOMA2-%S from the HOMA2 Calculator.
-        The results were not substantially different after the replacement of
-        HOMA-IR. {{confirm}}
+        Thank you for this suggestion. We have included the equations for the
+        outcome measures as requested. In addition, we replaced HOMA-IR with
+        HOMA2-%S from the HOMA2 Calculator. The results were not substantially
+        different after the replacement of HOMA-IR.
         
     - *"In the statistical analysis you state that co-variates were
     time-dependent. This is not true for age at baseline, family history, sex,
     ethnicity. Please clarify in the text."* ... *"misspelling: 'statistically
     significance'"*
     
-        These have been corrected.
+        Thanks for catching these issues. They have been corrected in the
+        revised manuscript.
     
     - *"I am not an expert of PLS-DA but it is not clear to me, why does this
     analysis reflect more the role of relative NEFA (mole%) analysis than the
     concentration analysis? As I can see, it depends on what variables you feed
     in the model."*
     
-        {{bit confused about this one. Will need to look into the wording in the
-        manuscript.}}
+        We are not entirely clear on the reviewer's comment. PLS extracts from
+        high dimensional data (multiple predictor variables, i.e. the fatty
+        acids) underlying correlations, constrained by a outcome variable (i.e.
+        beta-cell function). In this context, because mol% data is by definition
+        restricted to sums of 100% (all fatty acid values add up to 100%), the
+        underlying correlations between fatty acids is dependent on the relative
+        contributions those fatty acids have to the total and as such can
+        reflect correlations of specific fatty acids or groups of fatty acids
+        that increase or decrease in proportion together. The concentration data
+        is not contrained by this inherent correlation and thus underlying groups 
+        or clusters may not be identified using PLS.
 
 7. *"RESULTS:"*
     - *"Please give ns in Table 1."* ... *"It would be also nice to see, how
@@ -158,11 +191,10 @@ and hypothesis"*
     - *"How were the changes calculated (GEE?) in the basic characteristics of
     the PROMISE cohort section?"*
     
-        {{not completely sure what is meant here}} The changes over time as
-        reported in the results of the outcome variables are simple median
-        differences between the baseline and 6-year visit. The p-value {{confirm
-        this is added}} representing the difference was computed using an
-        unadjusted GEE model.
+        The changes over time as reported in the results of the outcome
+        variables are simple median differences between the baseline and 6-year
+        visit. The p-value representing the difference was computed using an
+        unadjusted (time only) GEE model.
     
     - *"I suggest to include the unadjusted data to the main paper (ESM Figure 3)
     and describe these findings as we do not know the exact model where
@@ -183,8 +215,9 @@ and hypothesis"*
     to beta-cell function in repeated cross-sectional analyses and NEFA related
     differences in beta-cell function remain constant over time."*
     
-        The reviewer makes an excellent point regarding the interaction check in
-        model building. We have incorporated this change in the analysis and
+        The reviewer makes an excellent point regarding the importance of
+        conducting an interaction check in the early stages of
+        model building. We have incorporated this new approach in the analysis and
         report on the results in the paper. In simple terms, the reviewer is
         correct that without an interaction term the model is essentially
         "repeated cross-sectional analyses", however, GEE handles the analysis
@@ -194,15 +227,22 @@ and hypothesis"*
         measurements of the outcome variables. As such, inherent similarities in
         the outcome measurements over time within a subject are included in the
         computation of the GEE estimates. This nuance provides substantially
-        more power to the model and the proceeding results.
+        more power to the model and the proceeding results. See ref {{num}} in
+        the manuscript for more detail on this statistical technique. Within
+        the manuscript we have expanded on this nuance to clarify the interpretation.
     
     - *"The model building is based on literature data which is the right way to
     build the models but a more detailed discussion on over-adjustment is
     required before interpretation."*
     
-        We have included further mention of potential over-adjustment to the
-        paper. {{where would this go exactly? throughout the results and
-        discussion?}}
+        To clarify, the model building processes used two additional techniques:
+        quasi-likelihood information criteria (QIC) and directed acyclic graphs.
+        The results and output of these techniques can be found in the ESM.
+        Combining all of these processes in building the model ensures that
+        adjustment is empirically based and reduces (but not eliminates) the
+        potential for over-adjustment. However, we have added additional
+        sensitivity analyses to identify covariates that strongly influence the
+        results and discuss the results in light of these findings.
     
     - *"Latent classes. Although this is a very attractive method, based on ESM
     figure 4, there are 3 parallel declining group trajectories that is mostly
@@ -218,10 +258,15 @@ and hypothesis"*
     dysfunction."*
     
         Given this reviewer's previous comments and suggestions, we have decided
-        to focus on the GEE analysis in the main paper and move the PLS-DA to
-        the ESM and expand on {{or remove? it seems this reviewer prefers if we
-        remove it. I could simplify it by doing what I did in the TAG as a
-        confirmation, and include it in the ESM}} it there.
+        to: focus on the GEE analysis in the main paper; remove the LCMM
+        analysis; perform the PLS analysis on the baseline (cross-sectional)
+        data using the outcomes as continuous variables; and, briefly describe
+        the findings in the Results section. To keep the ESM material
+        streamlined, we have contained the PLS results and other additional
+        analyses conducted within the code (accessible via the DOI) for the
+        interested reader. We believe this simplifies the results and primary
+        findings of this paper without sacrificing a loss in the potential use
+        these additional analyses may provide for the interested researcher.
     
     - *"The authors mention in the Discussion the external validity is mostly
     limited to white females. I suggest to run a sensitivity analysis on this
@@ -237,7 +282,7 @@ and hypothesis"*
     currently performed, or would show that some of the adjustments are
     over-adjustment."*
     
-        As requested, we have included the DAG underlying that hypothesized
+        As requested, we have included the DAG underlying the hypothesized
         associations in the ESM.
     
     - *"In the time-varying analysis some covariates are measured after NEFAs,
@@ -258,6 +303,5 @@ Charles MA et al.  The role of non-esterified fatty acids in the deterioration
 of glucose tolerance in Caucasian subjects: results of the Paris Prospective
 Study. Diabetologia 1997;40:1101-6"*
 
-    {{do I need to include this?}} We thank the associate editor for the kind
-    comments. We have included and discussed the cited paper in the discussion
-    section.
+    We thank the associate editor for the kind comments. We have included and
+    discussed the cited paper in the discussion section.
