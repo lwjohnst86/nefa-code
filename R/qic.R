@@ -22,7 +22,8 @@ prep_qic_data <- function(data) {
             AlcoholPerWk,
             TobaccoUse,
             FamHistDiab,
-            BaseTAG
+            BaseTAG,
+            MedsLipidsChol
         )
 }
 
@@ -60,10 +61,11 @@ qic_is <- function(data) {
     M7 <- stats::update(M3, . ~ . + FamHistDiab)
     M8 <- stats::update(M3, . ~ . + TobaccoUse)
     M9 <- stats::update(M3, . ~ . + ALT + MET)
-    M10 <- stats::update(M3, . ~ . + TotalNE:YearsFromBaseline)
-    M11 <- stats::update(M9, . ~ . + TotalNE:YearsFromBaseline)
+    M10 <- stats::update(M3, . ~ . + MedsLipidsChol)
+    M11 <- stats::update(M3, . ~ . + TotalNE:YearsFromBaseline)
+    M12 <- stats::update(M9, . ~ . + TotalNE:YearsFromBaseline)
 
-    MuMIn::model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11,
+    MuMIn::model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11, M12,
                      rank = MuMIn::QIC) %>%
         clean_qic()
 }
@@ -92,10 +94,11 @@ qic_bcf <- function(data) {
     M7 <- stats::update(M3, . ~ . + FamHistDiab)
     M8 <- stats::update(M3, . ~ . + TobaccoUse)
     M9 <- stats::update(M3, . ~ . + ALT + MET)
-    M10 <- stats::update(M3, . ~ . + TotalNE:YearsFromBaseline)
-    M11 <- stats::update(M9, . ~ . + TotalNE:YearsFromBaseline)
+    M10 <- stats::update(M3, . ~ . + MedsLipidsChol)
+    M11 <- stats::update(M3, . ~ . + TotalNE:YearsFromBaseline)
+    M12 <- stats::update(M9, . ~ . + TotalNE:YearsFromBaseline)
 
-    MuMIn::model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11,
+    MuMIn::model.sel(M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11, M12,
                      rank = MuMIn::QIC) %>%
         clean_qic()
 }
