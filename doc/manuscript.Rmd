@@ -244,7 +244,13 @@ examinations using standard procedures.  WC was measured at the natural waist,
 defined as the narrowest part of the torso between the umbilicus and the xiphoid
 process. BMI was calculated by dividing weight (kg) by height (m) squared.
 Sociodemographic information, including age, sex, and ethnicity, were determined
-using questionnaires administered at each examination. 
+using questionnaires administered at each examination. In the lifestyle 
+questionnaire, physical activity was determined using a version of the 
+Modifiable Activity Questionnaire (MAQ) [@Kriska1990]. The MAQ collects 
+information on leisure and occupational activity, including intensity, 
+frequency, and duration, over the past year. Each reported activity from the 
+MAQ was weighted by its metabolic intensity allowing for the estimation of 
+MET-hours per week.
 
 ## Statistical analysis
 
