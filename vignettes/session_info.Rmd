@@ -16,5 +16,6 @@ analyses done for this manuscript.
 ```{r}
 devtools::load_all()
 devtools::session_info()
+knitr::opts_chunk$set(collapse = TRUE)
 ```
 
