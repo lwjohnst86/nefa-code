@@ -18,6 +18,7 @@ vignette: >
 devtools::load_all()
 knitr::opts_chunk$set(collapse = TRUE, fig.width = 7, fig.height = 7)
 library(dplyr)
+library(tidyr)
 
 ## Variable prep
 covar_nowaist <- covariates[which(!grepl("Waist", covariates))]
@@ -29,6 +30,8 @@ gee_results_unadj <- gee_results %>%
 
 gee_results_adj <- gee_results %>%
     dplyr::filter(model == "Adjusted")
+
+gee_data <- prep_gee_data(project_data)
 
 ## Functions
 table_gee_sample <- function(data, caption = NULL) {
@@ -76,8 +79,8 @@ gee_results_adj %>%
 
 ```{r gee_results_tag, cache=TRUE}
 gee_results_tag <- bind_rows(
-    analyze_gee(project_data, outcomes, ne_pct, covar_withtag, 'mol%', mod = "with TAG"),
-    analyze_gee(project_data, outcomes, ne_conc, covar_withtag, 'nmol/mL', mod = "with TAG"),
+    analyze_gee(gee_data, outcomes, ne_pct, covar_withtag, 'mol%', mod = "with TAG"),
+    analyze_gee(gee_data, outcomes, ne_conc, covar_withtag, 'nmol/mL', mod = "with TAG")
     ) %>% 
     tidy_gee_results()
 ```
@@ -96,8 +99,8 @@ gee_results_tag %>%
 
 ```{r gee_results_nowaist, cache=TRUE}
 gee_results_nowaist <- bind_rows(
-    analyze_gee(project_data, outcomes, ne_pct, covar_nowaist, 'mol%', mod = "No WC"),
-    analyze_gee(project_data, outcomes, ne_conc, covar_nowaist, 'nmol/mL', mod = "No WC"),
+    analyze_gee(gee_data, outcomes, ne_pct, covar_nowaist, 'mol%', mod = "No WC"),
+    analyze_gee(gee_data, outcomes, ne_conc, covar_nowaist, 'nmol/mL', mod = "No WC")
     ) %>% 
     tidy_gee_results()
 ```
@@ -117,7 +120,7 @@ gee_results_nowaist %>%
 ```{r gee_results_int_time, cache=TRUE}
 gee_results_unadj_int_time <- bind_rows(
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_pct,
         "YearsFromBaseline",
@@ -126,7 +129,7 @@ gee_results_unadj_int_time <- bind_rows(
         intvar = "YearsFromBaseline"
         ), 
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_conc,
         "YearsFromBaseline",
@@ -138,7 +141,7 @@ gee_results_unadj_int_time <- bind_rows(
 
 gee_results_adj_int_time <- bind_rows(
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_pct,
         covariates,
@@ -147,7 +150,7 @@ gee_results_adj_int_time <- bind_rows(
         intvar = "YearsFromBaseline"
         ), 
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_conc,
         covariates,
@@ -170,7 +173,7 @@ gee_results_adj_int_time %>%
 ```{r gee_results_int_sex}
 gee_results_unadj_int_sex <- bind_rows(
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_pct,
         c("YearsFromBaseline", "Sex"),
@@ -179,7 +182,7 @@ gee_results_unadj_int_sex <- bind_rows(
         intvar = "Sex"
         ), 
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_conc,
         c("YearsFromBaseline", "Sex"),
@@ -191,7 +194,7 @@ gee_results_unadj_int_sex <- bind_rows(
 
 gee_results_adj_int_sex <- bind_rows(
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_pct,
         covariates,
@@ -200,7 +203,7 @@ gee_results_adj_int_sex <- bind_rows(
         intvar = "Sex"
         ), 
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_conc,
         covariates,
@@ -224,7 +227,7 @@ gee_results_adj_int_sex %>%
 ```{r gee_results_int_ethn}
 gee_results_unadj_int_ethn <- bind_rows(
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_pct,
         c("YearsFromBaseline", "BiEthnicity"),
@@ -233,7 +236,7 @@ gee_results_unadj_int_ethn <- bind_rows(
         intvar = "BiEthnicity"
         ), 
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_conc,
         c("YearsFromBaseline", "BiEthnicity"),
@@ -245,7 +248,7 @@ gee_results_unadj_int_ethn <- bind_rows(
 
 gee_results_adj_int_ethn <- bind_rows(
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_pct,
         covariates,
@@ -254,7 +257,7 @@ gee_results_adj_int_ethn <- bind_rows(
         intvar = "BiEthnicity"
         ), 
     analyze_gee(
-        project_data,
+        gee_data,
         outcomes,
         ne_conc,
         covariates,
@@ -273,3 +276,112 @@ gee_results_adj_int_ethn %>%
     table_gee_int("Interactions with ethnicity in fully adjusted models.")
 ```
 
+# Sensitivity analysis by sex and ethnicity
+
+## By sex
+
+```{r strat_by_sex, cache=TRUE}
+covar_nosex <- covariates[which(!grepl("Sex", covariates))]
+
+females_only <- gee_data %>% 
+    filter(Sex == "Female")
+males_only <- gee_data %>% 
+    filter(Sex == "Male")
+
+gee_results_bysex <- bind_rows(
+    analyze_gee(females_only, outcomes, ne_pct, covar_nosex, 'mol%', mod = "Female only"),
+    analyze_gee(females_only, outcomes, ne_conc, covar_nosex, 'nmol/mL', mod = "Female only"),
+    analyze_gee(males_only, outcomes, ne_pct, covar_nosex, 'mol%', mod = "Male only"),
+    analyze_gee(males_only, outcomes, ne_conc, covar_nosex, 'nmol/mL', mod = "Male only")
+    ) %>% 
+    tidy_gee_results()
+```
+
+```{r tab_strat_by_sex}
+gee_results_bysex %>% 
+    filter(model == "Female only") %>% 
+    table_gee_sample("Working sample size for models by female")
+
+gee_results_bysex %>% 
+    filter(model == "Male only") %>% 
+    table_gee_sample("Working sample size for models by male")
+```
+
+```{r fig_strat_female, fig.cap="Female only"}
+gee_results_bysex %>% 
+    filter(model == "Female only") %>% 
+    plot_gee_main()
+```
+
+```{r fig_strat_male, fig.cap="Male only"}
+gee_results_bysex %>% 
+    filter(model == "Male only") %>% 
+    plot_gee_main()
+```
+
+## By ethnicity
+
+```{r strat_by_ethn, cache=TRUE}
+covar_noethn <- covariates[which(!grepl("BiEthnicity", covariates))]
+
+european_only <- gee_data %>% 
+    filter(BiEthnicity == "European")
+noneuropean_only <- gee_data %>% 
+    filter(BiEthnicity == "Non-European")
+
+gee_results_byethn <- bind_rows(
+    analyze_gee(european_only, outcomes, ne_pct, covar_noethn, 'mol%', mod = "European only"),
+    analyze_gee(european_only, outcomes, ne_conc, covar_noethn, 'nmol/mL', mod = "European only"),
+    analyze_gee(noneuropean_only, outcomes, ne_pct, covar_noethn, 'mol%', mod = "Non-European only"),
+    analyze_gee(noneuropean_only, outcomes, ne_conc, covar_noethn, 'nmol/mL', mod = "Non-European only")
+    ) %>% 
+    tidy_gee_results()
+```
+
+```{r tab_strat_by_ethn}
+gee_results_byethn %>% 
+    filter(model == "European only") %>% 
+    table_gee_sample("Working sample size for models by European")
+
+gee_results_byethn %>% 
+    filter(model == "Non-European only") %>% 
+    table_gee_sample("Working sample size for models by Non-European")
+```
+
+```{r fig_strat_european, fig.cap="European only"}
+gee_results_byethn %>% 
+    filter(model == "European only") %>% 
+    plot_gee_main()
+```
+
+```{r fig_strat_noneuropean, fig.cap="Non-European only"}
+gee_results_byethn %>% 
+    filter(model == "Non-European only") %>% 
+    plot_gee_main()
+```
+
+# Covariates as time-independent
+
+```{r covars_time_indep, cache=TRUE}
+covars_as_time_indep <- gee_data %>% 
+    mutate_at(vars(Waist, ALT, MET), funs(ifelse(VN == 0, ., NA))) %>% 
+    fill(Waist, ALT, MET)
+
+gee_results_covars_time_indep <- bind_rows(
+    analyze_gee(covars_as_time_indep, outcomes[1:2], ne_pct, covariates, 'mol%', mod = "Covars time indep"),
+    analyze_gee(covars_as_time_indep, outcomes[1:2], ne_conc, covariates, 'nmol/mL', mod = "Covars time indep"),
+    analyze_gee(covars_as_time_indep, outcomes[3:4], ne_pct, covariates, 'mol%', mod = "Covars time indep"),
+    analyze_gee(covars_as_time_indep, outcomes[3:4], ne_conc, covariates, 'nmol/mL', mod = "Covars time indep")
+    ) %>% 
+    tidy_gee_results()
+```
+
+```{r tab_covars_time_indep}
+gee_results_covars_time_indep %>% 
+    table_gee_sample("Working sample size for models with covariates as time independent")
+```
+
+```{r fig_covars_time_indep}
+gee_results_covars_time_indep %>% 
+    plot_gee_main()
+```
