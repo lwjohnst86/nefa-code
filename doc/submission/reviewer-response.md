@@ -272,9 +272,17 @@ and hypothesis"*
     limited to white females. I suggest to run a sensitivity analysis on this
     group."*
     
-        We agree with the reviewer's suggestion and ran additional sensitivity
-        analyses stratified by sex and ethnicity. We mention the results of this
-        analysis in the results.
+        We agree with the reviewer's comment and ran stratified models by either
+        sex or ethnicity. In both cases, all significant associations from the
+        non-stratified analyses were attenuated, likely due to the reduction in
+        sample size in the stratified models. Stratifying analyses has the
+        limitation of substantially reducing sample size and is the reason why
+        interaction testing is prefered. We ran interaction tests by sex and
+        ethnicity and found no significant interactive associations. While
+        these results internally suggest no differences between sex or ethnicity,
+        our cohort was not designed to answer these research questions and the
+        results presented in the paper may still not be generalizable to other
+        populations. {{yea?}}
 
 8. *"DISCUSSION"*
     - *"I would like to see more on the DAGs that underlies the selected
@@ -282,7 +290,7 @@ and hypothesis"*
     currently performed, or would show that some of the adjustments are
     over-adjustment."*
     
-        As requested, we have included the DAG underlying the hypothesized
+        As requested, we have included the DAGs underlying the hypothesized
         associations in the ESM.
     
     - *"In the time-varying analysis some covariates are measured after NEFAs,
@@ -292,7 +300,9 @@ and hypothesis"*
         In order to confirm the impact the comment made by the reviewer has on
         the reported associations, we ran sensitivity analyses where we had all
         covariates as time-independent, to match the NEFA variables in the GEE
-        model. We found {{state findings}}.
+        model. We found that there were negligible differences in the results
+        between models with covariates as either time-dependent and
+        time-independent and models with all covariates as time-independent.
 
 # Associate Editor
 
@@ -303,5 +313,5 @@ Charles MA et al.  The role of non-esterified fatty acids in the deterioration
 of glucose tolerance in Caucasian subjects: results of the Paris Prospective
 Study. Diabetologia 1997;40:1101-6"*
 
-    We thank the associate editor for the kind comments. We have included and
-    discussed the cited paper in the discussion section.
+    We thank the associate editor for the kind comments. We have included the
+    cited paper in the discussion section.
