@@ -9,23 +9,29 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## Medications that influence lipid and cholesterol
-
-```{r, collapse=TRUE}
+```{r setup, collapse=TRUE}
 devtools::load_all()
 knitr::opts_chunk$set(fig.height = 7, fig.width = 7)
 library(dplyr)
+library(tidyr)
 
 nefa_dist <- project_data %>%
     filter(VN == 0) %>%
     select(matches('^ne\\d'), MedsLipidsChol) %>%
-    tidyr::gather(Measure, Value, -MedsLipidsChol) %>%
+    gather(Measure, Value, -MedsLipidsChol) %>%
     mutate(Measure = renaming_fa(Measure) %>%
                       gsub('ne_', '', .),
            MedsLipidsChol = as.factor(MedsLipidsChol)) %>%
     order_by_fattyacid(fa_col = "Measure") %>%
     mutate(Measure = forcats::fct_inorder(Measure))
+
+outcomes_dist <- project_data %>% 
+    select(VN, lHOMA2_S, lISI, lIGIIR, lISSI2, MedsLipidsChol) %>% 
+    gather(Measure, Value, -MedsLipidsChol, -VN) %>% 
+    mutate(MedsLipidsChol = as.factor(MedsLipidsChol))
 ```
+
+## On NEFA
 
 ```{r}
 library(ggplot2)
@@ -52,5 +58,12 @@ nefa_dist %>%
     labs(y = 'Concentration (nmol/mL)',
          x = 'Non-esterified fatty acid') +
     graph_theme(ticks = FALSE)
+```
+
+## On outcomes
+
+```{r}
+outcomes_dist %>% 
+    seer::view_boxplots(dots = TRUE, "Measure", "Value", box_group = "MedsLipidsChol")
 ```
 
