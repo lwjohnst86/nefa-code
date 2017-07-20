@@ -148,16 +148,17 @@ diabetes, there are important gaps in this research. The majority of previous
 studies have used animal models or cell lines [@Maris2013a;@Deguil2011a], have
 been short term human trials 
 [@Szendroedi2012a;@Daniele2014a;@Liang2013a;@Kehlenbrink2012a], or have been
-epidemiological studies that only looked at total NEFA and not individual fatty
-acids [@Miller2012a;@Johns2014a;@Charles1997a]. To date, there have been no longitudinal
-studies examining the role of the composition of the serum NEFA fraction on the
-pathogenesis of diabetes, which is critical given the protracted natural history
-of diabetes and the growing appreciation of the divergent effects of individual
-fatty acids. Therefore, our objective was to examine the association of serum
-NEFA composition on changes over time in insulin sensitivity and beta-cell
-function in a longitudinal cohort. We hypothesized that higher palmitic acid and
-lower PUFA such as eicosapentaenoic acid in the NEFA fraction would associate
-with declining insulin sensitivity and beta-cell function over 6 years.
+epidemiological studies that only looked at total NEFA and not individual fatty 
+acids [@Miller2012a;@Johns2014a;@Charles1997a]. To date, there have been no
+longitudinal studies examining the role of the composition of the serum NEFA
+fraction on the pathogenesis of diabetes, which is critical given the protracted
+natural history of diabetes and the growing appreciation of the divergent
+effects of individual fatty acids. Therefore, our objective was to examine the
+association of serum NEFA composition on changes over time in insulin
+sensitivity and beta-cell function in a longitudinal cohort. We hypothesized
+that higher palmitic acid and lower PUFA such as eicosapentaenoic acid in the
+NEFA fraction would associate with declining insulin sensitivity and beta-cell
+function over 6 years.
 
 # Methods
 
