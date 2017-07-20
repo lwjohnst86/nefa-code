@@ -30,13 +30,13 @@ DONE Added interaction testing before and after adjustment in vignette
 DONE Changed to using YearsFromBaseline
 DONE Clarified interpretation of GEE estimates in methods and results
 DONE Included DAG figures from DAGitty in supplemental
-TODO Add info on medication use
+DONE Add info on medication use
 TODO Clarify that results of non-interaction GEE are more nuanced than a simple
     repeated x-sec analysis
-TODO Discussed over-adjustment in methods and discussion # maybe?
-TODO Ran a sensitivity analysis stratified by sex in vignette
-TODO Ran sensitivity analysis using confounders as time independent (gee.Rmd)
-TODO Added reference as per Editor's request
+DONE Discussed over-adjustment in methods and discussion # maybe?
+DONE Ran a sensitivity analysis stratified by sex in vignette
+DONE Ran sensitivity analysis using confounders as time independent (gee.Rmd)
+DONE Added reference as per Editor's request
 DONE Moved PLS-DA and other, non-GEE modeling over into vignettes
 DONE Moved non-manuscript files over into vignette
 TODO Second draft of response, sent to Tony # Create branch
