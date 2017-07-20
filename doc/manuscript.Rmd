@@ -42,13 +42,13 @@ Corresponding author:
 - Fax number:
 - Email: anthony.hanley@utoronto.ca
 
-Word count - Abstract: 242 / 250
+Word count - Abstract: 255 / 250
 
-Word count - Main text: 3726 / 4000
+Word count - Main text: 3704 / 4000
 
-<!-- Table and figure count: 3 / 4 -->
+<!-- Table and figure count: 4 / 4 -->
 
-<!-- Reference limit 39 / 50 -->
+<!-- Reference limit 49 / 50 -->
 
 # Abstract
 
