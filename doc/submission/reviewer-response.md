@@ -101,7 +101,9 @@ the unadjusted and the fully adjusted results here."*
     The specifics of the covariates are expanded upon in the methods section. We
     have included the unadjusted results in the main manuscript and have 
     described it in the results and discussion sections, in addition to briefly
-    describing them in the abstract (keeping within the word limit).
+    describing them in the abstract (keeping within the word limit). An
+    explanation of what each covariate is in regard to NEFA and the outcomes
+    (e.g. mediator or confounder) has been added in the ESM Methods.
 
 4. *"Conclusions in abstract: I have a different interpretation of the results,
 particularly because adjustment waist may be an over-adjustment."*
