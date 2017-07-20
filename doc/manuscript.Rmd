@@ -263,50 +263,56 @@ assess the relationships of individual NEFA with other continuous variables.
 
 For the primary analysis, generalized estimating equation (GEE) models 
 [@Zeger1986a] were used to determine the longitudinal associations between the 
-outcome variables and the predictor variables. Given the longitudinal design 
-an auto-regressive of order 1 (AR1) correlation matrix was chosen for the GEE models, 
-though other matrices (eg. exchangeable) had similar fit (data not shown). GEE
-is well suited to longitudinal cohort studies given it's capacity to handle
-missed visits. The predictor variables and continuous covariates were scaled
-(mean centered and standardized). The NEFA variables were classified as
-*time-independent* (held constant) as they were measured only at the baseline
-visit, while the outcome variables and covariates were set as *time-dependent*.
-No imputation was conducted on missing values.
+outcome variables and the predictor variables. Given the longitudinal design an
+auto-regressive of order 1 (AR1) correlation matrix was chosen for the GEE
+models, though other matrices (eg. exchangeable) had similar fit (data not
+shown). GEE is well suited to longitudinal cohort studies given it's capacity to
+handle missed visits. The predictor variables and continuous covariates were
+scaled (mean centered and standardized). The NEFA variables were classified as 
+*time-independent* (held constant) as they were measured only at the baseline 
+visit, while the outcome variables were set as *time-dependent*. No imputation
+was conducted on missing values and incident diabetes cases were excluded from 
+the analysis.
 
 Covariate selection was based on previous literature, directed acyclic graph 
-[@Greenland1999a] recommendations (see `r cite_sf("dag")`), and quasi-likelihood information criterion 
-(QIC). `r cite_st('qic')` shows the covariates compared using QIC. To reduce
-complexity between models using either insulin sensitivity or beta-cell function
-measures, only the model that had similar good fit for both was used. 
-As such, we selected the model
-that had the fewest covariates and that had similar fit between the outcome
-measures (M9). The final GEE model was adjusted for years from baseline (time),
-sex (female or male), ethnicity (European ancestry or non-European ancestry),
-baseline age, WC, ALT, and MET (physical activity). Sex, ethnicity, and baseline 
-age were time-*independent* variables. After scaling,
-log-transforming, and exponentiating, the GEE estimates are
-interpreted as an expected percent difference in the outcome variable for every
-standard deviation (SD) increase in the predictor variable given the covariates
-are held constant.
-Since TAG is a risk factor for diabetes and since NEFA contribute to TAG
-production, TAG may act as a mediator between NEFA and the outcomes. To
-determine the role of TAG in the association between NEFA and the outcomes, TAG
-was included in the GEE model as a sensitivity analysis. Lastly for the GEE
-models, we tested for an interaction with sex, ethnicity, or time by the
-predictor term for each outcome variable.
+[@Greenland1999a;@Textor2011a] recommendations (see `r cite_sf("dag_isi")` and 
+`r cite_sf("dag_issi2")`), and quasi-likelihood information criterion (QIC). See
+the ESM Methods for more detail on QIC and the directed acyclic graphs. 
+`r cite_st('qic')` shows the covariates compared using QIC. We selected the
+model (M9) that had the fewest covariates and that had similar fit between the
+outcome measures. The final GEE model included the covariates years from baseline
+(time), sex (female or male), ethnicity (European ancestry or non-European 
+ancestry), baseline age, WC, ALT, and MET (physical activity). Sex, ethnicity, 
+and baseline age were time-*independent* variables. After scaling, 
+and log-transforming the model variables, then exponentiating the GEE estimates,
+the interpretation of the GEE results is as an expected percent difference in 
+the outcome variable for every standard deviation (SD) increase in the predictor
+variable given the covariates are held constant. With the main effect 
+associations (not with a time interaction), this interpretation is applied 
+consistently at each time point and thus represents associations of baseline 
+NEFA for each future value of the outcomes. Since TAG is a risk factor for
+diabetes and since NEFA contribute to TAG production [@Barrows2006a], TAG may
+act as a mediator between NEFA and the outcomes. To determine the role of TAG in
+the association between NEFA and the outcomes, TAG was included in the GEE model
+in a sensitivity analysis. Lastly for the GEE models, we tested for an 
+interaction with sex, ethnicity, or time by the predictor term for each outcome 
+variable.
 
 While GEE accounts for the longitudinal design of the data, this approach is
 limited in that it cannot analyze the inherent multivariate nature of the
-composition of the NEFA fraction. Therefore, to confirm the results of the GEE
-analyses in a multivariate environment (all NEFA variables in a single model),
-partial least squares (PLS) was used with the outcomes as the independent variable.
+composition of the NEFA fraction, as each model only contains data from a single
+fatty acid. Therefore, to confirm the results of the GEE analyses in a
+multivariate environment (all NEFA variables in a single model), partial least
+squares (PLS) was used with the outcomes as the dependent variable.
 
 All analyses were performed using R `r getRversion()` [@Rbase], along with the R
-packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a].
-The R code for this manuscript is available at 
-https://dx.doi.org/10.6084/m9.figshare.3472433. Results were considered statistically significance at p<0.05,
-after adjusting for multiple testing using the Benjamini-Hochberg False
-Discovery Rate [@Benjamini1995a]. STROBE was used as a guideline for reporting [@Vandenbroucke2007b].
+packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a]
+and the package pls `r packageVersion('pls')` for the PLS analysis.
+The R code and output for all analyses of this manuscript is available at 
+https://dx.doi.org/10.6084/m9.figshare.3472433. Results were considered
+statistically significance at p<0.05, after adjusting for multiple testing using
+the Benjamini-Hochberg False Discovery Rate [@Benjamini1995a]. STROBE was used
+as a guideline for reporting [@Vandenbroucke2007b].
 
 # Results
 
