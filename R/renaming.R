@@ -6,7 +6,7 @@ renaming_table_rows <- function(x) {
         gsub('HOMA2_S', 'HOMA2-%S', .) %>%
         gsub('IGIIR', 'IGI/IR', .) %>%
         gsub('ISSI2', 'ISSI-2', .) %>%
-        gsub('HOMA', 'HOMA-IR', .) %>%
+        gsub('^HOMA$', 'HOMA-IR', .) %>%
         gsub('TAG', 'TAG (mmol/L)', .) %>%
         gsub('Chol', 'Chol (mmol/L)', .) %>%
         gsub('ALT', 'ALT (U/L)', .) %>%

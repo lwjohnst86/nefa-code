@@ -13,7 +13,7 @@ table_basic <- function(data, caption = NULL) {
                       Sex = ifelse(VN == 0, as.character(Sex), NA),
                       Sex = as.factor(Sex)) %>%
         carpenter::outline_table('f.VN') %>%
-        carpenter::add_rows(c('HOMA', 'ISI', 'IGIIR', 'ISSI2'),
+        carpenter::add_rows(c('HOMA2_S', 'ISI', 'IGIIR', 'ISSI2'),
                             carpenter::stat_medianIQR, digits = 1) %>%
         carpenter::add_rows(c('BMI', 'Waist', 'Age', 'MET', 'ALT', 'TAG', 'Chol', 'HDL',
                               'BaseTotalNE'),
