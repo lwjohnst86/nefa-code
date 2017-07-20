@@ -63,7 +63,9 @@ least complex of all the models. QIC and other information criterion methods are
 used in conjunction with other techniques such as literature and DAG based. The 
 final GEE model selected as best fitting was negligibly different when using 
 insulin sensitivity or beta-cell function as an outcome and as such the same 
-covariates were chosen for models with each of the outcomes.
+covariates were chosen for models with each of the outcomes. The covariates
+medication use, WC, ALT, and MET would be considered classical confounders while
+TAG would be considered a mediating variable.
 
 Partial least squares (PLS) regression is a technique similar to principal
 component analysis (PCA) that is designed to extract meaningful information from
