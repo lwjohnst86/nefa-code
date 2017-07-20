@@ -25,10 +25,10 @@ appropriate and clear manner."*
     all participants. While most participants took some form of medication over
     the 6 years, during the times of data collection, few ({{get number}}) were
     on medications. However, for those who were taking medications that could
-    influence the results, sensitivity analyses revealed they did not
-    substantially influence NEFA concentrations, the outcome measures, nor the
-    GEE model results {{need to run/confirm this}}. These results have been
-    appended to the ESM {{yes?}}.
+    influence the results, additional analyses revealed that medication use did
+    not substantially influence the predictor or outcome measures, nor did 
+    medication use substantially contribute to GEE model fit compared to models 
+    without it (see QIC table). 
 
 ## Referee: 2
 
