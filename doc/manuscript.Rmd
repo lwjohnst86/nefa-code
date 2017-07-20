@@ -128,37 +128,36 @@ Total non-esterified fatty acids (NEFA) have been well documented to influence
 the pathogenesis of type 2 diabetes mellitus. Experimental work has shown that 
 exposure to high concentrations of NEFA can induce insulin resistance in 
 insulin-sensitive tissues such as muscle and liver, and in addition can impair 
-pancreatic beta-cell production of insulin [@Rachek2014a;@Cnop2008a].
-Observational and clinical studies have reported concordant findings, showing
-in particular that elevated total plasma NEFA associates with an increased risk
-for incident type 2 diabetes [@Paolisso1995a;@Salgin2012a].
+pancreatic beta-cell production of insulin [@Rachek2014a;@Cnop2008a]. 
+Observational and clinical studies have reported concordant findings, showing in
+particular that elevated total plasma NEFA associates with an increased risk for
+incident type 2 diabetes [@Paolisso1995a;@Salgin2012a].
 
-Much of the previous experimental work on the role of NEFA in type 2 diabetes
-utilized individual fatty acids such as palmitic acid (16:0) or oleic acid
-(18:1n-9), or alternatively used specific oils such as soybean oil, which is
-high in the polyunsaturated fatty acid (PUFA) linoleic acid (18:2n-6), as the
-exposure to characterize the metabolic impact of total NEFA. However, fatty acids comprise
-multiple molecules with diverse physiological functions, and few 
-studies have analyzed the effects of a broader spectrum of fatty acids. Notably,
+Much of the previous experimental work on the role of NEFA in type 2 diabetes 
+utilized individual fatty acids such as palmitic acid (16:0) or oleic acid 
+(18:1n-9), or alternatively used specific oils such as soybean oil, which is 
+high in the polyunsaturated fatty acid (PUFA) linoleic acid (18:2n-6), as the 
+exposure to characterize the metabolic impact of total NEFA. However, fatty
+acids comprise multiple molecules with diverse physiological functions, and few 
+studies have analyzed the effects of a broader spectrum of fatty acids. For instance,
 one study suggested that eicosapentaenoic acid (20:5n-3) can protect against the
 lipotoxic effect of palmitic acid in the beta-cells [@Kato2008].
 
 Despite a sizable literature studying the role of total NEFA concentration in 
 diabetes, there are important gaps in this research. The majority of previous 
-studies have used animal models or cell lines [@Maris2013a;@Deguil2011a], 
-have been short term human trials 
-[@Szendroedi2012a;@Daniele2014a;@Liang2013a;@Kehlenbrink2012a], or have
-been epidemiological studies that only looked at total NEFA and not individual
-fatty acids [@Miller2012a;@Johns2014a]. To date, there have
-been no longitudinal studies examining the role of the composition of the serum NEFA
-fraction on the pathogenesis of diabetes, which is critical given the protracted natural
-history of diabetes and the growing appreciation of the divergent effects of
-individual fatty acids. Therefore, our objective was to examine the 
-association of serum NEFA composition on changes over time in insulin
-sensitivity and beta-cell function in a longitudinal cohort. We hypothesized
-that higher palmitic acid and lower PUFA such as
-eicosapentaenoic acid in the NEFA fraction would associate with declining insulin sensitivity and
-beta-cell function over 6 years.
+studies have used animal models or cell lines [@Maris2013a;@Deguil2011a], have
+been short term human trials 
+[@Szendroedi2012a;@Daniele2014a;@Liang2013a;@Kehlenbrink2012a], or have been
+epidemiological studies that only looked at total NEFA and not individual fatty
+acids [@Miller2012a;@Johns2014a;@Charles1997a]. To date, there have been no longitudinal
+studies examining the role of the composition of the serum NEFA fraction on the
+pathogenesis of diabetes, which is critical given the protracted natural history
+of diabetes and the growing appreciation of the divergent effects of individual
+fatty acids. Therefore, our objective was to examine the association of serum
+NEFA composition on changes over time in insulin sensitivity and beta-cell
+function in a longitudinal cohort. We hypothesized that higher palmitic acid and
+lower PUFA such as eicosapentaenoic acid in the NEFA fraction would associate
+with declining insulin sensitivity and beta-cell function over 6 years.
 
 # Methods
 
