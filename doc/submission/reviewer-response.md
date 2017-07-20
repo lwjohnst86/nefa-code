@@ -190,10 +190,12 @@ and hypothesis"*
     many participants had 1, 2 or 3 time points in the analysis."*
     
         These have been added as requested. {{Tony, not sure about how I feel
-        adding signif to Table 1. My analysis isn't on changes in these
-        measures, so there is not need to test if there is a difference. It's
-        purely descriptive and I'd prefer not to generate p-values for the sake
-        of generating p-values. Thoughts? I could always just do a baseline table...}}
+        adding p-values to Table 1. I'm showing it purely for descriptive
+        purposes and it might detract from discussion since, as you may recall,
+        some variables (e.g. HDL) have a significant difference between visits,
+        but don't really change over the visits... thoughts? I'm not too keen on
+        generating p-values for the sake of generating p-values, esp. when it is
+        not really relevant to the main analysis.}}
     
     - *"How were the changes calculated (GEE?) in the basic characteristics of
     the PROMISE cohort section?"*
