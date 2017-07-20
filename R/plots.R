@@ -12,7 +12,7 @@ plot_nefa_distribution <- function() {
         dplyr::mutate(Measure = forcats::fct_inorder(Measure))
 
     nefa_dist %>%
-        seer::view_boxplots(dots = TRUE, "Measure", "Value") +
+        seer::view_boxplots(dots = FALSE, "Measure", "Value") +
         ggplot2::labs(y = 'Concentration (nmol/mL)',
                       x = 'Non-esterified fatty acid') +
         graph_theme(ticks = FALSE)
