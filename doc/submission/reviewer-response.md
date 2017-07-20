@@ -143,13 +143,13 @@ and hypothesis"*
         acids measured. For b) any participant is followed until they request to
         be removed from the study; some participants missed the 3-yr visit, but
         came in for the 6-yr visit. We have included wording within the results
-        on the sample and percentage who attended at least two visits andLastly,
-        c) because diabetes can effect the values of the OGTT-derived indices
-        due to medication the patient is taking and due to diabetes itself
-        impacting beta-cell function and insulin resistance, we excluded them
-        from all analyses; often, these participants did not even complete an
-        OGTT since it is discouraged that these patients consume that much
-        glucose. To restate, diabetes cases were not included in GEE or other
+        on the sample and percentage who attended at least two visits. Lastly,
+        for c) because diabetes can effect the values of the OGTT-derived 
+        indices due to medication the patient is taking and due to diabetes 
+        itself impacting beta-cell function and insulin resistance, we excluded 
+        them from all analyses; often, these participants did not even complete 
+        an OGTT since it is discouraged that these patients consume that much 
+        glucose. To restate, diabetes cases were not included in GEE or other 
         analyses.
     
     - *"I would prefer to see the equations for the outcome measures. Why not use
