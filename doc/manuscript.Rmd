@@ -329,7 +329,7 @@ est_gee <- gee_results %>%
     calc_gee_magnitude()
 
 meds_use <- table(project_data$MedsLipidsChol, project_data$VN)[2, c(1, 3)]
-    
+
 sig_fa_unadj <- gee_results %>% 
     dplyr::filter(model == "Unadjusted", p.value < 0.05) %>% 
     dplyr::select(Yterms, Xterms, unit) %>% 
@@ -342,62 +342,71 @@ sig_fa_adj <- gee_results %>%
 
 ## Basic characteristics of the PROMISE cohort
 
-For this study, there were 
-`r female$npct` females and `r european$npct` had European-ancestry (see 
-`r cite_t("basic")`). The mean follow-up time was `r calc_followup_time()`
-years, where `r calc_pct_full_visits()`% of participants attended all three
-visits.
-The average age of the participants was `r aide::average(ds0yr$Age)` years 
-(`r aide::stddev(ds0yr$Age)` SD) and the average BMI was
+For this study, there were `r female$npct` females and `r european$npct` had
+European-ancestry (see `r cite_t("basic")`). The mean follow-up time was 
+`r calc_followup_time()` years, where `r calc_pct_full_visits()`% of 
+participants attended all three visits.
+The average age of the participants at baseline was `r aide::average(ds0yr$Age)`
+years (`r aide::stddev(ds0yr$Age)` SD) and the average BMI was
 `r aide::average(ds0yr$BMI)` (`r aide::stddev(ds0yr$BMI)` SD). Most of the 
-participants, `r famhist$npct`, had a family history of diabetes.
-Insulin sensitivity and beta-cell function measures showed a significant median
-decline from baseline to 6-years between
-`r chg_outcomes$chg` (p`r chg_outcomes$p`, based on a time-adjusted GEE model)
-in this analysis.
+participants, `r famhist$npct`, had a family history of diabetes. Insulin
+sensitivity and beta-cell function measures showed a significant median
+decline from baseline to 6-years of between `r chg_outcomes$chg` 
+(p`r chg_outcomes$p`, based on a time-adjusted GEE model) in this analysis.
 Consistent with this decline, there were `r calc_incid_dysgly("ConvertDM")`
-and `r calc_incid_dysgly("ConvertPreDM")`incident cases of diabetes and pre-diabetes (IFG and IGT),
-respectively, over the 6-years. Incident diabetes cases were excluded from further GEE
-analyses.
+and `r calc_incid_dysgly("ConvertPreDM")`incident cases of diabetes and
+pre-diabetes (IFG and IGT), respectively, over the 6-years. Incident diabetes
+cases were excluded from further GEE analyses. There were `r meds_use[1]` and
+`r meds_use[2]` participants who used lipid and cholesterol modifying medications
+at the baseline and 6-year visit, respectively. Medication use did not influence
+NEFA composition, the outcomes, or the GEE models (data not shown).
 
 `r cite_f('nefa')` shows the compositional distribution of NEFA in the study
 participants. Four individual NEFA made up the vast majority 
 (`r sum(nefa$pct)`%) of the total NEFA fraction. The largest contributors
-were `r nefa$c[1]`, `r nefa$c[2]`, `r nefa$c[3]`, and 
-`r nefa$c[4]`. Raw concentration values are shown in `r cite_st('nefa')`. 
-There were no differences in individual NEFA for those who did compared to those
-who did not take medications to manage blood lipids (data not shown).
-All individual NEFA as well as the total fraction had
-correlations that ranged from weak to null (r<0.3) with participant
-characteristics (see `r cite_sf('corr_conc')` and `r cite_sf("corr_pct")`).
+were `r nefa$c[1]`, `r nefa$c[2]`, `r nefa$c[3]`, and `r nefa$c[4]`. Raw
+concentration values are shown in `r cite_st('nefa')`. All individual NEFA as
+well as the total fraction had correlations that ranged from weak to null
+(r<0.3) with participant characteristics (see `r cite_sf('corr_conc')` and 
+`r cite_sf("corr_pct")`).
 
 ## GEE modeling
 
 A number of associations were seen in the unadjusted GEE models 
 (see `r cite_f('gee_unadj')`), particularly for NEFA modeled as a concentration.
-While full model adjustment (`r cite_f('gee_adj')`) attenuated most of these
-associations, total NEFA, 16:0, 18:1n-9, and 18:2n-6 (all as nmol/mL)
-continued to show negative associations with IGI/IR and ISSI-2. Sensitivity
-analyses revealed that adjustment for WC was responsible for attenuating the
-unadjusted results. The magnitude of association for each of these variables was
-fairly consistent for each beta-cell function measure. For every one SD increase
-in any of these three NEFA variables, there was an average predicted
-`r est_gee$est[1]`% lower IGI/IR and `r est_gee$est[2]`% lower ISSI-2 at each
-clinic visit. However, in contrast to these results using NEFA modeled as
-concentrations, none of the NEFA variables modeled as mol% were associated with
-the outcomes. Adjusting for TAG attenuated all associations with IGI/IR and
-ISSI-2 (data not shown), though this may be due to the fact that only a subset
-of participants at the 6 year visit had TAG measured. Sensitivity analyses to
-examine the association with
-the sum of fatty acid classes (saturated vs unsaturated) revealed similar
-findings as seen with the adjusted GEE model for total NEFA (data not shown).
-There were no significant interaction effects between time, sex, or ethnicity
-and the individual NEFA on any of the outcome measures.
-Raw values from the GEE models are shown in `r cite_st('gee_unadj')` for
-unadjusted models and `r cite_st('gee_adj')` for fully adjusted models.
-Consistent with the GEE modeling, results from modeling all NEFA in a
-multivariate environment using PLS showed no discernible clustering nor was it
-predictive of the outcomes (data not shown).
+There were several fatty acids (`r paste(unique(sig_fa_unadj$Xterms),collapse=", ")`)
+that had significant associations with both insulin sensitivity and beta-cell
+function outcomes. Most associations were negative, however, only 20:5n-3
+(eicosapentaenoic acid; EPA) had positive associations with insulin sensitivity
+as both a mol% and as a concentration. One fatty acid, 18:1n-7 (vaccenic acid),
+had consistent negative associations with all four outcomes.
+
+After full model adjustment (`r cite_f('gee_adj')`), most significant 
+associations were attenuated, particularly with insulin sensitivity. The
+remaining fatty acids (`r paste(unique(sig_fa_adj$Xterms),collapse=", ")`) had
+significant associations, of which only EPA had a significant association (with
+HOMA2-%S) as a mol% and was the only fatty acid with a positive association. All
+other fatty acids had negative associations with IGI/IR and ISSI-2. The
+magnitude of association for each of these variables was fairly consistent for
+each beta-cell function measure. For every one SD increase in any of the NEFA
+variables associated with beta-cell function, there was an average predicted
+`r est_gee$est[1]`% lower IGI/IR and `r est_gee$est[2]`% lower ISSI-2 at any
+given clinic visit.
+
+Sensitivity analyses revealed that adjustment for WC was responsible for 
+attenuating the unadjusted results (data not shown). Adjusting for TAG 
+attenuated all associations with IGI/IR and ISSI-2 (data not shown), though this
+may be due to the fact that only a subset of participants at the 6 year visit 
+had TAG measured. Sensitivity analyses to examine the association with the sum 
+of fatty acid classes (saturated vs unsaturated) revealed similar findings as 
+seen with the adjusted GEE model for total NEFA (data not shown). There were no 
+significant interaction effects of time, sex, or ethnicity in either unadjusted
+or adjusted models. Medication use for controlling lipid and cholesterol did not
+influence the results (data not shown). Raw values from the GEE models are shown
+in `r cite_st('gee_unadj')` for unadjusted models and `r cite_st('gee_adj')` for
+fully adjusted models. Consistent with the GEE modeling, results from modeling
+all NEFA in a multivariate environment using PLS showed no discernible
+clustering nor was it predictive of the outcomes (data not shown).
 
 # Conclusions
 
