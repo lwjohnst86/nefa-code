@@ -20,15 +20,16 @@ complicated scientific work to understand for researchers who do not usually use
 this kind of statistical studies, I believe that is described in a very
 appropriate and clear manner."*
 
-    We thank the reviewer for these comments. {{not sure about comment on
-    pre-diabetes}}. In the PROMISE cohort, we collected medication data from
-    all participants. While most participants took some form of medication over
-    the 6 years, during the times of data collection, few ({{get number}}) were
-    on medications. However, for those who were taking medications that could
-    influence the results, additional analyses revealed that medication use did
-    not substantially influence the predictor or outcome measures, nor did 
-    medication use substantially contribute to GEE model fit compared to models 
-    without it (see QIC table). 
+    We thank the reviewer for these comments. In the PROMISE cohort, we
+    collected medication data from all participants. While most participants
+    took some form of medication over the 6 years, during the times of data
+    collection, many (n=60-103 between the three visits) were on taking lipid
+    and cholesterol controlling medications. However, for those who were taking
+    medications that could influence the results, additional analyses revealed
+    that medication use did not substantially influence the predictor or outcome
+    measures, nor did medication use substantially contribute to GEE model fit
+    compared to models without it (see QIC table). We have included this
+    information within the manuscript.
 
 ## Referee: 2
 
@@ -188,7 +189,11 @@ and hypothesis"*
     - *"Please give ns in Table 1."* ... *"It would be also nice to see, how
     many participants had 1, 2 or 3 time points in the analysis."*
     
-        These have been added as requested.
+        These have been added as requested. {{Tony, not sure about how I feel
+        adding signif to Table 1. My analysis isn't on changes in these
+        measures, so there is not need to test if there is a difference. It's
+        purely descriptive and I'd prefer not to generate p-values for the sake
+        of generating p-values. Thoughts? I could always just do a baseline table...}}
     
     - *"How were the changes calculated (GEE?) in the basic characteristics of
     the PROMISE cohort section?"*
@@ -229,9 +234,10 @@ and hypothesis"*
         measurements of the outcome variables. As such, inherent similarities in
         the outcome measurements over time within a subject are included in the
         computation of the GEE estimates. This nuance provides substantially
-        more power to the model and the proceeding results. See ref {{num}} in
-        the manuscript for more detail on this statistical technique. Within
-        the manuscript we have expanded on this nuance to clarify the interpretation.
+        more power to the model and the proceeding results. See ref 27 in the
+        manuscript for more detail on this statistical technique. Within the
+        manuscript we have expanded on this nuance to clarify the
+        interpretation.
     
     - *"The model building is based on literature data which is the right way to
     build the models but a more detailed discussion on over-adjustment is
@@ -282,9 +288,8 @@ and hypothesis"*
         interaction testing is prefered. We ran interaction tests by sex and
         ethnicity and found no significant interactive associations. While
         these results internally suggest no differences between sex or ethnicity,
-        our cohort was not designed to answer these research questions and the
-        results presented in the paper may still not be generalizable to other
-        populations. {{yea?}}
+        there may still be features unique to sex and ethnicity in this cohort
+        that limit generalizability.
 
 8. *"DISCUSSION"*
     - *"I would like to see more on the DAGs that underlies the selected
