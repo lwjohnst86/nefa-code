@@ -16,19 +16,19 @@ The equations for calculating the outcome variables are listed below. HOMA2-%S w
 calculated using the Excel found at https://www.dtu.ox.ac.uk/homacalculator/.
 
 ```{r}
-PROMISE.methods::insert_formula("ISI")
+cat(PROMISE.methods::insert_formula("ISI"))
 ```
 
 ```{r}
-PROMISE.methods::insert_formula("HOMA")
+cat(PROMISE.methods::insert_formula("HOMA"))
 ```
 
 ```{r}
-PROMISE.methods::insert_formula("IGIIR")
+cat(PROMISE.methods::insert_formula("IGIIR"))
 ```
 
 ```{r}
-PROMISE.methods::insert_formula("ISSI2")
+cat(PROMISE.methods::insert_formula("ISSI2"))
 ```
 
 Area under the curve (AUC) for both glucose (G) and insulin (I) was computed
