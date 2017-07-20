@@ -283,7 +283,8 @@ model (M9) that had the fewest covariates and that had similar fit between the
 outcome measures. The final GEE model included the covariates years from baseline
 (time), sex (female or male), ethnicity (European ancestry or non-European 
 ancestry), baseline age, WC, ALT, and MET (physical activity). Sex, ethnicity, 
-and baseline age were time-*independent* variables. After scaling, 
+and baseline age were time-*independent* variables. See the ESM Methods for more
+detail on the covariate inclusion. After scaling,
 and log-transforming the model variables, then exponentiating the GEE estimates,
 the interpretation of the GEE results is as an expected percent difference in 
 the outcome variable for every standard deviation (SD) increase in the predictor
