@@ -37,15 +37,23 @@ values from the oral glucose tolerance (the overall mean).
 
 ## Further description of statistical methods
 
-Generalized estimating equations (GEE) is analogous to mixed effects models, 
-except it emphasizes population-level trends over individual-level trends that 
-mixed models use. Because it can handle autocorrelations in the outcome (as 
-would be seen in variables measured over time), GEE modeling is well suited to
-longitudinal data. Latent class mixed models (LCMM) is a form of mixed effects
-modeling that tries to categorize individuals into groups that have similar
-clusters; in the case of the present analysis are the trajectories in beta-cell
-function over time. Because mixed models use the participant as the random
-effect, LCMM can identify individuals who similarly change over time.
+Generalized estimating equations (GEE) is a technique similar to mixed effects 
+modeling, except it calculates the marginal population estimates compared to the
+subject-specific estimates in mixed effects models. GEE is well suited to and
+commonly used in longitudinal cohort studies, especially given its capacity to
+handle missed visits. GEE is able to handle longitudinal data due to the
+estimating of a working correlation matrix, which was chosen based on
+quasi-likelihood information criteria (QIC). The auto-regressive of order 1
+(AR1) matrix was chosen for the GEE models as it had the best model fit accessed
+using QIC, though other matrices (eg. exchangeable) had similar fit (data not
+shown).
+
+For the confounders, they were chosen based on previous literature, from 
+directed acyclic graph (DAG) recommendations, and from QIC. The DAG
+recommendations were obtained from using the DAGitty software,
+http://dagitty.net/. The final GEE model selected as best fitting was negligibly
+different when using insulin sensitivity or beta-cell function as an outcome and
+as such the same covariates were chosen for models with each of the outcomes.
 
 Partial least squares (PLS) regression is a technique similar to principal
 component analysis (PCA) that is designed to extract meaningful information from
