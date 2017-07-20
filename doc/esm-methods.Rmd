@@ -48,12 +48,22 @@ quasi-likelihood information criteria (QIC). The auto-regressive of order 1
 using QIC, though other matrices (eg. exchangeable) had similar fit (data not
 shown).
 
-For the confounders, they were chosen based on previous literature, from 
+For the covariates, they were chosen based on previous literature, from 
 directed acyclic graph (DAG) recommendations, and from QIC. The DAG
 recommendations were obtained from using the DAGitty software,
-http://dagitty.net/. The final GEE model selected as best fitting was negligibly
-different when using insulin sensitivity or beta-cell function as an outcome and
-as such the same covariates were chosen for models with each of the outcomes.
+http://dagitty.net/. DAG is a technique that allows for identifying potential
+confounding causal pathways and to limit potential bias introduced from
+adjusting for colliding variables. A collider variable is a variable that is
+determined from two or more other variables, such that in causal graph modeling,
+the arrows from the other variables appear to 'collide' into the variable. QIC 
+is a technique that balances the goodness of fit of the model with its relative
+complexity (i.e. number of covariates) against other models being compared. This
+identifies a specific model from a number of models that is the 'best' fit and
+least complex of all the models. QIC and other information criterion methods are
+used in conjunction with other techniques such as literature and DAG based. The 
+final GEE model selected as best fitting was negligibly different when using 
+insulin sensitivity or beta-cell function as an outcome and as such the same 
+covariates were chosen for models with each of the outcomes.
 
 Partial least squares (PLS) regression is a technique similar to principal
 component analysis (PCA) that is designed to extract meaningful information from
