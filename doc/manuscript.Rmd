@@ -415,37 +415,48 @@ In a Canadian population of adults who were at-risk for diabetes, we found that
 higher total NEFA concentrations independently predicted lower beta-cell
 function after 6 years. While we found negative associations with palmitic acid
 (16:0), oleic acid (18:1n-9), and linoleic acid (18:2n-6) for the concentration
-(nmol/mL) modeling, no associations were seen for these fatty
-acids as a proportion, an observation that was further confirmed by multivariate
-cluster techniques, which found no ability of these
-individual NEFA to predict beta-cell function or dysglycemia. These observations suggest
-that the absolute size of the total NEFA fraction, rather than its specific
-composition, likely influences the pathogenesis of diabetes, at least within a
-population at-risk for diabetes.
+(nmol/mL) modeling, no associations were seen for these fatty acids as a
+proportion, an observation that was further confirmed by multivariate cluster
+techniques, which found no ability of these individual NEFA to predict beta-cell
+function. We did find that one fatty acid as a mol%, eicosapentaenoic acid
+(20:5n-3), had a positive association with insulin sensitivity. In general,
+these observations suggest that the absolute size of the total NEFA fraction,
+rather than its specific composition (aside from EPA), likely influences the 
+pathogenesis of diabetes, at least within a population at-risk for diabetes.
 
 There are a few important limitations to our study. NEFA were only quantified at
 the baseline visit and as such we cannot investigate whether there were 
-concomitant changes in NEFA and the metabolic measures over time. However, we believe this
-is a strength for our specific objective, as the chance of reverse causality is 
-reduced given that fatty acid and glucose metabolism pathways are tightly 
-integrated. This is also an observational cohort, and there may be some residual
-confounding we have not considered or that could not be measured. Nonetheless,
-potential covariates were empirically analyzed prior to inclusion into the
-GEE models to best understand and minimize potential
-confounding. Finally, our cohort consists of individuals at-risk for diabetes, 
-who are primarily female and European-ancestry and as such our results may not be
-generalizable to other populations. However, given these limitations, our study
-also has several strengths, including the longitudinal design and the rigorous
-statistical techniques and methods applied, which are specifically suited to
-investigating temporal relationships and to handling the multivariate nature of
-the data. Lastly, our cohort contains highly detailed and comprehensive
-variable measurements at each collection visit, and has both concentration and
-mol% data for the fatty acids.
+concomitant changes in NEFA and the metabolic measures over time. However, we
+believe this is a strength for our specific objective, as the potential impact
+that reverse causality, due to the tight integration between fatty acid and
+glucose metabolism, may have on the results is lower. This is also an
+observational cohort, and there may be some residual confounding we have not
+considered or that could not be measured. Nonetheless, potential covariates were
+empirically analyzed prior to inclusion into the GEE models to best understand
+and minimize potential confounding. While there may be potential overadjustment
+due to controlling for WC, both QIC and directed acyclic graph outputs
+recommended including WC in the GEE model. Even still, we ran sensitivity
+analyses and identified WC as the covariate that attenuated the unadjusted
+results. This attenuation may be due to the fact that higher NEFA may be 
+reflective of greater adipose tissue mass and acting as a mediator between the 
+adipose tissue and insulin sensitivity (since adipocytes are active endocrine 
+organs).
+
+Finally, our cohort consists of individuals at-risk for diabetes, 
+who are primarily female and European-ancestry and, while sex and ethnicity did
+not influence the results presented from this cohort, our findings may not
+entirely be generalizable to other populations. However, given these
+limitations, our study also has several strengths, including the longitudinal
+design and the rigorous statistical techniques and methods applied, which are
+specifically suited to investigating temporal relationships and to handling the
+multivariate nature of the data. Lastly, our cohort contains highly detailed and
+comprehensive variable measurements at each collection visit, and has both
+concentration and mol% data for the fatty acids.
 
 The role of total NEFA in the etiology of diabetes is well-documented.
 Epidemiological studies have shown that higher NEFA associate with lower insulin
 secretion and a higher risk for developing diabetes 
-[@Paolisso1995a;@Salgin2012a;@Pankow2004a]. In a cross-sectional analysis of the
+[@Paolisso1995a;@Salgin2012a;@Pankow2004a;@Charles1997a]. In a cross-sectional analysis of the
 RISCK cohort, total NEFA had a negative association with insulin sensitivity and
 a particularly strong negative association with beta-cell function
 [@Johns2014a]. Experimentally, several potential mechanisms have been elucidated
@@ -458,12 +469,10 @@ present analysis is the first study to our knowledge to examine the longitudinal
 association of a broad spectrum of individual NEFA on beta-cell function in a
 large cohort. We found that there was a strong signal of higher total NEFA,
 palmitic acid, oleic acid, and linoleic acid modeled as concentrations with
-lower beta-cell function. However, in modeling these fatty acids as a mol% and
-using novel clustering analysis approaches, no specific fatty acids in the NEFA
-fraction strongly predicted lower beta-cell function, insulin sensitivity, or
-dysglycemia status. Taken together, these results suggest that it is the
-absolute size of the circulating NEFA fraction, irrespective of any specific
-composition of fatty acids, that is responsible for the hypothesized lipotoxic
+lower beta-cell function. No fatty acid as a mol% had associations with
+beta-cell function. Taken together, these results suggest that it is the
+absolute size of the circulating NEFA fraction, irrespective of any specific 
+composition of fatty acids, that is responsible for the hypothesized lipotoxic 
 effects of NEFA on the beta-cells.
 
 Biologically, in free-living populations chronic elevation of NEFA may be 
@@ -480,28 +489,33 @@ There is substantial experimental evidence highlighting the role of increased
 NEFA and the subsequent increase in insulin resistance via impairment of insulin 
 signaling cascades, as reviewed in previously published articles 
 [@Martins2012a;@Ebbert2013a;@Capurso2012a]. However, in this longitudinal
-analysis, we saw no association of any individual or total NEFA with hepatic
-(HOMA2-%S) or whole-body insulin sensitivity (ISI). We identified
-WC as having a powerful attenuating effect on the associations between
-unadjusted and adjusted models. There are some possible explanations for our
-null findings for the insulin sensitivity measures and the influence of WC on
-the results. First, WC may be a strong causal link in previously reported
-associations between NEFA and insulin sensitivity, given the role adipocytes
-play in metabolism (e.g. leptin, adiponectin). Second, there may be differences
-in physiology between fasting and postprandial NEFA kinetics that we are not
-able to investigate but that may explain our null findings for fasting NEFA and
-insulin sensitivity. For instance, some experimental studies using clamp
-protocols found that fasting NEFA was a weak predictor of insulin sensitivity
-compared to postprandial concentrations of NEFA
-[@Magkos2012a;@Kehlenbrink2012a]. Inefficiencies in NEFA uptake into the adipose
-tissue (e.g. as seen in obesity and larger WC) following postprandial TAG
-lipolysis via lipoprotein lipase may result in NEFA spillover into the blood and
-a subsequent increase in circulating NEFA [@Almandoz2013a], which may be more
-metabolically active given postprandial activity. Third, the null findings seen
-may be due to the high risk population examined in PROMISE, as the majority of subjects had a 
-high WC and BMI. It may be that in this population, IR has become well
-established and NEFA may not contribute to IR at this somewhat more advanced
-stage in the pathogenesis of diabetes.
+analysis, we saw in general no association of any individual or total NEFA with
+hepatic (HOMA2-%S) or whole-body insulin sensitivity (ISI), except for EPA. 
+There is some evidence [@Steffen2015a;@Virtanen2014;@Sarbolouki2013] that EPA
+may be involved with lowering the risk for diabetes, potentially due to its role
+in inflammation [@Calder2009]. However, given we found the association only with
+HOMA2-%S and not with ISI, the significant association could be chance finding,
+which will require future studies to confirm. We also identified WC as having a
+powerful attenuating effect on the associations between unadjusted and adjusted
+models. There are some possible explanations for our null findings for the
+insulin sensitivity measures and the influence of WC on the results. First, WC
+may be a strong causal link in previously reported associations between NEFA and
+insulin sensitivity, given the role adipocytes play in metabolism (e.g. leptin,
+adiponectin). Second, there may be differences in physiology between fasting and
+postprandial NEFA kinetics that we are not able to investigate but that may
+explain our null findings for fasting NEFA and insulin sensitivity. For
+instance, some experimental studies using clamp protocols found that fasting
+NEFA was a weak predictor of insulin sensitivity compared to postprandial
+concentrations of NEFA [@Magkos2012a;@Kehlenbrink2012a]. Inefficiencies in NEFA
+uptake into the adipose tissue (e.g. as seen in obesity and larger WC) following
+postprandial TAG lipolysis via lipoprotein lipase may result in NEFA spillover
+into the blood and a subsequent increase in circulating NEFA [@Almandoz2013a],
+which may be more metabolically active given postprandial activity. Third, the
+null findings seen may be due to the high risk population examined in PROMISE, 
+as the majority of subjects had a high WC and BMI. It may be that in this
+population, insulin resistance has become well established and NEFA may not
+contribute to insulin resistance at this somewhat more advanced stage in the
+pathogenesis of diabetes.
 
 Few studies have examined the composition of NEFA on metabolic functioning. One 
 recent, well-analyzed study used a variety of advanced fatty acid measurement 
@@ -514,14 +528,14 @@ healthy compared to individuals with diabetes [@Liu2010a]. However, both studies
 limited by smaller sample sizes (approximately 100 subjects) and the
 cross-sectional design.
 
-In conclusion, we found that total NEFA was a strong predictor for lower
+In conclusion, we found that total NEFA was a strong predictor for lower 
 beta-cell function over 6 years, irrespective of the specific composition of the
-NEFA fraction, suggesting that efforts at lowering circulating total NEFA
-through medication and/or lifestyle strategies to reduce the risk of diabetes
-are well warranted. While future
-studies are needed to confirm these findings, our results reinforce the
-importance of continuing to investigate the role of circulating NEFA
-concentration on the natural history of diabetes.
+NEFA fraction, suggesting that efforts at lowering circulating total NEFA 
+through medication and/or lifestyle strategies to reduce the risk of diabetes 
+are well warranted. We also found that higher EPA was associated with higher
+hepatic insulin sensitivity. While future studies are needed to confirm these
+findings, our results reinforce the importance of continuing to investigate the
+role of circulating NEFA concentration on the natural history of diabetes.
 
 # Acknowledgements
 
