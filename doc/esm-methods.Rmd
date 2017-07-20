@@ -61,7 +61,7 @@ multivariate, high dimensionality data (e.g. as in metabolomic and other -omic t
 analyses). These types of methods try to extract as much of the variance in the 
 data into a smaller number of components or factors. The difference between PCA 
 and PLS is that PLS is a supervised method, while PCA is not. This means that
-PLS uses a response variable(s), i.e. an outcome or **Y**, to describe the
-variation in the predictors (**X**) while PCA only describes the variation 
-inherent in **X**. Because of this, PLS can be better at predicting the 
-contributions of predictor variables against an outcome variable. 
+PLS uses a response variable(s), i.e. an outcome or **Y**, to 'supervise' (or
+constrain) the variation inherent in the predictors (**X**) while PCA only
+describes the variation inherent in **X**. Because of this, PLS can be better at
+predicting the contributions of predictor variables against an outcome variable.
