@@ -51,29 +51,30 @@ Word count - Main text: 3726 / 4000
 <!-- Reference limit 39 / 50 -->
 
 # Abstract
-<!--243 / 250 words-->
 
 Aim: Our aim was to determine the longitudinal associations of individual
 non-esterified fatty acids (NEFA) on changes in insulin sensitivity (IS) and
 beta-cell function over 6 years in a cohort of individuals who are at-risk for
 diabetes.
 
-Methods: In the PROMISE cohort, 477 participants had serum
-NEFA measured at the baseline visit and completed an OGTT at 3 time points over
-6 years. Outcome variables were calculated using the OGTT values. IS was
-assessed using HOMA2-%S and the Matsuda index, while beta-cell function was
-assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin
-Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were
-used, adjusting for time, waist, sex, ethnicity, baseline age, alanine
-aminotransferase, and family history of diabetes. NEFA were analyzed as both
+Methods: In the PROMISE cohort, 477 participants had serum NEFA (mol% and
+concentration) measured at the baseline visit and completed an OGTT at 3 time
+points over 6 years. Outcome variables were calculated using the OGTT values. IS
+was assessed using HOMA2-%S and the Matsuda index, while beta-cell function was 
+assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin 
+Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were 
+used, adjusting for time, waist, sex, ethnicity, baseline age, alanine 
+aminotransferase, and physical activity. NEFA were analyzed as both 
 concentrations (nmol/mL) and proportions (mol%) of the total fraction.
 
-Results: IS and beta-cell function declined by 14-27% while BMI did not
-significantly change over 6 years of follow-up. Total NEFA, 16:0, 18:1n-9, and
-18:2n-6 as concentrations had significant negative associations with IGI/IR and
-ISSI-2, predicting between 4-8% lower IGI/IR and ISSI-2 over the 6 years.
-However, individual NEFA modeled as mol% showed no associations with these
-outcomes. Total and individual NEFA were not associated with IS measures.
+Results: Participants (73% female, 70% with European-ancestry) had their IS and
+beta-cell function decline by 14-27% over 6 years of follow-up. While in
+unadjusted models there were several NEFA (e.g. 18:1n-7, 20:1n-9, 22:4n-6) that
+had negative associations with insulin sensitivity, nearly all of these
+associations were attenuated in fully adjusted models. In adjusted models, total
+NEFA, 16:0, 18:1n-9, and 18:2n-6 (as concentrations) had significant negative
+associations with IGI/IR and ISSI-2, while only 20:5n-3 (as mol%) had positive
+associations with HOMA2-%S.
 
 Conclusions: Total NEFA concentration was a strong predictor of lower beta-cell 
 function over 6 years. Our results suggest that the association with beta-cell 
