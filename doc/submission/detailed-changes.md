@@ -63,5 +63,7 @@ reviewer 2)
     covariate that contributes to changes in unadjusted and adjusted models as
     well as using years-since-baseline as the time variable
     - Dropped LCMM and PLS-DA figures and results
+    - Added figure showing results of GEE models fully adjusted but excluding
+    waist circumference
     - Expanded explanation of QIC, directed acyclic graphs, mediators and
     confounders, and on PLS in the ESM methods
