@@ -20,16 +20,16 @@ complicated scientific work to understand for researchers who do not usually use
 this kind of statistical studies, I believe that is described in a very
 appropriate and clear manner."*
 
-    We thank the reviewer for these comments. In the PROMISE cohort, we
-    collected medication data from all participants. While most participants
-    took some form of medication over the 6 years, during the times of data
-    collection, many (n=60-103 between the three visits) were on taking lipid
-    and cholesterol controlling medications. However, for those who were taking
-    medications that could influence the results, additional analyses revealed
-    that medication use did not substantially influence the predictor or outcome
-    measures, nor did medication use substantially contribute to GEE model fit
-    compared to models without it (see QIC table). We have included this
-    information within the manuscript.
+    We thank the reviewer for these comments. In the PROMISE cohort, we 
+    collected medication data from all participants. While most participants 
+    took some form of medication over the 6 years, many (n=60-103 between the 
+    three visits) were on taking lipid and cholesterol controlling medications.
+    However, for those who were taking medications that could influence the
+    results, additional analyses revealed that there were no differences in the
+    predictor or outcome measures with medication use, nor did adjustment for
+    medication use substantially contribute to GEE model fit compared to models
+    without this variable (see QIC table). We have included this information in
+    the revised manuscript.
 
 ## Referee: 2
 
@@ -88,7 +88,8 @@ time variable instead of adjusting for time"*
     analysis. We thank the reviewer for the suggestion regarding time adjustment
     and agree that using time since baseline is a better variable to adjust for
     in the GEE models; the time variable has been replaced in GEE models, though
-    the change does not substantially impact the final results.
+    the change does not substantially impact the final results. This change has
+    been included in the statistical analysis section.
 
 3. *"Results in the abstract: a major problem in my view with the
 interpretation of the results is that all characteristics are taken as
@@ -99,11 +100,12 @@ think that unadjusted results are as interesting and require discussion as the
 fully adjusted and selected models. Regarding the abstract, I would show both
 the unadjusted and the fully adjusted results here."*
 
-    The specifics of the covariates are expanded upon in the methods section. We
+    The specifics of the covariates have been expanded upon in the methods
+    section and the ESM Methods of the revised manuscript. We
     have included the unadjusted results in the main manuscript and have 
     described it in the results and discussion sections, in addition to briefly
     describing them in the abstract (keeping within the word limit). An
-    explanation of what each covariate is in regard to NEFA and the outcomes
+    explanation of our interpretation of each covariate in regard to NEFA and the outcomes
     (e.g. mediator or confounder) has been added in the ESM Methods.
 
 4. *"Conclusions in abstract: I have a different interpretation of the results,
@@ -119,7 +121,8 @@ particularly because adjustment waist may be an over-adjustment."*
     inflammation and appetite regulation) could also impact insulin sensitivity
     and beta-cell function, we believe it is an important confounder to adjust
     for. We have included in the conclusions a discussion on how adjustment of
-    waist circumference influences the model and the interpretation.
+    waist circumference influences the model and the interpretation, as well as
+    show the results of models without waist circumference in the ESM.
 
 5. *"INTRODUCTION: a clear and well-written introduction with a clear objective
 and hypothesis"*
@@ -134,24 +137,22 @@ and hypothesis"*
     insulin sensitivity and beta-cell function? I suggest to exclude those
     visits where diabetes was treated."*
     
-        We have clarified how we dealt with incident diabetes cases. Briefly, we
-        only report incident diabetes and dysglycemia cases in the text to
-        describe the cohort, but in statistical analyses and modeling, these
-        cases were excluded. Regarding a) within the main PROMISE cohort,
-        prevalent diabetes cases were not excluded from the study as they
-        continued to be followed; prevalent diabetes cases did not have fatty
-        acids measured. For b) any participant is followed until they request to
-        be removed from the study; some participants missed the 3-yr visit, but
-        came in for the 6-yr visit. We have included wording within the results
-        on the sample and percentage who attended at least two visits. Lastly,
-        for c) because diabetes can effect the values of the OGTT-derived 
-        indices due to medication the patient is taking and due to diabetes 
-        itself impacting beta-cell function and insulin resistance, we excluded 
-        them from all analyses; often, these participants did not even complete 
-        an OGTT since it is discouraged that these patients consume that much 
-        glucose. To restate, diabetes cases were not included in GEE or other 
-        analyses.
-    
+        In the revised manuscript, we have clarified how we dealt with incident
+        diabetes cases. Briefly, we only report incident diabetes and
+        dysglycemia cases in the text to describe the cohort, but in statistical
+        analyses and modeling, these cases were excluded. Regarding point a)
+        above prevalent diabetes cases at baseline were not included in this
+        analysis as not prevalent diabetes cases had fatty acids measured. For
+        point b) above, not all participants attended each visit; some
+        participants missed the 3-yr visit, but came in for the 6-yr visit. We
+        have included wording and numbers within the Results section of the
+        revised manuscript regarding the sample and percentage who attended at
+        least two visits. Lastly, regarding point c) above because diabetes can
+        effect the values of the OGTT-derived indices due to medication the
+        patient is taking and due to diabetes itself impacting beta-cell
+        function and insulin resistance, we excluded them from all analyses. To
+        restate, diabetes cases were not included in GEE or other analyses.
+
     - *"I would prefer to see the equations for the outcome measures. Why not use
     HOMA2-IS instead of 1/HOMA-IR?"*
     
@@ -173,29 +174,32 @@ and hypothesis"*
     concentration analysis? As I can see, it depends on what variables you feed
     in the model."*
     
-        We are not entirely clear on the reviewer's comment. PLS extracts from
-        high dimensional data (multiple predictor variables, i.e. the fatty
-        acids) underlying correlations, constrained by a outcome variable (i.e.
-        beta-cell function). In this context, because mol% data is by definition
-        restricted to sums of 100% (all fatty acid values add up to 100%), the
-        underlying correlations between fatty acids is dependent on the relative
-        contributions those fatty acids have to the total and as such can
-        reflect correlations of specific fatty acids or groups of fatty acids
-        that increase or decrease in proportion together. The concentration data
-        is not contrained by this inherent correlation and thus underlying groups 
-        or clusters may not be identified using PLS.
+        For the PLS analysis, we used the mol% data to input into the PLS model.
+        PLS extracts underlying correlations from high dimensional data
+        (multiple predictor variables, i.e. the fatty acids), constrained by a
+        outcome variable (i.e. beta-cell function). In this context, because
+        mol% data is by definition restricted to sums of 100% (all fatty acid
+        values add up to 100%), the underlying correlations between fatty acids
+        is dependent on the relative contributions those fatty acids have to the
+        total and as such can reflect correlations of specific fatty acids or 
+        groups of fatty acids that increase or decrease in proportion together. 
+        The concentration data is not contrained by this inherent correlation 
+        and thus underlying groups or clusters may not be identified using PLS.
 
 7. *"RESULTS:"*
     - *"Please give ns in Table 1."* ... *"It would be also nice to see, how
     many participants had 1, 2 or 3 time points in the analysis."*
     
-        These have been added as requested. {{Tony, not sure about how I feel
-        adding p-values to Table 1. I'm showing it purely for descriptive
-        purposes and it might detract from discussion since, as you may recall,
-        some variables (e.g. HDL) have a significant difference between visits,
-        but don't really change over the visits... thoughts? I'm not too keen on
-        generating p-values for the sake of generating p-values, esp. when it is
-        not really relevant to the main analysis.}}
+        The number of participants who attended all three visits has been added
+        as requested. Regarding including 'ns' in Table 1, we intentionally did
+        not include p-values for this table for several reasons. Our objective
+        was not to examine significant differences in the basic characteristics
+        of the cohort and this table is included to show a purely descriptive
+        summary of the cohort over the 6 years. Our analysis currently generates
+        a large number of tests and subsequent p-values and, even though we
+        adjusted these p-values for the false discovery rate, we did not want to
+        generate more p-values (and the resulting increase in Type 1 error) than
+        necessary if they are not primary to our objective.
     
     - *"How were the changes calculated (GEE?) in the basic characteristics of
     the PROMISE cohort section?"*
@@ -209,9 +213,10 @@ and hypothesis"*
     and describe these findings as we do not know the exact model where
     over-adjustment start to happen."*
     
-        The unadjusted results and figure has been added to the main paper and
+        The unadjusted results and figure have been added to the main paper and
         described in the results section. We've also added a sensitivity
-        analysis confirming which covariate(s) attenuates the associations.
+        analysis confirming which covariate(s) attenuates the associations and
+        present the GEE model results of that sensitivity analysis in the ESM.
     
     - *"In a trajectory analysis, the interaction between time and the main
     predictor (NEFA in this case) is of major interest. The authors check for
@@ -227,11 +232,11 @@ and hypothesis"*
         The reviewer makes an excellent point regarding the importance of
         conducting an interaction check in the early stages of
         model building. We have incorporated this new approach in the analysis and
-        report on the results in the paper. In simple terms, the reviewer is
+        report on the results in the revised paper. In fundamental terms, the reviewer is
         correct that without an interaction term the model is essentially
         "repeated cross-sectional analyses", however, GEE handles the analysis
-        in a slightly more nuanced approach. GEE calculates the estimates of the
-        association of NEFA on the outcomes at any given time point, taking into
+        with a slightly more nuanced approach. GEE calculates the estimates of the
+        association of NEFA with the outcomes at any given time point, taking into
         consideration the inherent multivariate structure of the repeated
         measurements of the outcome variables. As such, inherent similarities in
         the outcome measurements over time within a subject are included in the
@@ -239,7 +244,8 @@ and hypothesis"*
         more power to the model and the proceeding results. See ref 27 in the
         manuscript for more detail on this statistical technique. Within the
         manuscript we have expanded on this nuance to clarify the
-        interpretation.
+        interpretation in the statistical analysis section of the Methods in
+        the revised manuscript.
     
     - *"The model building is based on literature data which is the right way to
     build the models but a more detailed discussion on over-adjustment is
@@ -252,7 +258,9 @@ and hypothesis"*
         adjustment is empirically based and reduces (but not eliminates) the
         potential for over-adjustment. However, we have added additional
         sensitivity analyses to identify covariates that strongly influence the
-        results and discuss the results in light of these findings.
+        results and discuss the results in light of these findings. We have
+        presented the results of excluding the covariate (waist circumferen) in
+        the ESM.
     
     - *"Latent classes. Although this is a very attractive method, based on ESM
     figure 4, there are 3 parallel declining group trajectories that is mostly
@@ -282,16 +290,18 @@ and hypothesis"*
     limited to white females. I suggest to run a sensitivity analysis on this
     group."*
     
-        We agree with the reviewer's comment and ran stratified models by either
-        sex or ethnicity. In both cases, all significant associations from the
-        non-stratified analyses were attenuated, likely due to the reduction in
+        We agree with the reviewer's comment and is the reason we originally 
+        tested for interaction tests by sex and ethnicity. In both cases, we
+        found no statistically significant interactions. While these results
+        internally suggest no differences between sex or ethnicity, there may
+        still be features unique to sex and ethnicity in this cohort that limit
+        generalizability. Regardless, in light of the reviewers request, we ran
+        stratified models by either sex or ethnicity. In these findings, all 
+        significant associations from the non-stratified analyses were 
+        attenuated in the stratified analyses, likely due to the reduction in
         sample size in the stratified models. Stratifying analyses has the
         limitation of substantially reducing sample size and is the reason why
-        interaction testing is prefered. We ran interaction tests by sex and
-        ethnicity and found no significant interactive associations. While
-        these results internally suggest no differences between sex or ethnicity,
-        there may still be features unique to sex and ethnicity in this cohort
-        that limit generalizability.
+        interaction testing is prefered.
 
 8. *"DISCUSSION"*
     - *"I would like to see more on the DAGs that underlies the selected
@@ -323,4 +333,4 @@ of glucose tolerance in Caucasian subjects: results of the Paris Prospective
 Study. Diabetologia 1997;40:1101-6"*
 
     We thank the associate editor for the kind comments. We have included the
-    cited paper in the discussion section.
+    cited paper in the revised Discussion section.
