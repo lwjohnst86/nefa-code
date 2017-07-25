@@ -32,6 +32,21 @@ generate_results_gee <- function() {
         ) %>%
         tidy_gee_results()
 
+    covar_nowaist <- covariates[which(!grepl("Waist", covariates))]
+    gee_results_adj_nowaist <- dplyr::bind_rows(
+        analyze_gee(gee_data, y = outcomes[1:2], x = ne_pct, covar = covar_nowaist,
+                    unit = 'mol%', mod = "Adjusted no waist"),
+        analyze_gee(gee_data, y = outcomes[3:4], x = ne_pct, covar = covar_nowaist,
+                    unit = 'mol%', mod = "Adjusted no waist"),
+        analyze_gee(gee_data, y = outcomes[1:2], x = ne_conc, covar = covar_nowaist,
+                    unit = 'nmol/mL', mod = "Adjusted no waist"),
+        analyze_gee(gee_data, y = outcomes[3:4], x = ne_conc, covar = covar_nowaist,
+                    unit = 'nmol/mL', mod = "Adjusted no waist"),
+        analyze_gee(gee_data, y = outcomes, x = ne_total, covar = covar_nowaist,
+                    unit = 'Total', mod = "Adjusted no waist")
+    ) %>%
+        tidy_gee_results()
+
     gee_results_unadj <- dplyr::bind_rows(
         analyze_gee(gee_data, y = outcomes[1:2], x = ne_pct, covar = 'YearsFromBaseline',
                     unit = 'mol%', mod = "Unadjusted"),
@@ -47,7 +62,7 @@ generate_results_gee <- function() {
         tidy_gee_results()
 
     # Save output of results into dataset
-    gee_results <- dplyr::bind_rows(gee_results_adj, gee_results_unadj)
+    gee_results <- dplyr::bind_rows(gee_results_adj, gee_results_unadj, gee_results_adj_nowaist)
     devtools::use_data(gee_results, overwrite = TRUE)
 }
 
