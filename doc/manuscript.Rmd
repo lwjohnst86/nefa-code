@@ -395,7 +395,7 @@ variables associated with beta-cell function, there was an average predicted
 given clinic visit.
 
 Sensitivity analyses revealed that adjustment for WC was responsible for 
-attenuating the unadjusted results (data not shown). Adjusting for TAG 
+attenuating the unadjusted results (see `r cite_sf("gee_adj_nowaist")`). Adjusting for TAG 
 attenuated all associations with IGI/IR and ISSI-2 (data not shown), though this
 may be due to the fact that only a subset of participants at the 6 year visit 
 had TAG measured. Sensitivity analyses to examine the association with the sum 
