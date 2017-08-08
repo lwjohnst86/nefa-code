@@ -35,9 +35,7 @@ Corresponding author:
 - Fax number:
 - Email: anthony.hanley@utoronto.ca
 
-Word count - Abstract: 255 / 250
-
-Word count - Main text: 3704 / 4000
+Word count - Main text: 3869 / 4000 (with figure captions)
 
 <!-- Table and figure count: 4 / 4 -->
 
@@ -45,34 +43,13 @@ Word count - Main text: 3704 / 4000
 
 # Abstract
 
-Aim: Our aim was to determine the longitudinal associations of individual
-non-esterified fatty acids (NEFA) on changes in insulin sensitivity (IS) and
-beta-cell function over 6 years in a cohort of individuals who are at-risk for
-diabetes.
+Aim: Our aim was to determine the longitudinal associations of individual non-esterified fatty acids (NEFA) on changes in insulin sensitivity (IS) and beta-cell function over 6 years in a cohort of individuals who are at-risk for diabetes.
 
-Methods: In the PROMISE cohort, 477 participants had serum NEFA (mol% and
-concentration) measured at the baseline visit and completed an OGTT at 3 time
-points over 6 years. Outcome variables were calculated using the OGTT values. IS
-was assessed using HOMA2-%S and the Matsuda index, while beta-cell function was 
-assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin 
-Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were 
-used, adjusting for time, waist, sex, ethnicity, baseline age, alanine 
-aminotransferase, and physical activity. NEFA were analyzed as both 
-concentrations (nmol/mL) and proportions (mol%) of the total fraction.
+Methods: In the PROMISE cohort, 477 participants had serum NEFA (mol% and concentration) measured at the baseline visit and completed an OGTT at 3 time points over 6 years. Outcome variables were calculated using the OGTT values. IS was assessed using HOMA2-%S and the Matsuda index, while beta-cell function was  assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin  Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were  used, adjusting for time, waist, sex, ethnicity, baseline age, alanine  aminotransferase, and physical activity. NEFA were analyzed as both  concentrations (nmol/mL) and proportions (mol%) of the total fraction.
 
-Results: Participants (73% female, 70% with European-ancestry) had their IS and
-beta-cell function decline by 14-27% over 6 years of follow-up. While in
-unadjusted models there were several NEFA (e.g. 18:1n-7, 20:1n-9, 22:4n-6) that
-had negative associations with insulin sensitivity, nearly all of these
-associations were attenuated in fully adjusted models. In adjusted models, total
-NEFA, 16:0, 18:1n-9, and 18:2n-6 (as concentrations) had significant negative
-associations with IGI/IR and ISSI-2, while only 20:5n-3 (as mol%) had positive
-associations with HOMA2-%S.
+Results: Participants (73% female, 70% with European-ancestry) had their IS and beta-cell function decline by 14-27% over 6 years of follow-up. While in unadjusted models there were several NEFA (e.g. 18:1n-7, 20:1n-9, 22:4n-6) that had negative associations with insulin sensitivity, nearly all of these associations were attenuated in fully adjusted models. In adjusted models, total NEFA, 16:0, 18:1n-9, and 18:2n-6 (as concentrations) had significant negative associations with IGI/IR and ISSI-2, while only 20:5n-3 (as mol%) had positive associations with HOMA2-%S.
 
-Conclusions: Total NEFA concentration was a strong predictor of lower beta-cell 
-function over 6 years. Our results suggest that the association with beta-cell 
-function is due to the absolute size of the serum NEFA fraction, rather than the
-specific fatty acid composition.
+Conclusions: Total NEFA concentration was a strong predictor of lower beta-cell  function over 6 years. Our results suggest that the association with beta-cell  function is due to the absolute size of the serum NEFA fraction, rather than the specific fatty acid composition.
 
 ## Keywords:
 
@@ -101,7 +78,7 @@ fatty acids; diabetes pathogenesis; fatty acid composition
 Total non-esterified fatty acids (NEFA) have been well documented to influence 
 the pathogenesis of type 2 diabetes mellitus. Experimental work has shown that 
 exposure to high concentrations of NEFA can induce insulin resistance in 
-insulin-sensitive tissues such as muscle and liver, and in addition can impair 
+insulin-sensitive tissues such as muscle and liver, and can impair 
 pancreatic beta-cell production of insulin [@Rachek2014a;@Cnop2008a]. 
 Observational and clinical studies have reported concordant findings, showing in
 particular that elevated total plasma NEFA associates with an increased risk for
@@ -347,7 +324,7 @@ variables associated with beta-cell function, there was an average predicted
 given clinic visit.
 
 Sensitivity analyses revealed that adjustment for WC was responsible for 
-attenuating the unadjusted results (data not shown). Adjusting for TAG 
+attenuating the unadjusted results (see ESM Fig.  6). Adjusting for TAG 
 attenuated all associations with IGI/IR and ISSI-2 (data not shown), though this
 may be due to the fact that only a subset of participants at the 6 year visit 
 had TAG measured. Sensitivity analyses to examine the association with the sum 
@@ -446,7 +423,7 @@ hepatic (HOMA2-%S) or whole-body insulin sensitivity (ISI), except for EPA.
 There is some evidence [@Steffen2015a;@Virtanen2014;@Sarbolouki2013] that EPA
 may be involved with lowering the risk for diabetes, potentially due to its role
 in inflammation [@Calder2009]. However, given we found the association only with
-HOMA2-%S and not with ISI, the significant association could be chance finding,
+HOMA2-%S and not with ISI, the significant association could be a chance finding,
 which will require future studies to confirm. We also identified WC as having a
 powerful attenuating effect on the associations between unadjusted and adjusted
 models. There are some possible explanations for our null findings for the
@@ -561,6 +538,6 @@ ranges from 367-470 over the 3 visits.
 
 ![Fig.  2: Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over 6 years in the PROMISE cohort. Models are only adjusted for time. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, p<0.01, and p<0.001.](manuscript_files/figure-docx/figure2_gee_unadj-1.eps)
 
-![Fig.  3: Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. Generalized estimating equation models were fully adjusted. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, and p<0.01.](manuscript_files/figure-docx/figure2_gee_adj-1.eps)
+![Fig.  3: Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. Generalized estimating equation models were fully adjusted. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, and p<0.01.](manuscript_files/figure-docx/figure3_gee_adj-1.eps)
 
 # References
