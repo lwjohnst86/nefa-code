@@ -5,6 +5,7 @@ output: fost::diabetologia_manuscript
 ```{r setup, include=FALSE}
 devtools::load_all()
 set_options()
+knitr::opts_chunk$set(dev = "png")
 
 # Include captions below using `captioner` package via library(captioner)
 sfig <- captioner::captioner(prefix = 'ESM Fig.')
