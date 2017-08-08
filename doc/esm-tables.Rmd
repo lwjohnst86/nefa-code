@@ -1,0 +1,63 @@
+---
+output: fost::diabetologia_manuscript
+---
+
+```{r setup, include=FALSE}
+devtools::load_all()
+set_options()
+```
+
+```{r captions}
+# Include captions below using `captioner` package via library(captioner)
+stab <- captioner::captioner(prefix = 'ESM Table')
+cite_st <- pryr::partial(stab, display = 'cite')
+
+stab_qic <- stab('qic', 'Comparing generalized estimating equation models adjusting for different covariates using Quasi-Likelihood Information Criterion.')
+stab_dist <- stab('nefa', 'Raw concentration values of each non-esterified fatty acid in the PROMISE cohort at the baseline visit (2004-2006). Values are presented as mean (SD).')
+stab_gee_unadj <- stab('gee_unadj', 'Unadjusted generalized estimating equation models of the longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort.  GEE models are only adjusted for time. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, with significant (p<0.05) associations indicated by asterisk.')
+stab_gee_adj <- stab('gee_adj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. GEE models were adjusted for time, sex, ethnicity, baseline age, WC, ALT, and family history of diabetes. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, with significant (p<0.05) associations indicated by asterisk (*).')
+```
+
+# ESM Tables
+
+
+```{r ESM_Table1, results="asis"}
+analyze_qic() %>% 
+    table_qic(stab_qic)
+```
+
+Given the number of possible combinations of outcome and predictor variables,
+only ISI and ISSI-2 with total non-esterified fatty acids (nmol/mL) were used to
+compare various GEE models and to select a final model.  Baseline age was used
+as including both the original age and the time variable would result in
+collinearity.  Column names are: QIC is the quasi-likelihood information criteria
+(smaller values, eg. larger negative values, indicate a better fit compared to
+other models), Delta is the QIC minus the lowest QIC (models that have a delta <10 
+between them are considered equivalent).  Models were:
+
+- M0: log(ISSI-2) or log(ISI) = total non-esterified fatty acids (nmol/mL) + years from baseline
+- M1: M0 + NEFA by time interaction
+- M2: M0 + sex + ethnicity + baseline age
+- M3: M2 + waist
+- M4: M3 + ALT
+- M5: M3 + physical activity
+- M6: M3 + alcohol intake
+- M7: M3 + family history of diabetes
+- M8: M3 + smoking status
+- M9: M3 + ALT + physical activity
+- M10: M3 + medication use for lipid and cholesterol control
+- M11: M3 + NEFA by time interaction
+- M12: M9 + NEFA by time interaction
+
+```{r ESM_Table2}
+table_distribution(project_data, stab_dist)
+```
+
+```{r ESM_Table3_4}
+gee_results %>% 
+    dplyr::filter(model == "Unadjusted") %>% 
+    table_gee_main(stab_gee_unadj)
+gee_results %>% 
+    dplyr::filter(model == "Adjusted") %>% 
+    table_gee_main(stab_gee_adj)
+```

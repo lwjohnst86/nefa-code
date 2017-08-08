@@ -1,0 +1,69 @@
+---
+title: "Medication use on NEFA composition"
+author: "Luke Johnston"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Medication use on NEFA composition}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, collapse=TRUE}
+devtools::load_all()
+knitr::opts_chunk$set(fig.height = 7, fig.width = 7)
+library(dplyr)
+library(tidyr)
+
+nefa_dist <- project_data %>%
+    filter(VN == 0) %>%
+    select(matches('^ne\\d'), MedsLipidsChol) %>%
+    gather(Measure, Value, -MedsLipidsChol) %>%
+    mutate(Measure = renaming_fa(Measure) %>%
+                      gsub('ne_', '', .),
+           MedsLipidsChol = as.factor(MedsLipidsChol)) %>%
+    order_by_fattyacid(fa_col = "Measure") %>%
+    mutate(Measure = forcats::fct_inorder(Measure))
+
+outcomes_dist <- project_data %>% 
+    select(VN, lHOMA2_S, lISI, lIGIIR, lISSI2, MedsLipidsChol) %>% 
+    gather(Measure, Value, -MedsLipidsChol, -VN) %>% 
+    mutate(MedsLipidsChol = as.factor(MedsLipidsChol))
+```
+
+## On NEFA
+
+```{r}
+library(ggplot2)
+nefa_dist %>%
+    seer::view_boxplots(dots = TRUE, "Measure", "Value", box_group = "MedsLipidsChol") +
+    labs(y = 'Concentration (nmol/mL)',
+         x = 'Non-esterified fatty acid') +
+    graph_theme(ticks = FALSE)
+```
+
+```{r}
+nefa_dist %>%
+    seer::view_boxplots(dots = TRUE, "Measure", "Value", box_group = "MedsLipidsChol") +
+    coord_flip(ylim = c(0, 40)) +
+    labs(y = 'Concentration (nmol/mL)',
+         x = 'Non-esterified fatty acid') +
+    graph_theme(ticks = FALSE)
+```
+
+```{r}
+nefa_dist %>%
+    seer::view_boxplots(dots = TRUE, "Measure", "Value", box_group = "MedsLipidsChol") +
+    coord_flip(ylim = c(0, 10)) +
+    labs(y = 'Concentration (nmol/mL)',
+         x = 'Non-esterified fatty acid') +
+    graph_theme(ticks = FALSE)
+```
+
+## On outcomes
+
+```{r}
+outcomes_dist %>% 
+    seer::view_boxplots(dots = TRUE, "Measure", "Value", box_group = "MedsLipidsChol")
+```
+

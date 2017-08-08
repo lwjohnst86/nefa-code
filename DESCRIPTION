@@ -1,6 +1,6 @@
 Package: nefaDiabetes
 Title: Analysis Code for NEFA and Diabetes Pathogenesis
-Version: 0.0.0.9000
+Version: 0.2.0.9000
 Authors@R: person("Luke", "Johnston", email = "lwjohnst@gmail.com", role = c("aut", "cre"))
 Description: Contains the code used to analysis the data for the manuscript on
     NEFA composition and the role in insulin sensitivity and beta-cell function
@@ -13,7 +13,6 @@ LazyData: true
 Imports:
     lcmm,
     caret,
-    fdrtool,
     captioner,
     tidyr,
     ggplot2,
@@ -30,9 +29,17 @@ Imports:
     devtools,
     pryr,
     grid,
-    tibble
+    tibble,
+    rfigshare,
+    forcats,
+    aide,
+    showtext
 Suggests:
-    DiagrammeR
-Remotes: github::lwjohnst86/carpenter
-    github::lwjohnst86/seer
-RoxygenNote: 5.0.1
+    DiagrammeR,
+    knitr,
+    rmarkdown
+Remotes:
+    github:lwjohnst86/seer,
+    github:lwjohnst86/aide
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr

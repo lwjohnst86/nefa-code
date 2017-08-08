@@ -8,13 +8,6 @@
 
 #' Set options for all documents and scripts.
 #'
-#' @export
-#' @importFrom magrittr %>%
-#'
-#' @examples
-#'
-#' set_options()
-#'
 set_options <- function() {
     # Set the options here for individual packages
 
@@ -27,9 +20,10 @@ set_options <- function() {
 
     # For the document (knitr)
     knitr::opts_chunk$set(
-        warning = FALSE, message = FALSE, collapse = TRUE,
-        #fig.showtext = TRUE,
-        echo = FALSE, dev = c('cairo_ps')
+        warning = FALSE, message = FALSE, collapse = TRUE, echo = FALSE,
+        dev = c("cairo_ps", "pdf", "png"), fig.showtext = TRUE
     )
 }
 
+#' @importFrom magrittr %>%
+`%>%` <- magrittr::`%>%`

@@ -1,3 +1,37 @@
+# NEFA composition on the pathogenesis of diabetes
+
+Analysis of data from a longitudinal observation cohort (PROMISE), examining the 
+association of the composition of NEFA on insulin sensitivity and beta-cell 
+function.
+
+The commands `fetch_data()` will get the PROMISE dataset from the PROMISE
+package (if installed on the system). Running `generate_results()` will run all
+the analyses and save them as datasets; will only work if the
+`data/project_data.rda` file is present. If you have the original dataset, run
+these commands first.
+
+```r
+devtools::load_all()
+fetch_data()
+devtools::load_all()
+generate_results()
+```
+
+Otherwise, run these commands in order:
+
+```r
+devtools::load_all()
+devtools::document()
+# if Rmd is available
+rmarkdown::render("doc/manuscript.Rmd")
+# otherwise, if only R file is present
+source("doc/manuscript.R")
+```
+
+There may be some errors that come up if you don't have the original dataset. If 
+the function uses the `project_data` dataset, it won't work. Otherwise, any other
+function should run (e.g. `plot_gee_main(gee_results)`).
+
 # Introduction to this project
 
 This README details how this research directory is structured, how files should
@@ -22,7 +56,7 @@ The project directory is generally structured with the following folders:
 - Base folder (`./`)
 - `R/`
 - `vignettes/`
-- `data/` (optional)
+- `data/`
 - `.git` (optional)
 
 ## Base (parent) folder
@@ -51,18 +85,23 @@ There are at least four files (probably more):
 - `load_data.R` loads or updates (if `fetch_data.R` has been changed) the
 dataset in the `data/` folder.
 - `setup.R` to run options for the packages.
-- `functions.R` to hold all custom functions used for the analysis.
+- Any other file that contains the functions for the analysis.
 
 ## `vignettes/` folder:
 
-Contains (at minimum) the main document file that will present the results of the
-analysis and likely also other files that may supplement the main document.
+Contains supplementary analyses files.
 
-## `data/` folder (optional):
+## `doc/` folder:
+
+Contains the manuscript file, or at least the code used in the manuscript.
+
+## `data/` folder:
 
 The `data` folder contains the analysis-specific dataset.  Meaning this dataset 
 may be a subset of an original dataset, keeping the data relevant to the 
 research question without keeping the (potentially) larger dataset around.
+
+Also contains the data from the results (aka, the output of the modeling, etc).
 
 # Resource
 

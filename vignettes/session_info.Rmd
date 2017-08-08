@@ -1,0 +1,21 @@
+---
+title: "Session Info"
+author: "Luke W. Johnston"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Session Info}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette contains information on the operating system, R version, the
+various packages, and the specific version numbers of each package for the
+analyses done for this manuscript.
+
+```{r}
+devtools::load_all()
+devtools::session_info()
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
