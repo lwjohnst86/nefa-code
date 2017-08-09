@@ -6,22 +6,18 @@ DONE Second draft of response to reviewers (sent to Tony) # create branch
 DONE Added TODO items based on reviewer comments and Tony's thoughts
 DONE Create generate_results function to save results to data/
 DONE Use results datasets within the plot/table functions
-TODO Vignette identifying role of Location on associations
 DONE Added vignette exploring meds use and NEFA (look into fibrates)
 DONE Included meds use and influence on NEFA in manuscript
 DONE Moved non-GEE modeling methods and results into supplemental
 DONE Added regular PLS to manuscript/analysis (as done in TAGFA)
 DONE Changed title to be more agnostic in results
-TODO Fixed abstract as per reviewer 2
-TODO Identify which covariates could confounders, mediators, etc.
-TODO Fixed the consort diagram for exclusion of prevalent diabetes cases # yea?
-TODO Included prevalent/incident diabetes and prediabetes in results
+DONE Fixed abstract as per reviewer 2
+DONE Identify which covariates could confounders, mediators, etc.
 DONE Clarified in methods (and code) that diabetes cases were excluded
 DONE Used HOMA2 instead of HOMA
 DONE Ran sensitivity analysis with and without waist
 DONE Included equations in text of either methods or supplemental
 DONE Clarified which variables were time dependent/independenta
-TODO Included p-value in table 1 # (yea?)
 DONE Update GEE results section with new results from new model
 DONE Clarified outcome change in results, used GEE for p value
 DONE Included unadjusted (time only) GEE figure
@@ -31,7 +27,7 @@ DONE Changed to using YearsFromBaseline
 DONE Clarified interpretation of GEE estimates in methods and results
 DONE Included DAG figures from DAGitty in supplemental
 DONE Add info on medication use
-TODO Clarify that results of non-interaction GEE are more nuanced than a simple
+DONE Clarify that results of non-interaction GEE are more nuanced than a simple
     repeated x-sec analysis
 DONE Discussed over-adjustment in methods and discussion # maybe?
 DONE Ran a sensitivity analysis stratified by sex in vignette
@@ -39,9 +35,10 @@ DONE Ran sensitivity analysis using confounders as time independent (gee.Rmd)
 DONE Added reference as per Editor's request
 DONE Moved PLS-DA and other, non-GEE modeling over into vignettes
 DONE Moved non-manuscript files over into vignette
-TODO Second draft of response, sent to Tony # Create branch
-TODO Sent to co-authors # create branch
-TODO Added edits as per co-authors suggestions
-TODO Extract code within manuscript (purl)
-TODO Resubmitted to Diabetologia
->>> v1.0.0
+DONE Second draft of response, sent to Tony # Create branch
+DONE Extract code within manuscript (purl)
+DONE Resubmitted to Diabetologia
+>>> v2.0.0
+
+TODO Upload accepted version to my website
+TODO Upload accepted version to bioXriv (12 months after acceptance/publication)
