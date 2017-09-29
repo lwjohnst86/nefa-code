@@ -390,7 +390,7 @@ clustering nor was it predictive of the outcomes (data not shown).
 
 In a Canadian population of adults who were at-risk for diabetes, we found that 
 higher total NEFA concentrations independently predicted lower beta-cell
-function after 6 years. While we found negative associations with palmitic acid
+function over 6 years. While we found negative associations with palmitic acid
 (16:0), oleic acid (18:1n-9), and linoleic acid (18:2n-6) for the concentration
 (nmol/mL) modeling, no associations were seen for these fatty acids as a
 proportion, an observation that was further confirmed by multivariate cluster
