@@ -566,12 +566,14 @@ plot_nefa_distribution()
 ```{r figure2_gee_unadj, fig.cap=fig_gee_unadj}
 gee_results %>% 
     dplyr::filter(model == "Unadjusted") %>% 
+    dplyr::mutate(unit = ifelse(unit == "Total", " ", unit)) %>% 
     plot_gee_main()
 ```
 
 ```{r figure3_gee_adj, fig.cap=fig_gee_adj}
 gee_results %>% 
     dplyr::filter(model == "Adjusted") %>% 
+    dplyr::mutate(unit = ifelse(unit == "Total", " ", unit)) %>% 
     plot_gee_main()
 ```
 
