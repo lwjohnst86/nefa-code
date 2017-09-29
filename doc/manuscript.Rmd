@@ -50,7 +50,7 @@ Word count - Main text: 3869 / 4000 (with figure captions)
 
 # Abstract
 
-Aim: Our aim was to determine the longitudinal associations of individual non-esterified fatty acids (NEFA) on changes in insulin sensitivity (IS) and beta-cell function over 6 years in a cohort of individuals who are at-risk for diabetes.
+Aim: Our aim was to determine the longitudinal associations of individual non-esterified fatty acids (NEFA) on differences in insulin sensitivity (IS) and beta-cell function over 6 years in a cohort of individuals who are at-risk for diabetes.
 
 Methods: In the PROMISE cohort, 477 participants had serum NEFA (mol% and concentration) measured at the baseline visit and completed an OGTT at 3 time points over 6 years. Outcome variables were calculated using the OGTT values. IS was assessed using HOMA2-%S and the Matsuda index, while beta-cell function was  assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin  Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were  used, adjusting for time, waist, sex, ethnicity, baseline age, alanine  aminotransferase, and physical activity. NEFA were analyzed as both  concentrations (nmol/mL) and proportions (mol%) of the total fraction.
 
@@ -131,7 +131,7 @@ longitudinal studies examining the role of the composition of the serum NEFA
 fraction on the pathogenesis of diabetes, which is critical given the protracted
 natural history of diabetes and the growing appreciation of the divergent
 effects of individual fatty acids. Therefore, our objective was to examine the
-association of serum NEFA composition on changes over time in insulin
+association of serum NEFA composition on differences over time in insulin
 sensitivity and beta-cell function in a longitudinal cohort. We hypothesized
 that higher palmitic acid and lower PUFA such as eicosapentaenoic acid in the
 NEFA fraction would associate with declining insulin sensitivity and beta-cell
