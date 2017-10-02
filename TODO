@@ -44,28 +44,25 @@ DONE Resubmitted to Diabetologia
 TODO Send co-authors copyright/authorship form and conflict of interest form
     # Must be written signed (not electronic)
 TODO Confirm with Tony about Authorship
-TODO Track the changes in the manuscript
+
 TODO Response to reviewers
 TODO Better justification/rationale for using GEE (emphasize strengths)
-TODO Manuscript and table in one file
-TODO Figure legends should be included in the main text (after refs)
-TODO Author affliation numbers as superscripts
-TODO Corresponding author has full address (postal code, etc) and email address
+DONE Author affliation numbers as superscripts
+DONE Corresponding author has full address (postal code, etc) and email address
 TODO Include numerical results in abstract (word limit is flexible)
 TODO Ensure that title and abstract contain all keywords given
 TODO List keywords in alphabetical order
 TODO Do not abbreviate insulin sensitivity
 TODO List all abbreviations in alphabetical order
-TODO Confirm that no URLs are in references
 TODO Use British English everywhere (labeled, glycaemia)
 TODO Include name, city, state, country for every manufacturer/supplier
 TODO Use SI units (pmol/l for insulin, mmol/l for glucose) and l for litre
-TODO Use beta cell (not beta-cell)
+DONE Use beta cell (not beta-cell)
 TODO In acknowledgements, indicate afflitiation and contribution
-TODO In acknowledgements use format Initials Surname (Affl)
+DONE In acknowledgements use format Initials Surname (Affl)
 TODO Confirm funding sources for co-authors and grant numbers
     # Email Tony about this
-TODO Insert duality of interest statement
+DONE Insert duality of interest statement
     # The authors declare that there is no duality of interest associated with
     # this manuscript.
 TODO Update contribution statement for authorship
@@ -75,26 +72,23 @@ TODO Update contribution statement for authorship
     # (2) drafting the article or revising it critically for important
     # intellectual content;
     # (3) final approval of the version to be published.
-TODO Include a guarantor statement
+DONE Include a guarantor statement
     # XX is responsible for the integrity of the work as a whole
     # or, XX is the guarantor of this work
-TODO Include a 'data availability' statement
+DONE Include a 'data availability' statement
     # The datasets generated during and/or analysed during the current study are
     # available from the corresponding author on reasonable request.
-TODO Remove DOI from references
-TODO Confirm Tables and Figures are cited in numerical (and correct) order
-TODO Confirm in Table Properties that text wrapping is turned off (in Word)
-TODO Confirm that figures use Arial
+DONE Confirm that figures use Arial
 TODO Increase font size of labels in figures, be consistent in font size (mostly)
-TODO Decrease line weight to be 0.75
-TODO Use abbrev NEFA in figures
+DONE Decrease line weight to be 0.75 # They were already 0.75
+DONE Use abbrev NEFA in figures
 TODO Use italics `p-value` in figures
-TODO Figures 2 and 3, move outcome and unit names to over side of x/y-axis
-TODO Have ESM all in one file, in this order: ESM text, tables, figures
-TODO Don't include highlighting in ESM
-TODO Expand on "GEE matrices had similar fit", but still use AR (in ESM)
+DONE Figures 2 and 3, move outcome and unit names to over side of x/y-axis
+DONE Have ESM all in one file, in this order: ESM text, tables, figures
+DONE Expand on "GEE matrices had similar fit", but still use AR (in ESM)
 TODO Confirm interpretation of GEE with covariates "held constant"
 TODO Clarify multivariable in GEE vs PLS
+    # Include: PLS and proportion because of inherent interdependence
 TODO Consider whether to have WC included in final presented model
 TODO Describe how DAG algorithmically decide on covariates (in ESM)
 TODO Fully describe DAG colours and arrows in legend
@@ -104,11 +98,21 @@ TODO Describe collider variable in more detail
 TODO Confirm no participants have liver, renal, or endocrine conditions
 TODO Expand on "medication use"
 TODO Describe limitation of insulin sensitivity indices vs clamp
-TODO Include glucose and insulin values in Table 1
-TODO Find (if any) and include longitudinal data of beta cell decline (even in DM)
-TODO Make edits to wording as per Reviewer 3
+DONE Include glucose and insulin values in Table 1
+TODO Find (if any) and include longitudinal data of beta cell decline (even in DM) # references
+DONE Make edits to wording as per Reviewer 3
 TODO Add number of participants in Table 1 (at each visit)
 TODO Add number of excluded diabetes cases in ESM fig 1 (as per R3)
+
+# For after generating manuscript/esm
+TODO Highlight the changes in the manuscript
+TODO Confirm that no URLs are in references
+TODO Remove DOI from references
+TODO Confirm Tables and Figures are cited in numerical (and correct) order
+TODO Confirm in Table Properties that text wrapping is turned off (in Word)
+TODO Don't include highlighting in ESM
+TODO Manuscript and table in one file
+TODO Figure legends should be included in the main text (after refs)
 
 TODO Resubmit to Diabetologia
 >>> v3.0.0
