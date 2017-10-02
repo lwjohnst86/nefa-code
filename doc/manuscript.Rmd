@@ -16,9 +16,9 @@ Evaluation (PROMISE) cohort
 <!--Running title: NEFA and the pathogenesis of diabetes-->
 
 <!-- First, middle initial, last -->
-Author: Luke W. Johnston (1); Stewart B. Harris (2); Ravi Retnakaran
-(3,4); Adria Giacca (5); Zhen Liu (1);
-Richard P. Bazinet (1); and Anthony J. Hanley (1,3,6)
+Author: Luke W. Johnston^1^; Stewart B. Harris^2^; Ravi Retnakaran
+^3,4^; Adria Giacca^5^; Zhen Liu^1^;
+Richard P. Bazinet^1^; and Anthony J. Hanley^1,3,6^
 
 Institutions of origin:
 
