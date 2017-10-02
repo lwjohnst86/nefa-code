@@ -518,27 +518,28 @@ role of circulating NEFA concentration on the natural history of diabetes.
 
 # Acknowledgements
 
-The authors thank Jan Neuman, Paula Van Nostrand, Stella Kink, and Annette
-Barnie of the Leadership Sinai Centre for Diabetes, Mount Sinai Hospital,
-Toronto, Canada and Sheila Porter and Mauricio Marin of the Centre for Studies
-in Family Medicine, University of Western Ontario, London, Canada for their 
-expert technical assistance and dedication in their work for PROMISE. 
+The authors thank J Neuman, PV Nostrand, S Kink, and A Barnie (all of the
+Leadership Sinai Centre for Diabetes, Mount Sinai Hospital, Canada) and
+S Porter and M Marin (both of the Centre for Studies in Family Medicine,
+University of Western Ontario, Canada) for their expert technical
+assistance and dedication in their work for PROMISE.
 
 ## Funding
 
 This study was supported by grants from the Canadian Diabetes Association (CDA),
-the Canadian Institutes for Health Research, and the University of
-Toronto Banting and Best Diabetes Centre; LWJ is supported by a CDA
-Doctoral Student Research Award; RR is supported by a Heart and Stroke
-Foundation of Ontario Mid-Career Investigator Award; SBH holds the CDA Chair in
-National Diabetes Management and the Ian McWhinney Chair of Family Medicine
-Studies at the University of Western Ontario; RBP holds a Tier II Canada
-Research Chair in Brain Lipid Metabolism; AJH holds a Tier II Canada Research
-Chair in Diabetes Epidemiology. 
+the Canadian Institutes for Health Research, and the University of Toronto
+Banting and Best Diabetes Centre; LWJ was supported by a CDA Doctoral Student
+Research Award; RR was supported by a Heart and Stroke Foundation of Ontario
+Mid-Career Investigator Award; SBH holds the CDA Chair in National Diabetes
+Management and the Ian McWhinney Chair of Family Medicine Studies at the
+University of Western Ontario; RPB holds a Tier II Canada Research Chair in
+Brain Lipid Metabolism; AJH holds a Tier II Canada Research Chair in Diabetes
+Epidemiology.
 
 ## Duality of interest
 
-The authors report no potential conflicts of interest relevant to this study.
+The authors declare that there is no duality of interest associated with this
+manuscript.
 
 ## Contribution statement
 
@@ -549,7 +550,8 @@ resources); RR, SBH, RPB, and AG provided intellectual feedback on the
 paper; RPB conducted research, provided essential reagents and materials; AJH
 designed research, assisted with interpretation, and provided intellectual
 feedback on all versions of the paper; LWJ and AJH had primary responsibility
-for final content. All authors read and approved the final manuscript.
+for final content and are the guarantors of this work. All authors read and
+approved the final manuscript. 
 
 # Tables and figures
 
