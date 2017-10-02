@@ -46,7 +46,14 @@ estimating of a working correlation matrix, which was chosen based on
 quasi-likelihood information criteria (QIC). The auto-regressive of order 1
 (AR1) matrix was chosen for the GEE models as it had the best model fit accessed
 using QIC, though other matrices (eg. exchangeable) had similar fit (data not
-shown).
+shown). One main advantage of using methods such as GEE is the inclusion of the
+working correlation matrix that takes into account the inherent covariance
+between values measured at different time points when computing model estimates
+and standard errors. AR1 is the most appropriate correlation matrix for
+longitudinal data since the correlation matrix assumes lower intercorrelation of
+outcomes within an individual as time passes. For example, BMI measured at the
+baseline visit would be more highly correlated to BMI measured at the 3rd year
+visit than compared to the 6th year visit.
 
 For the covariates, they were chosen based on previous literature, from 
 directed acyclic graph (DAG) recommendations, and from QIC. The DAG
