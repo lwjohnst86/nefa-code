@@ -16,7 +16,7 @@ table_basic <- function(data, caption = NULL) {
         carpenter::add_rows(c('HOMA2_S', 'ISI', 'IGIIR', 'ISSI2'),
                             carpenter::stat_medianIQR, digits = 1) %>%
         carpenter::add_rows(c('BMI', 'Waist', 'Age', 'MET', 'ALT', 'TAG', 'Chol', 'HDL',
-                              'BaseTotalNE'),
+                              'BaseTotalNE', "Glucose0", "Glucose120", "Insulin0", "Insulin120"),
                             carpenter::stat_meanSD,
                             digits = 1) %>%
         carpenter::add_rows(c('Ethnicity', 'Sex'), carpenter::stat_nPct, digits = 0) %>%
