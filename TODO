@@ -52,9 +52,9 @@ DONE Corresponding author has full address (postal code, etc) and email address
 TODO Include numerical results in abstract (word limit is flexible)
 TODO Ensure that title and abstract contain all keywords given
 TODO List keywords in alphabetical order
-TODO Do not abbreviate insulin sensitivity
+DONE Do not abbreviate insulin sensitivity
 TODO List all abbreviations in alphabetical order
-TODO Use British English everywhere (labeled, glycaemia)
+DONE Use British English everywhere (labeled, glycaemia)
 TODO Include name, city, state, country for every manufacturer/supplier
 TODO Use SI units (pmol/l for insulin, mmol/l for glucose) and l for litre
 DONE Use beta cell (not beta-cell)
@@ -82,7 +82,7 @@ DONE Confirm that figures use Arial
 TODO Increase font size of labels in figures, be consistent in font size (mostly)
 DONE Decrease line weight to be 0.75 # They were already 0.75
 DONE Use abbrev NEFA in figures
-TODO Use italics `p-value` in figures
+DONE Use italics `p-value` in figures
 DONE Figures 2 and 3, move outcome and unit names to over side of x/y-axis
 DONE Have ESM all in one file, in this order: ESM text, tables, figures
 DONE Expand on "GEE matrices had similar fit", but still use AR (in ESM)
