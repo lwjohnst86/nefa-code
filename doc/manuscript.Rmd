@@ -115,7 +115,7 @@ utilized individual fatty acids such as palmitic acid (16:0) or oleic acid
 high in the polyunsaturated fatty acid (PUFA) linoleic acid (18:2n-6), as the 
 exposure to characterize the metabolic impact of total NEFA. However, fatty
 acids comprise multiple molecules with diverse physiological functions, and few 
-studies have analyzed the effects of a broader spectrum of fatty acids. For instance,
+studies have analysed the effects of a broader spectrum of fatty acids. For instance,
 one study suggested that eicosapentaenoic acid (20:5n-3) can protect against the
 lipotoxic effect of palmitic acid in the beta cells [@Kato2008].
 
@@ -168,7 +168,7 @@ procedures. Cholesterol, HDL, and triacylglycerides (TAG) were measured using Ro
 Modular's enzymatic colorimetric tests (Mississauga, ON).  Both insulin
 and glucose were derived from the OGTT at fasting, 30 minute, and 2 hour time
 points. Specific insulin was measured using the Elecsys 1010 (Roche Diagnostics,
-Basel, Switzerland) immunoassay analyzer and electrochemiluminescence
+Basel, Switzerland) immunoassay analyser and electrochemiluminescence
 immunoassay. This assay shows 0.05% cross-reactivity to intact human pro-insulin
 and the Des 31,32 circulating split form (Linco Res. Inc), and has a coefficient of variation (CV) of 9.3%.
 Glucose was determined using an enzymatic hexokinase (Roche Modular, Roche
@@ -276,7 +276,7 @@ interaction with sex, ethnicity, or time by the predictor term for each outcome
 variable.
 
 While GEE accounts for the longitudinal design of the data, this approach is
-limited in that it cannot analyze the inherent multivariate nature of the
+limited in that it cannot analyse the inherent multivariate nature of the
 composition of the NEFA fraction, as each model only contains data from a single
 fatty acid. Therefore, to confirm the results of the GEE analyses in a
 multivariate environment (all NEFA variables in a single model), partial least
@@ -410,7 +410,7 @@ that reverse causality, due to the tight integration between fatty acid and
 glucose metabolism, may have on the results is lower. This is also an
 observational cohort, and there may be some residual confounding we have not
 considered or that could not be measured. Nonetheless, potential covariates were
-empirically analyzed prior to inclusion into the GEE models to best understand
+empirically analysed prior to inclusion into the GEE models to best understand
 and minimize potential confounding. While there may be potential overadjustment
 due to controlling for WC, both QIC and directed acyclic graph outputs
 recommended including WC in the GEE model. Even still, we ran sensitivity
@@ -496,7 +496,7 @@ contribute to insulin resistance at this somewhat more advanced stage in the
 pathogenesis of diabetes.
 
 Few studies have examined the composition of NEFA on metabolic functioning. One 
-recent, well-analyzed study used a variety of advanced fatty acid measurement 
+recent, well-analysed study used a variety of advanced fatty acid measurement 
 and statistical techniques to explore the multivariate relationship between the 
 NEFA composition and components of the metabolic syndrome (MetS) [@Dai2015a]. 
 Specifically, the authors identified NEFA 16:1n-9, 20:1n-9, and 22:4n-6 to
@@ -542,7 +542,7 @@ manuscript.
 
 ## Contribution statement
 
-The authors had the following responsibility: LWJ conducted research, analyzed
+The authors had the following responsibility: LWJ conducted research, analysed
 data, and wrote the paper; RR, ZL, and SBH designed research, conducted
 research, and provided essential materials (infrastructure and clinical
 resources); RR, SBH, RPB, and AG provided intellectual feedback on the
