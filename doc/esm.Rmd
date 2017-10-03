@@ -38,7 +38,7 @@ values from the oral glucose tolerance (the overall mean).
 ## Further description of statistical methods
 
 Generalized estimating equations (GEE) is a technique similar to mixed effects 
-modeling, except it calculates the marginal population estimates compared to the
+modelling, except it calculates the marginal population estimates compared to the
 subject-specific estimates in mixed effects models. GEE is well suited to and
 commonly used in longitudinal cohort studies, especially given its capacity to
 handle missed visits. GEE is able to handle longitudinal data due to the
@@ -61,7 +61,7 @@ recommendations were obtained from using the DAGitty software,
 http://dagitty.net/. DAG is a technique that allows for identifying potential
 confounding causal pathways and to limit potential bias introduced from
 adjusting for colliding variables. A collider variable is a variable that is
-determined from two or more other variables, such that in causal graph modeling,
+determined from two or more other variables, such that in causal graph modelling,
 the arrows from the other variables appear to 'collide' into the variable. QIC 
 is a technique that balances the goodness of fit of the model with its relative
 complexity (i.e. number of covariates) against other models being compared. This
