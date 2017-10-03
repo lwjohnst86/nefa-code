@@ -110,10 +110,10 @@ particular that elevated total plasma NEFA associates with an increased risk for
 incident type 2 diabetes [@Paolisso1995a;@Salgin2012a].
 
 Much of the previous experimental work on the role of NEFA in type 2 diabetes 
-utilized individual fatty acids such as palmitic acid (16:0) or oleic acid 
+utilised individual fatty acids such as palmitic acid (16:0) or oleic acid 
 (18:1n-9), or alternatively used specific oils such as soybean oil, which is 
 high in the polyunsaturated fatty acid (PUFA) linoleic acid (18:2n-6), as the 
-exposure to characterize the metabolic impact of total NEFA. However, fatty
+exposure to characterise the metabolic impact of total NEFA. However, fatty
 acids comprise multiple molecules with diverse physiological functions, and few 
 studies have analysed the effects of a broader spectrum of fatty acids. For instance,
 one study suggested that eicosapentaenoic acid (20:5n-3) can protect against the
@@ -151,11 +151,11 @@ current study sample used data on participants who did not have diabetes at base
 who returned for one or more of the follow-up examinations, and who had samples
 available for fatty acid measurements (n=477). A diagram of the sample size at
 each visit is shown in `r cite_sf('consort')`. At each examination,
-participants undergo metabolic characterization, anthropometric measurements,
+participants undergo metabolic characterisation, anthropometric measurements,
 and questionnaires on lifestyle and sociodemographics. Research ethics approval
 was obtained from Mount Sinai Hospital and the University of Western Ontario,
 and all participants provided written informed consent.
-Data collection methods were standardized across the 2 centres and research
+Data collection methods were standardised across the 2 centres and research
 nurses were centrally trained. 
 
 ## Blood measure assessments
@@ -176,7 +176,7 @@ Diagnostics) with a detection range of 0.11 (2 mg/dL) to 41.6 mmol/L.  The
 inter-assay %CV is <1.1% and intra-assay %CV is < 1.9%.  All assays were
 performed at the Banting and Best Diabetes Centre Core Lab at Mt Sinai Hospital.
 Impaired fasting glucose (IFG), impaired glucose tolerance (IGT), and diabetes
-were categorized using the 2006 WHO criteria [@WHO2006].
+were categorised using the 2006 WHO criteria [@WHO2006].
 
 NEFA composition was quantified using stored fasting serum samples from the 
 baseline visit, which had been frozen at -70°C for 4-6 years and had not been 
@@ -186,7 +186,7 @@ of heptadecanoic acid (17:0) was added to the serum as an internal
 standard prior to extracting total lipids according to the method of Folch 
 [@Folch1957a]. Each serum lipid fraction (NEFA, cholesteryl ester, phospholipid,
 and TAG) was isolated using thin layer chromatography; each fraction was
-visualized under UV light after lightly spraying with 8-anilino-1-naphthalene
+visualised under UV light after lightly spraying with 8-anilino-1-naphthalene
 sulfonic acid (0.1% wt/vol) and then converted to fatty acid methyl esters with
 14% boron trifluoride in methanol at 100°C for 1 h. Fatty acid methyl esters
 were separated and quantified using a Varian-430 gas chromatograph (Varian, Lake
@@ -244,7 +244,7 @@ auto-regressive of order 1 (AR1) correlation matrix was chosen for the GEE
 models, though other matrices (eg. exchangeable) had similar fit (data not
 shown). GEE is well suited to longitudinal cohort studies given it's capacity to
 handle missed visits. The predictor variables and continuous covariates were
-scaled (mean centered and standardized). The NEFA variables were classified as 
+scaled (mean centered and standardised). The NEFA variables were classified as 
 *time-independent* (held constant) as they were measured only at the baseline 
 visit, while the outcome variables were set as *time-dependent*. No imputation
 was conducted on missing values and incident diabetes cases were excluded from 
@@ -411,7 +411,7 @@ glucose metabolism, may have on the results is lower. This is also an
 observational cohort, and there may be some residual confounding we have not
 considered or that could not be measured. Nonetheless, potential covariates were
 empirically analysed prior to inclusion into the GEE models to best understand
-and minimize potential confounding. While there may be potential overadjustment
+and minimise potential confounding. While there may be potential overadjustment
 due to controlling for WC, both QIC and directed acyclic graph outputs
 recommended including WC in the GEE model. Even still, we ran sensitivity
 analyses and identified WC as the covariate that attenuated the unadjusted
@@ -423,7 +423,7 @@ organs).
 Finally, our cohort consists of individuals at-risk for diabetes, 
 who are primarily female and European-ancestry and, while sex and ethnicity did
 not influence the results presented from this cohort, our findings may not
-entirely be generalizable to other populations. However, given these
+entirely be generalisable to other populations. However, given these
 limitations, our study also has several strengths, including the longitudinal
 design and the rigorous statistical techniques and methods applied, which are
 specifically suited to investigating temporal relationships and to handling the
@@ -465,7 +465,7 @@ TAG.
 
 There is substantial experimental evidence highlighting the role of increased 
 NEFA and the subsequent increase in insulin resistance via impairment of insulin 
-signaling cascades, as reviewed in previously published articles 
+signalling cascades, as reviewed in previously published articles 
 [@Martins2012a;@Ebbert2013a;@Capurso2012a]. However, in this longitudinal
 analysis, we saw in general no association of any individual or total NEFA with
 hepatic (HOMA2-%S) or whole-body insulin sensitivity (ISI), except for EPA. 
