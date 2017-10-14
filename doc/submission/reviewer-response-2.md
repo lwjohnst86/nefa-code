@@ -16,8 +16,8 @@ technically-minded but non-expert reader. Therefore some of my comments may not
 be wholly relevant and are given more as possible considerations; or areas that
 may require clarification for other non-experts."*
 
-    We thank the reviewer for the comments and hope that the below responses
-    adequately address issues or suggestions raised.
+    We thank the reviewer for these supportive comments and hope that our responses below
+    adequately address the issues and suggestions raised.
 
 - *"A key question for me is the choice of using the GEE approach, which is of
 course an established and appropriate method for many research questions, but I
@@ -35,29 +35,31 @@ missing data - which is handy but perhaps not essential - and some comments on
 the working correlation matrix, which are not terribly informative. So some
 statements about the improvement in estimates under a specific correlation
 structure that is not easily handled otherwise, for instance, might be helpful.
-Of note is that in the ESM it is stated that "other ... matrices had similar fit"
-- it may be worth noting that the model fit may be similar, but estimates may be
+Of note is that in the ESM it is stated that "other ... matrices had similar fit" -
+it may be worth noting that the model fit may be similar, but estimates may be
 more efficient under a particular correlation structure."*
 
-    The reviewer's suggestion to more fully describe the justification for using
-    GEE over other methods is warranted and we will expand on this in the
-    manuscript in the Methods and the ESM Methods sections. We chose the GEE
+    We agree entirely with the reviewer's suggestion to more fully describe the justification for using
+    GEE over other methods. In the revised manuscript, we have expanded our rationale
+    for using GEE in both the Methods and the ESM Methods sections. We chose the GEE
     technique for a variety of reasons. As the reviewer states, GEE is able to
     handle visit dates that differ between participants (e.g. some participants
     come exactly 3 years later for a followup while others come some months
     before or after 3 years) and for dealing with the inherent correlational
     structure underlying longitudinal data. Because of these features, among
     others, GEE can compute robust standard errors of the estimates that more
-    accurate reflect the underlying data. The ability to specify a working
+    accurately reflect the underlying data. The ability to specify a working
     correlation matrix makes this a powerful technique for longitudinal data
     compared to standard linear regression, as it removes the underlying
-    assumption that variables are independent (which is not the case with
+    assumption that observations are independent (which is not the case with
     longitudinal data). While choosing the specific correlation matrix is
     important, GEE still produces robust estimates and standard errors even with
     a misspecified correlation matrix. In the case of longitudinal data, an
-    auto-regressive correlation matrix is the most appropriate statistically and
-    biologically since measurements on an individual over time will change (e.g.
-    people gain or lose weight over time).
+    auto-regressive correlation matrix is the most appropriate, statistically and
+    biologically, since measurements on an individual over time will change (e.g.
+    people gain or lose weight over time) but still be highly correlated to their 
+    previous measurement (e.g. people don't gain or lose too much weight from their
+    original weight).
     
 
 - *"Another thing that might be commented on briefly is the different nature of
@@ -75,16 +77,15 @@ resulting parameter estimates for the contrast of interest do not have the usual
 "keeping other factors constant" interpretation." (Hanley et al, Am J Epidemiol
 2003;157:364–375)."*
 
-    We were only concerned with population level averages, and not
+    Thanks for this comment. We were only concerned with population level averages, and not
     individual-level estimates. GEE is a marginal model, which estimates the
     population average, and is one of the other reasons we chose GEE. However,
     even though GEE is a marginal model, for continuous outcomes (e.g. insulin
-    sensitivity) the estimates derived from GEE's counter part, mixed effects
+    sensitivity) the estimates derived from GEE's counter-part, namely mixed effects
     models, are more or less equivalent in both the value and in the
-    interpretation. For nonlinear outcomes (e.g. binary values such as diabetes
-    incidence), the interpretation and estimates are substantially different
-    from mixed effects models. We did not model nonlinear outcomes and as such
-    this difference is {{irrelevant?}}.
+    interpretation. For binary outcomes (e.g. diabetes cases), the
+    interpretation and estimates are substantially different from mixed effects
+    models.
     
     Regarding the cited paper, the authors state the paper is an
     *"...orientation focused on correlated data arising from the relatedness of
@@ -96,7 +97,7 @@ resulting parameter estimates for the contrast of interest do not have the usual
     measures at the individual level; the cluster is the individual and the
     within-cluster variation is the individual over time. In this context,
     interpreting the estimates derived from GEE is comparable to the classical
-    linear regression equations:
+    regression equation:
     
     y = B~0~ + B~1~ X~1~ + ... + B~n~ X~n~
     
@@ -117,46 +118,37 @@ components included in a single multivariable model? I think that this should be
 spelled out: if each NEFA component was considered in turn, and the variables
 adjusted for, for the concentration/proportion analysis. At present the
 assumption might be that multivariable models include all of the NEFA components
-in one model."*
+in one model." ... "If so, I do not fully understand why there is not a model
+that includes the joint effect of all NEFA components together. Could this not
+be done for the concentration analysis? Also, it could perhaps be done for the
+proportion too, if one of the components is set as the baseline - similar to how
+categorical variables are handled in regression analyses, but allowing
+percentages for each indicator rather than the usual 0/1 dichotomy, vs. a
+"baseline" component. Such an analysis could also adjust for total NEFA, with
+the interpretation that proportion of each NEFA component is assessed while
+accounting for other NEFA components, and also the total NEFA. This is also
+something I struggled to understand a little in general - why should proportions
+of NEFA components be important? There may be a relatively high proportion of a
+particular NEFA but if the patient has a generally low overall NEFA, is there
+any reason to think a relatively high proportion of something will increase
+insulin sensitivity? These ideas may be wholly implausible of course and I may
+have missed the point - as I said my background knowledge of the biology is not
+ideal."*
 
     The reviewer brings up excellent points. The reason NEFA were included as a
     proportion in the PLS analysis rather than as a concentration was due to the
     inherent interdependence between NEFA values as a proportion. They all must
     equal to 100. It is this dependency structure in the data that allows PLS to
-    more accurately identify clusters within the data. Concentration data does
+    more accurately identify clusters within the data. Concentration data do
     not have this inherent dependency (all NEFA values do *not* equal to 100).
-    If one NEFA goes up in concentration, other NEFA values do not necessarily
-    go down, as would be the case with the proportion. We have clarified this in
-    the methods. {{not all of this comment is clear to me}}.
-
-- *"If so, I do not fully understand why there is not a model that includes the
-joint effect of all NEFA components together. Could this not be done for the
-concentration analysis? Also, it could perhaps be done for the proportion too,
-if one of the components is set as the baseline – similar to how categorical
-variables are handled in regression analyses, but allowing percentages for each
-indicator rather than the usual 0/1 dichotomy, vs. a "baseline" component. Such
-an analysis could also adjust for total NEFA, with the interpretation that
-proportion of each NEFA component is assessed while accounting for other NEFA
-components, and also the total NEFA. This is also something I struggled to
-understand a little in general – why should *proportions* of NEFA components be
-important? There may be a relatively high proportion of a particular NEFA but if
-the patient has a generally low overall NEFA, is there any reason to think a
-relatively high proportion of something will increase insulin sensitivity? These
-ideas may be wholly implausible of course and I may have missed the point – as I
-said my background knowledge of the biology is not ideal."*
-
-    {{Don't fully understand this comment, but I'll try to answer}}. We hope the
-    response to the point above partially addresses this comment. To reiterate,
-    the reason NEFA proportion was used in the PLS analysis was due to the
-    inherent interdependency of the values as a proportion. When they are
-    proportions, PLS would be more likely to pick up potential clusters since
-    changes in one value *must* lead to changes in another value as they all
-    equal 100. 
+    If one NEFA increases in concentration, other NEFA values do not necessarily
+    decrease, as would be the case with the proportion. We have clarified this in
+    the methods.
     
     The reason we did not include all NEFA variables (as proportion or as
     concentration) into a single GEE model is because GEE can not handle this
-    level of complexity, or at least, the interpretation for us and the readers
-    would be nearly totally meaningless or incomprehensible. How the reviewer
+    level of complexity particular due to the collinearity between NEFA leading
+    to biased estimates and model instability. How the reviewer
     described setting the variables in the regression equation may be useful for
     some research questions and with fewer variables. However, we had 22
     different fatty acids (44 if including mol% and nmol/ml) and 4 different
@@ -173,12 +165,10 @@ said my background knowledge of the biology is not ideal."*
     believe, is a major strength of our study since previous literature using other
     fatty acid fractions (e.g. phospholipid) generally only investigate
     proportions but do not report on or measure the concentration. Concentration
-    data is more technically challenging to quantify and so is understandable
-    why large cohort studies do not measure this data. Using both concentration
-    and proportion, we can identify either it is *both* the total size of any
-    individual NEFA and a specific proportion of a single or multiple individual
-    NEFA that associates with risk for diabetes. Or whether it is only the total
-    concentration, as we found in this study.
+    data ara more technically challenging to quantify in the lab and so it is understandable
+    why large cohort studies do not measure these data. Using both concentration
+    and proportion, we can identify what specific role the absolute size and
+    specific proportion of individual NEFA have on the risk for diabetes.
 
 - *"I do also wonder somewhat whether there may be over-adjustment with some of the
 covariates included, and agree with another reviewer who pointed out the
@@ -191,30 +181,29 @@ adjustment for this is necessarily appropriate - this must be based on
 subject-specific knowledge of whether adjustment is appropriate to determine the
 independent effect of the variable of interest."*
 
-    {{I'm not entirely clear how to address this. Since WC hypothetically could
-    lead to higher NEFA as well as lower IS (in particular), and since we are
-    testing whether higher NEFA lowers IS, how can we not adjust for it? It's a
-    classic confounder. I'll take a stab at answering it though.}} There may be
-    some potential over-adjustment in our models. However, we have taken
+    Given that the underlying physiology of NEFA's role in diabetes pathogenesis
+    has not been fully elucidated, it is possible that there may be some
+    over-adjustment in our models. However, we have taken
     extensive steps to understand the biological and causal pathways underlying
     our associations and to empirically determine which covariates to include in
     the model. 
     
-    In the case of WC, we feel there is substantial grounds for adjusting for it
-    when studying NEFA on metabolic capacity: 1) biologically NEFA comes from
-    adipose tissue; 2) intra-abdominal fat tissue is more metabolically active;
-    3) adipose tissue is an active endocrine organ that contributes to insulin
+    In the case of WC, we feel there is substantial evidence to support
+    adjusting for this variable
+    when studying NEFA's role in metabolic capacity: 1) biologically NEFA comes from
+    adipose tissue; 2) intra-abdominal fat tissue is more metabolically active; 3) 
+    adipose tissue is an active endocrine organ that contributes to insulin
     sensitivity and metabolism in general; and 4) WC is a direct measure of
     abdominal (and indirectly intra-abdominal) fat mass. It is for these reasons
     that adjusting for WC is, we believe, strongly warranted.
     
     Having said that, because of comments from previous reviewers about this
-    very issue, we included an analyses to address this issue. We ran models
-    adjusted for all covariates except for WC and reported on the results in the
+    very issue, we included an analyses to address this concern. We ran models
+    adjusted for all covariates *except for WC* and reported on the results in the
     ESM material. We had also included a discussion about this issue in
-    conclusions, which we hope will inform the interested reader about this
-    particular issue and allow them to draw their own interpretations of the
-    results based on this raised issue.
+    the Conclusions of the original manuscript, which we hope will inform the
+    interested reader about this particular issue and allow them to draw their
+    own interpretations of the results.
 
 - *"Which brings me to the DAGs. "Directed acyclic graphs" just means a collection
 of boxes representing different bits of information with arrows between them
@@ -231,12 +220,12 @@ different arrows and colours are."*
 
     We agree with the reviewer that the wording around DAG use in model building
     was not entirely clear and we have worked to make it clearer in the ESM and
-    methods. DAGs *are* in fact a process to identify potential covariates to
-    include in a model when used algorithmically. This mathematically construct
+    methods of the revised manuscript. DAGs *are* in fact a process to identify potential covariates to
+    include in a model when used algorithmically. The mathematical construct
     underlying DAGs and model building is the reason the DAGitty software was
     developed, so that this mathematical process could be automated. Much
     greater detail on how DAGs are used to build models can be seen in the two
-    references listed below. The DAG figures in the manuscript will be described
+    references listed below. The DAG figures in the revised manuscript will be described
     in more detail, including what each colour and arrow indicates.
     
     - Greenland S, Pearl J, Robins JM (1999) Causal diagrams for epidemiologic
@@ -252,11 +241,12 @@ included at present, or if all data on incident cases is discarded "incident
 diabetes cases were excluded from further GEE analysis" – does the "further" bit
 mean post-incidence here?"*
 
-    Yes, all follow-up data is included *until* the visit with the incident
+    Yes, all follow-up data are included *until* the visit with the incident
     diabetes case (e.g. a participant is diagnosed with diabetes at the 6 year
     visit, but the baseline and 3rd year visit data are still included in the
     analysis). This reason, among others, is why GEE and similar techniques are
-    so powerful. The wording has been fixed to make this point clearer.
+    so powerful. The wording has been fixed in the revised manuscript to make
+    this point clearer.
 
 - *"MINOR COMMENTS:"*
     - *"Abstract and elsewhere: OGTT not spelled out, even if this is obvious to
@@ -280,21 +270,24 @@ mean post-incidence here?"*
         the explanation about QIC vs other information criterion. The reviewer
         is correct that QIC is specific to GEE-type models. Because GEE uses
         quasi-likelihood rather than maximum likelihood estimation (as other
-        techniques use such as mixed effects models) information criteria such
+        techniques use such as mixed effects models), information criteria such
         as AIC can not be used since they rely on maximum likelihood. We agree
         that the wording surrounding 'fit' and 'complex' could be clearer.
         However, we disagree that it should be omitted since techniques such as
         QIC *do* select models that have both a good fit and are less complex.
         While techniques such as AIC are powerful model selection methods, they
         have an inherent limitation in that models with more parameters will
-        have a better fit. So models with more parameters (more 'complex') be
+        have a better fit. So models with more parameters (more 'complex') will be
         more likely to be selected by default when using AIC. QIC and other
         similar information criteria techniques on the other hand try to balance
-        this limitation by explicitly including terms that penalize a more
+        this limitation by more strongly penalizing a more
         'complex' model (more parameters) while still emphasizing a good fit. We
         have clarified this in the manuscript with the wording: "... that has
         both a good model fit while keeping model complexity low (less variables
-        included)."
+        included)." See the reference below for more information on QIC:
+        
+        Pan W. (2001) Akaike's Information Criterion in Generalized Estimating
+        Equations. Biometrics 57: 120-125
 
     - *"ESM - collider variables. As mentioned in main comments this is all a
     bit vague - "arrows appearing to collide" and so on doesn’t really convey
@@ -313,9 +306,9 @@ show the long-term exposures to some specific NEFA fractions are negatively
 associated with mainly beta-cell function in human, which convincingly confirms
 and advances the previous basic and clinical studies in this field."*
 
-    We thank the reviewer for this comments and the suggested edits below. We
-    have incorporated most of the suggestions and have provided responses that
-    hopefully clarify other questions and comments.
+    We thank the reviewer for these supportive comments and the suggested edits below. We
+    have incorporated the vast majority of the suggestions and have provided responses that
+    hopefully clarify these concerns.
 
 1. *"Serum insulin and/or NEFA levels could be affected by several factors: I
 would suggest excluding the participants who have endocrine, hepatic or renal
@@ -324,8 +317,10 @@ affect insulin/glucose/NEFA measurement; page 24, line 7, "Medication use did
 not influence NEFA composition, the outcomes, or the GEE models (data not
 shown)" is not clear enough."*
 
-    {{confirm that participants didn't have other disease}}. We have expanded on
-    the details about medication use (i.e. general types taken).
+    At the baseline visit, individuals were excluded from participating in the
+    study if they CKD, liver disease, or other chronic conditions.
+    We have expanded on the details about medication use (i.e. general types
+    taken).
 
 2. *"Glucose clamp test is the standard to evaluate insulin sensitivity instead
 of the indexes used in this study. I know it is very hard to perform it in a
@@ -334,7 +329,7 @@ NEFAs on insulin sensitivity was limited. I would suggest discussing the
 limitation of these indexes."*
 
     We agree, this suggestion is pertinent and has been included in the
-    limitations section of the conclusion.
+    limitations section of the conclusion in the revised manuscript.
 
 3. *"Most of the indexes in this study are based on glucose and insulin levels.
 I think the reader would know the data of baseline and follow-up glucose and
@@ -348,7 +343,7 @@ example, the graph which shows NEFA concentrations and the individual decline
 ratio of beta-cell function over 6-years (value of slope, if compatible) may
 convince the reader more, at least for the representative NEFA fractions."*
 
-    {{This comment is not entirely clear to me}} This is an interesting
+    This is an interesting
     question. GEE does not model on the individual level, only on the population
     as a whole. As such, we cannot answer research questions specific to
     individuals. There are statistical techniques that can extract individual
@@ -372,7 +367,7 @@ PLS-DA analysis. By adding a detailed explanation to the discussion on the
 potential importance of potential confounders and mediators, the interpretation
 of the findings became much clearer."*
 
-    We thank the reviewer for the comments and have made the suggested changes
+    We thank the reviewer for these comments and have made the suggested changes
     as requested below.
 
 - *"Some minor comments regarding the wording of the conclusions and missing
@@ -387,7 +382,7 @@ information on the DAGs remain but I only have the following comments:"*
     would prefer to use the word differences instead of changes, as the main
     focus of the paper is not on the time interaction but on the main effects."*
     
-        We agree with this wording. It has been edited.
+        We agree with this wording. It has been edited in the revised manuscript.
     
     2. *"Conclusions: "In a Canadian population of adults who were at-risk for
     diabetes, we found that higher total NEFA concentrations independently predicted
@@ -395,7 +390,7 @@ information on the DAGs remain but I only have the following comments:"*
     instead of after 6 years, as the difference was present from the measurement
     point to the end of follow-up."*
     
-        We agree with this wording. It has been edited.
+        We agree with this wording. It has been edited in the revised manuscript.
     
     3. *"Please add the number of observations for each clinic visit in Table 1."*
     
@@ -426,29 +421,35 @@ hard to interpret these findings with respect to biological significance:"*
     metabolic phenotype, ie more pronounced in insulin resistant subjects, was
     initial metabolic phenotype taken into account in the present analysis?"*
         
-    The initial metabolic phenotype and subsequent influence of saturated fatty
-    acids is taken into account in the time-by-fatty acid interaction. {{expand}}
+        The initial metabolic phenotype and subsequent influence of saturated fatty
+        acids is taken into account in the time-by-fatty acid interaction. In
+        the present analysis, there were no significant time-by-NEFA
+        interactions.
     
     - *"it is a pity that the analysis of fatty acids composition in
     phospholipids and serum cholesteryl esters have been published in a separate
     paper, altogether this would add very much to the total interpretation."*
     
-    While we agree with the reviewer that inclusion of the phospholipid and
-    cholesteryl ester farctions would have added to the interpretation, the
-    volume and complexity of the analyses would not have been publishable with
-    current journal word and figure count limits. This was the reason we decided
-    to publish the fractions in separate manuscripts, to maintain a clear and
-    focus narrative within the constraints of the journals limits {{rephrase}}.
-    {{mention my thesis?}}
+        While we agree with the reviewer that inclusion of the phospholipid and
+        cholesteryl ester (as well as the triacylglycerol) fractions would have
+        added to the interpretation, the volume and complexity of the analyses
+        would not have been publishable given current journal word and figure
+        count limits. This was the reason we decided to publish the fractions in
+        separate manuscripts, to maintain a clear and focused narrative within
+        the constraints of the journals limits.
 
     - *"some discussion on what determines plasma fatty acid profile may be
     useful, beside spillover also (selective) release by endogenous lipolysis.
     To what extent does it reflect dietary composition, was habitual fat intake
     taken into account?"*
     
+        {{add from the notes}}
+    
 
 - *"Altogether, this paper would gain strength by addressing the limitations in
 interpretation in more detail."*
+
+    Based on comments from multiple reviewers, the limitation section has been expanded.
 
 ## Associate Editor
 
