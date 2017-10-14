@@ -243,7 +243,9 @@ outcome variables and the predictor variables. Given the longitudinal design an
 auto-regressive of order 1 (AR1) correlation matrix was chosen for the GEE
 models, though other matrices (eg. exchangeable) had similar fit (data not
 shown). GEE is well suited to longitudinal cohort studies given it's capacity to
-handle missed visits. The predictor variables and continuous covariates were
+handle any missed visits and for the correlation of variables between time points. 
+See the ESM Methods for more detail on GEE.
+The predictor variables and continuous covariates were
 scaled (mean centered and standardised). The NEFA variables were classified as 
 *time-independent* (held constant) as they were measured only at the baseline 
 visit, while the outcome variables were set as *time-dependent*. No imputation
@@ -252,7 +254,7 @@ the analysis.
 
 Covariate selection was based on previous literature, directed acyclic graph 
 [@Greenland1999a;@Textor2011a] recommendations (see `r cite_sf("dag_isi")` and 
-`r cite_sf("dag_issi2")`), and quasi-likelihood information criterion (QIC). See
+`r cite_sf("dag_issi2")`), and quasi-likelihood information criterion (QIC) [@Pan2001a]. See
 the ESM Methods for more detail on QIC and the directed acyclic graphs. 
 `r cite_st('qic')` shows the covariates compared using QIC. We selected the
 model (M9) that had the fewest covariates and that had similar fit between the

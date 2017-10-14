@@ -41,17 +41,20 @@ Generalized estimating equations (GEE) is a technique similar to mixed effects
 modelling, except it calculates the marginal population estimates compared to the
 subject-specific estimates in mixed effects models. GEE is well suited to and
 commonly used in longitudinal cohort studies, especially given its capacity to
-handle missed visits. GEE is able to handle longitudinal data due to the
+handle missed visits and for the correlation of variables across time. 
+GEE is able to handle the correlation of longitudinal data due to the
 estimating of a working correlation matrix, which was chosen based on
-quasi-likelihood information criteria (QIC). The auto-regressive of order 1
+quasi-likelihood information criteria (QIC; more detail on QIC below). The auto-regressive of order 1
 (AR1) matrix was chosen for the GEE models as it had the best model fit accessed
 using QIC, though other matrices (eg. exchangeable) had similar fit (data not
-shown). One main advantage of using methods such as GEE is the inclusion of the
+shown). While the choice of the correlation matrix is important, it should be noted
+that even with misspecification GEE still computes robust estimates and standard errors.
+One main advantage of using methods such as GEE is the inclusion of the
 working correlation matrix that takes into account the inherent covariance
 between values measured at different time points when computing model estimates
 and standard errors. AR1 is the most appropriate correlation matrix for
 longitudinal data since the correlation matrix assumes lower intercorrelation of
-outcomes within an individual as time passes. For example, BMI measured at the
+values within an individual as time passes. For example, BMI measured at the
 baseline visit would be more highly correlated to BMI measured at the 3rd year
 visit than compared to the 6th year visit.
 
