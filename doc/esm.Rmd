@@ -77,8 +77,12 @@ unconditional association between all involved variables in the model.
 
 QIC is a technique that balances the goodness of fit of the model with its
 relative complexity (i.e. number of covariates) against other models being
-compared. This identifies a specific model from a number of models that is the
-'best' fit and least complex of all the models. QIC and other information
+compared. QIC, more so then the more common AIC, penalizes the inclusion of more
+variables in the model. This technique is used to compare multiple models to
+identify the model with the highest fit and with the lowest complexity (variables),
+*of the models compared*. QIC is similar to AIC, except AIC is based on maximum
+likelihood of models such as mixed effects models. Since GEE does not use
+maximum likelihood, AIC can not be used. QIC and other information
 criterion methods are used in conjunction with other techniques such as
 literature and DAG based. The final GEE model selected as best fitting was
 negligibly different when using insulin sensitivity or beta-cell function as an
