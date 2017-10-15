@@ -87,6 +87,10 @@ PLS uses a response variable(s), i.e. an outcome or **Y**, to 'supervise' (or
 constrain) the variation inherent in the predictors (**X**) while PCA only
 describes the variation inherent in **X**. Because of this, PLS can be better at
 predicting the contributions of predictor variables against an outcome variable.
+In this analysis, PLS was computed on the NEFA as a proportion due to the
+inherent interdependence of the values (all must equal 100%). This 
+interdependence allows PLS to identify patterns in the composition, since
+the concentration data is all highly positively correlated with each other.
 
 ```{r setup, include=FALSE}
 devtools::load_all()

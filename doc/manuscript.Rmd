@@ -262,7 +262,8 @@ scaled (mean centered and standardised). The NEFA variables were classified as
 *time-independent* (held constant) as they were measured only at the baseline 
 visit, while the outcome variables were set as *time-dependent*. No imputation
 was conducted on missing values and incident diabetes cases were excluded from 
-the analysis.
+the analysis. A GEE model is applied for each combination of outcome and NEFA (as
+either mol% or nmol/ml).
 
 Covariate selection was based on previous literature, directed acyclic graph 
 [@Greenland1999a;@Textor2011a] recommendations (see `r cite_sf("dag_isi")` and 
@@ -278,7 +279,7 @@ detail on the covariate inclusion. After scaling,
 and log-transforming the model variables, then exponentiating the GEE estimates,
 the interpretation of the GEE results is as an expected percent difference in 
 the outcome variable for every standard deviation (SD) increase in the predictor
-variable given the covariates are held constant. With the main effect 
+variable, for the same covariate values (e.g. same age or sex). With the main effect 
 associations (not with a time interaction), this interpretation is applied 
 consistently at each time point and thus represents associations of baseline 
 NEFA for each future value of the outcomes. Since TAG is a risk factor for
@@ -293,8 +294,8 @@ While GEE accounts for the longitudinal design of the data, this approach is
 limited in that it cannot analyse the inherent multivariate nature of the
 composition of the NEFA fraction, as each model only contains data from a single
 fatty acid. Therefore, to confirm the results of the GEE analyses in a
-multivariate environment (all NEFA variables in a single model), partial least
-squares (PLS) was used with the outcomes as the dependent variable.
+multivariate environment (with all NEFA variables in a single model), partial least
+squares (PLS) was used with the outcomes as the dependent variable. 
 
 All analyses were performed using R `r getRversion()` [@Rbase], along with the R
 packages geepack `r packageVersion('geepack')` for GEE [@Hoejsgaard2006a]
