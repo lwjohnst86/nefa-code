@@ -266,7 +266,7 @@ the analysis. A GEE model is applied for each combination of outcome and NEFA (a
 either mol% or nmol/ml).
 
 Covariate selection was based on previous literature, directed acyclic graph 
-[@Greenland1999a;@Textor2011a] recommendations (see `r cite_sf("dag_isi")` and 
+[@Greenland1999a;@Textor2011a;@Shrier2008a] recommendations (see `r cite_sf("dag_isi")` and 
 `r cite_sf("dag_issi2")`), and quasi-likelihood information criterion (QIC) [@Pan2001a]. See
 the ESM Methods for more detail on QIC and the directed acyclic graphs. 
 `r cite_st('qic')` shows the covariates compared using QIC. We selected the
