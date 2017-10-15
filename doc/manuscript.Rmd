@@ -59,19 +59,32 @@ Conclusions: Total NEFA concentration was a strong predictor of lower beta cell 
 
 ## Keywords:
 
-beta cell function; diabetes pathogenesis; fatty acid composition insulin sensitivity; longitudinal cohort; non-esterified fatty acids; 
+beta cell function; diabetes pathogenesis; fatty acid composition; insulin sensitivity; longitudinal cohort; non-esterified fatty acids; 
 
 ## Abbreviations:
 
+- AR1: Autoregressive of order 1
+- ALT: Alanine aminotransferase
+- EPA: Eicosapentaenoic acid
+- FDR: False Discovery Rate
 - GEE: Generalized estimating equations
+- HOMA: Homeostatic model assessment
+- HOMA-IR: Homeostatic model assessment of insulin resistance
+- HOMA2-%S: Homeostatic model assessment 2 of insulin sensitivity
+- IFG: Impaired fasting glucose
 - IGI/IR: Insulinogenic index over HOMA-IR
+- IGT: Impaired glucose tolerance
 - ISI: Insulin Sensitivity Index (Matsuda index)
 - ISSI-2: Insulin Secretion-Sensitivity Index-2
-- ALT: Alanine aminotransferase
-- TAG: Triacylglyceride
-- PROMISE: Prospective Metabolism and Islet Cell Evaluation Cohort
-- QIC: Quasi-Likelihood Information Criterion
 - MAQ: Modified Activity Questionnaire
+- MET: Metabolic Equivalent of Task
+- NEFA: Non-esterified fatty acids
+- OGTT: Oral glucose tolerance test
+- PLS: Partial least squares regression
+- PROMISE: Prospective Metabolism and Islet Cell Evaluation Cohort
+- PUFA: Polyunsaturated fatty acids
+- QIC: Quasi-Likelihood Information Criterion
+- TAG: Triacylglyceride
 - WC: Waist circumference
 
 ```{r setup, include=FALSE}
@@ -93,8 +106,8 @@ cite_st <- pryr::partial(stab, display = 'cite')
 
 tab_basic <- tab('basic', 'Basic characteristics of the PROMISE participants at each of the three clinic visits.')
 fig_dist <- fig('nefa', 'Concentrations (nmol/mL) of each NEFA in PROMISE participants at the baseline visit (2004-2006).')
-fig_gee_unadj <- fig('gee_unadj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta cell function over 6 years in the PROMISE cohort. Models are only adjusted for time. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, p<0.01, and p<0.001.')
-fig_gee_adj <- fig('gee_adj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta cell function over the 6 years in the PROMISE cohort. Generalized estimating equation models were fully adjusted. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, and p<0.01.')
+fig_gee_unadj <- fig('gee_unadj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta cell function over 6 years in the PROMISE cohort. Models are only adjusted for time. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate (FDR), with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, p<0.01, and p<0.001.')
+fig_gee_adj <- fig('gee_adj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta cell function over the 6 years in the PROMISE cohort. Generalized estimating equation models were fully adjusted. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate (FDR), with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, and p<0.01.')
 ```
 
 # Introduction
@@ -289,7 +302,7 @@ and the package pls `r packageVersion('pls')` for the PLS analysis.
 The R code and output for all analyses of this manuscript is available at 
 https://dx.doi.org/10.6084/m9.figshare.3472433. Results were considered
 statistically significance at p<0.05, after adjusting for multiple testing using
-the Benjamini-Hochberg False Discovery Rate [@Benjamini1995a]. STROBE was used
+the Benjamini-Hochberg False Discovery Rate (FDR) [@Benjamini1995a]. STROBE was used
 as a guideline for reporting [@Vandenbroucke2007b].
 The cohort datasets analysed during the current study are available from the
 corresponding author on reasonable request.
