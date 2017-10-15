@@ -59,14 +59,13 @@ DONE Include name, city, state, country for every manufacturer/supplier
 TODO Ask Tony to confirm about details of manufacturers (e.g. city)
 DONE Use SI units (pmol/l for insulin, mmol/l for glucose) and l for litre
 DONE Use beta cell (not beta-cell)
-TODO In acknowledgements, indicate afflitiation and contribution
 DONE In acknowledgements use format Initials Surname (Affl)
 TODO Confirm funding sources for co-authors and grant numbers
     # Email Tony about this
 DONE Insert duality of interest statement
     # The authors declare that there is no duality of interest associated with
     # this manuscript.
-TODO Update contribution statement for authorship
+DONE Update contribution statement for authorship
     # Authors must have all three contributions:
     # (1) substantial contributions to conception and design, acquisition of
     # data, or analysis and interpretation of data;
@@ -88,15 +87,15 @@ DONE Figures 2 and 3, move outcome and unit names to over side of x/y-axis
 DONE Have ESM all in one file, in this order: ESM text, tables, figures
 DONE Expand on "GEE matrices had similar fit", but still use AR (in ESM)
 DONE Confirm interpretation of GEE with covariates "held constant"
-TODO Clarify multivariable in GEE vs PLS
+DONE Clarify multivariable in GEE vs PLS
     # Include: PLS and proportion because of inherent interdependence
 DONE Consider whether to have WC included in final presented model
     # No, I think the final model should be with WC.
-TODO Describe how DAG algorithmically decide on covariates (in ESM)
-TODO Fully describe DAG colours and arrows in legend
+DONE Describe how DAG algorithmically decide on covariates (in ESM)
+DONE Fully describe DAG colours and arrows in legend
 TODO Clarify that incident diabetes cases were excluded *only* at the visit
-TODO Describe QIC in more detail, compare with AIC
-TODO Describe collider variable in more detail
+DONE Describe QIC in more detail, compare with AIC
+DONE Describe collider variable in more detail
 TODO Confirm no participants have liver, renal, or endocrine conditions
 TODO Expand on "medication use"
 TODO Describe limitation of insulin sensitivity indices vs clamp
