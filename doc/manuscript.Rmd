@@ -556,15 +556,15 @@ manuscript.
 
 ## Contribution statement
 
-The authors had the following responsibility: LWJ conducted research, analysed
-data, and wrote the paper; RR, ZL, and SBH designed research, conducted
-research, and provided essential materials (infrastructure and clinical
-resources); RR, SBH, RPB, and AG provided intellectual feedback on the
-paper; RPB conducted research, provided essential reagents and materials; AJH
-designed research, assisted with interpretation, and provided intellectual
-feedback on all versions of the paper; LWJ and AJH had primary responsibility
-for final content and are the guarantors of this work. All authors read and
-approved the final manuscript. 
+The authors had the following responsibility: LWJ analysed and interpreted the
+data and drafted the article; RR and SBH contributed to the conception and
+design and revised the article on intellectual content; ZL acquired the data and
+revised the article on intellectual content; AG assisted with interpretation of
+the data and revised the article on intellectual content; AJH and RPB
+substantially contributed to the study conception and design, assisted with
+interpretation of the data, and revised the article on intellectual content. All
+authors read and approved the final version. LWJ and AJH have primary
+responsibility for final content and are the guarantors of this work.
 
 # Tables and figures
 
