@@ -177,14 +177,14 @@ participant, followed by a 75g oral glucose tolerance test (OGTT) with a 30
 minute and 2 hour blood draw. All blood samples were processed and frozen at
 -70°C. Alanine aminotransferase (ALT) was measured using standard laboratory
 procedures. Cholesterol, HDL, and triacylglycerides (TAG) were measured using Roche
-Modular's enzymatic colorimetric tests (Mississauga, ON).  Both insulin
+Modular's enzymatic colorimetric tests (Roche Canada, Mississauga, Ontario, Canada).  Both insulin
 and glucose were derived from the OGTT at fasting, 30 minute, and 2 hour time
 points. Specific insulin was measured using the Elecsys 1010 (Roche Diagnostics,
 Basel, Switzerland) immunoassay analyser and electrochemiluminescence
 immunoassay. This assay shows 0.05% cross-reactivity to intact human pro-insulin
-and the Des 31,32 circulating split form (Linco Res. Inc), and has a coefficient of variation (CV) of 9.3%.
+and the Des 31,32 circulating split form (Linco Res. Inc, St. Charles, Missouri, USA), and has a coefficient of variation (CV) of 9.3%.
 Glucose was determined using an enzymatic hexokinase (Roche Modular, Roche
-Diagnostics) with a detection range of 0.11 (2 mg/dL) to 41.6 mmol/L.  The
+Diagnostics, Mississauga, Ontario, Canada) with a detection range of 0.11 (2 mg/dL) to 41.6 mmol/L.  The
 inter-assay %CV is <1.1% and intra-assay %CV is < 1.9%.  All assays were
 performed at the Banting and Best Diabetes Centre Core Lab at Mt Sinai Hospital.
 Impaired fasting glucose (IFG), impaired glucose tolerance (IGT), and diabetes
