@@ -46,17 +46,18 @@ DONE Send co-authors copyright/authorship form and conflict of interest form
 DONE Confirm with Tony about Authorship
 
 TODO Response to reviewers
-TODO Better justification/rationale for using GEE (emphasize strengths)
+DONE Better justification/rationale for using GEE (emphasize strengths)
 DONE Author affliation numbers as superscripts
 DONE Corresponding author has full address (postal code, etc) and email address
 TODO Include numerical results in abstract (word limit is flexible)
-TODO Ensure that title and abstract contain all keywords given
-TODO List keywords in alphabetical order
+DONE Ensure that title and abstract contain all keywords given
+DONE List keywords in alphabetical order
 DONE Do not abbreviate insulin sensitivity
-TODO List all abbreviations in alphabetical order
+DONE List all abbreviations in alphabetical order
 DONE Use British English everywhere (labeled, glycaemia)
-TODO Include name, city, state, country for every manufacturer/supplier
-TODO Use SI units (pmol/l for insulin, mmol/l for glucose) and l for litre
+DONE Include name, city, state, country for every manufacturer/supplier
+TODO Ask Tony to confirm about details of manufacturers (e.g. city)
+DONE Use SI units (pmol/l for insulin, mmol/l for glucose) and l for litre
 DONE Use beta cell (not beta-cell)
 TODO In acknowledgements, indicate afflitiation and contribution
 DONE In acknowledgements use format Initials Surname (Affl)
@@ -79,17 +80,18 @@ DONE Include a 'data availability' statement
     # The datasets generated during and/or analysed during the current study are
     # available from the corresponding author on reasonable request.
 DONE Confirm that figures use Arial
-TODO Increase font size of labels in figures, be consistent in font size (mostly)
+DONE Increase font size of labels in figures, be consistent in font size (mostly)
 DONE Decrease line weight to be 0.75 # They were already 0.75
 DONE Use abbrev NEFA in figures
 DONE Use italics `p-value` in figures
 DONE Figures 2 and 3, move outcome and unit names to over side of x/y-axis
 DONE Have ESM all in one file, in this order: ESM text, tables, figures
 DONE Expand on "GEE matrices had similar fit", but still use AR (in ESM)
-TODO Confirm interpretation of GEE with covariates "held constant"
+DONE Confirm interpretation of GEE with covariates "held constant"
 TODO Clarify multivariable in GEE vs PLS
     # Include: PLS and proportion because of inherent interdependence
-TODO Consider whether to have WC included in final presented model
+DONE Consider whether to have WC included in final presented model
+    # No, I think the final model should be with WC.
 TODO Describe how DAG algorithmically decide on covariates (in ESM)
 TODO Fully describe DAG colours and arrows in legend
 TODO Clarify that incident diabetes cases were excluded *only* at the visit
