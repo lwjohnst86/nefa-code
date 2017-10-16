@@ -105,13 +105,11 @@ inherent interdependence of the values (all must equal 100%). This
 interdependence allows PLS to identify patterns in the composition, since
 the concentration data is all highly positively correlated with each other.
 
-```{r setup, include=FALSE}
-devtools::load_all()
-set_options()
-```
+# ESM Tables
 
-```{r captions}
+```{r tab-captions}
 # Include captions below using `captioner` package via library(captioner)
+knitr::opts_chunk$set(results = "markup")
 stab <- captioner::captioner(prefix = 'ESM Table')
 cite_st <- pryr::partial(stab, display = 'cite')
 
@@ -120,9 +118,6 @@ stab_dist <- stab('nefa', 'Raw concentration values of each non-esterified fatty
 stab_gee_unadj <- stab('gee_unadj', 'Unadjusted generalized estimating equation models of the longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort.  GEE models are only adjusted for time. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, with significant (p<0.05) associations indicated by asterisk.')
 stab_gee_adj <- stab('gee_adj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. GEE models were adjusted for time, sex, ethnicity, baseline age, WC, ALT, and family history of diabetes. Outcome variables were log-transformed, predictor variables were scaled, and x-axis values were exponentiated to represent percent difference per SD increase in the fatty acid.  P-values were adjusted for the BH false discovery rate, with significant (p<0.05) associations indicated by asterisk (*).')
 ```
-
-# ESM Tables
-
 
 ```{r ESM_Table1, results="asis"}
 analyze_qic() %>% 
@@ -165,9 +160,9 @@ gee_results %>%
     table_gee_main(stab_gee_adj)
 ```
 
-```{r setup, include=FALSE}
-devtools::load_all()
-set_options()
+# ESM Figures
+
+```{r fig-captions, include=FALSE}
 knitr::opts_chunk$set(dev = "png")
 
 # Include captions below using `captioner` package via library(captioner)
@@ -181,8 +176,6 @@ sfig_corr_conc <- sfig('corr_conc', 'Pearson correlation heatmap of non-esterifi
 sfig_corr_pct <- sfig('corr_pct', 'Pearson correlation heatmap of non-esterified fatty acids (*mol%*) and basic PROMISE participant characteristics for the baseline visit (2004-2006). Darkness of the colour indicates the magnitude of the correlation, with orange indicating positive and blue indicating negative correlations.')
 sfig_gee_adj_nowaist <- sfig('gee_adj_nowaist', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. Generalized estimating equation models were fully adjusted, *excluding waist circumference*. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, and p<0.01.')
 ```
-
-# ESM Figures
 
 ![`r sfig_consort`](../img/flowDiagramSample.png)
 
