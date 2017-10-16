@@ -438,7 +438,12 @@ reflective of greater adipose tissue mass and acting as a mediator between the
 adipose tissue and insulin sensitivity (since adipocytes are active endocrine 
 organs).
 
-Finally, our cohort consists of individuals at-risk for diabetes, 
+We used indices of insulin sensitivity and beta cell function estimated from
+glucose and insulin values and as such could that lead to measurement bias.
+While these indices have all been validated against gold standard measures,
+it is possible our measures are not sensitivity enough to identify potential
+associations with NEFA.
+Finally, our cohort consists of individuals at-risk for diabetes,
 who are primarily female and European-ancestry and, while sex and ethnicity did
 not influence the results presented from this cohort, our findings may not
 entirely be generalisable to other populations. However, given these
