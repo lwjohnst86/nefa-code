@@ -262,8 +262,8 @@ scaled (mean centered and standardised). The NEFA variables were classified as
 *time-independent* (held constant) as they were measured only at the baseline 
 visit, while the outcome variables were set as *time-dependent*. No imputation
 was conducted on missing values and incident diabetes cases were excluded from 
-the analysis. A GEE model is applied for each combination of outcome and NEFA (as
-either mol% or nmol/ml).
+the analysis (follow-up data were included until date of diagnosis). A GEE model
+is applied for each combination of outcome and NEFA (as either mol% or nmol/ml).
 
 Covariate selection was based on previous literature, directed acyclic graph 
 [@Greenland1999a;@Textor2011a;@Shrier2008a] recommendations (see `r cite_sf("dag_isi")` and 
