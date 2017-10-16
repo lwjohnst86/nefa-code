@@ -49,7 +49,7 @@ TODO Response to reviewers
 DONE Better justification/rationale for using GEE (emphasize strengths)
 DONE Author affliation numbers as superscripts
 DONE Corresponding author has full address (postal code, etc) and email address
-TODO Include numerical results in abstract (word limit is flexible)
+DONE Include numerical results in abstract (word limit is flexible)
 DONE Ensure that title and abstract contain all keywords given
 DONE List keywords in alphabetical order
 DONE Do not abbreviate insulin sensitivity
@@ -93,16 +93,17 @@ DONE Consider whether to have WC included in final presented model
     # No, I think the final model should be with WC.
 DONE Describe how DAG algorithmically decide on covariates (in ESM)
 DONE Fully describe DAG colours and arrows in legend
-TODO Clarify that incident diabetes cases were excluded *only* at the visit
+DONE Clarify that incident diabetes cases were excluded *only* at the visit
 DONE Describe QIC in more detail, compare with AIC
 DONE Describe collider variable in more detail
-TODO Confirm no participants have liver, renal, or endocrine conditions
-TODO Expand on "medication use"
-TODO Describe limitation of insulin sensitivity indices vs clamp
+DONE Confirm no participants have liver, renal, or endocrine conditions
+    # Responded to reviewer re: exclusion criteria
+DONE Expand on "medication use"
+DONE Describe limitation of insulin sensitivity indices vs clamp
 DONE Include glucose and insulin values in Table 1
 TODO Find (if any) and include longitudinal data of beta cell decline (even in DM) # references
 DONE Make edits to wording as per Reviewer 3
-TODO Add number of participants in Table 1 (at each visit)
+DONE Add number of participants in Table 1 (at each visit)
 TODO Add number of excluded diabetes cases in ESM fig 1 (as per R3)
 
 # For after generating manuscript/esm
