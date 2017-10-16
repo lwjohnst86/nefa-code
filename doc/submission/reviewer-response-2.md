@@ -443,8 +443,17 @@ hard to interpret these findings with respect to biological significance:"*
     To what extent does it reflect dietary composition, was habitual fat intake
     taken into account?"*
     
-        {{add from the notes}}
-    
+        Fasting NEFA derives from adipose tissue, which contains fat stores from
+        both diet and de novo lipogenesis. Besides potential dysfunction in the
+        adipose tissue for the release of NEFA, other factors that could determine
+        the NEFA profile include genetics and long term dietary fat intake
+        (adipose tissue fat stores have a half-life of ~1.5 years). These other
+        factors were not considered and discussed in the present paper due to
+        the difficulty in measuring long term diet accurately enough on the
+        specific type of fat consumed, the lack of genetic information contained
+        in the cohort, and the fact that disentangling the specific contribution
+        of de novo lipogenesis from dietary fat on adipose tissue stores is well
+        outside the scope of this paper.
 
 - *"Altogether, this paper would gain strength by addressing the limitations in
 interpretation in more detail."*
