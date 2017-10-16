@@ -3,6 +3,7 @@
 
 renaming_table_rows <- function(x) {
     x %>%
+        gsub('sample_size', 'Sample size', .) %>%
         gsub('HOMA2_S', 'HOMA2-%S', .) %>%
         gsub('IGIIR', 'IGI/IR', .) %>%
         gsub('ISSI2', 'ISSI-2', .) %>%

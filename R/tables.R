@@ -8,11 +8,15 @@
 #'
 table_basic <- function(data, caption = NULL) {
     data %>%
+        dplyr::group_by(f.VN) %>%
+        dplyr::mutate(sample_size = sum(!is.na(TotalNE))) %>%
+        dplyr::ungroup() %>%
         dplyr::mutate(Ethnicity = ifelse(VN == 0, as.character(Ethnicity), NA),
                       Ethnicity = as.factor(Ethnicity),
                       Sex = ifelse(VN == 0, as.character(Sex), NA),
                       Sex = as.factor(Sex)) %>%
         carpenter::outline_table('f.VN') %>%
+        carpenter::add_rows("sample_size", unique) %>%
         carpenter::add_rows(c('HOMA2_S', 'ISI', 'IGIIR', 'ISSI2'),
                             carpenter::stat_medianIQR, digits = 1) %>%
         carpenter::add_rows(c('BMI', 'Waist', 'Age', 'MET', 'ALT', 'TAG', 'Chol', 'HDL',
