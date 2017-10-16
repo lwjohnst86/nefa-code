@@ -350,10 +350,13 @@ decline from baseline to 6-years of between `r chg_outcomes$chg`
 Consistent with this decline, there were `r calc_incid_dysgly("ConvertDM")`
 and `r calc_incid_dysgly("ConvertPreDM")`incident cases of diabetes and
 pre-diabetes (IFG and IGT), respectively, over the 6-years. Incident diabetes
-cases were excluded from further GEE analyses. There were `r meds_use[1]` and
-`r meds_use[2]` participants who used lipid and cholesterol modifying medications
-at the baseline and 6-year visit, respectively. Medication use did not influence
-NEFA composition, the outcomes, or the GEE models (data not shown).
+cases were excluded from GEE analyses (follow-up data were included until date
+of diagnosis). Certain medications (e.g. lipid medications such as statins or
+fibrates) could influence the association between NEFA and the outcomes.
+There were `r meds_use[1]` and `r meds_use[2]` participants who used lipid and
+cholesterol modifying medications at the baseline and 6-year visit,
+respectively. Use of these medications did not influence NEFA composition, the
+outcomes, or the GEE models (data not shown).
 
 `r cite_f('nefa')` shows the compositional distribution of NEFA in the study
 participants. Four individual NEFA made up the vast majority 
