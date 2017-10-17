@@ -21,7 +21,7 @@ set_options <- function() {
     # For the document (knitr)
     knitr::opts_chunk$set(
         warning = FALSE, message = FALSE, collapse = TRUE, echo = FALSE,
-        dev = c("cairo_ps", "pdf", "png"), fig.showtext = TRUE
+        dev = c("cairo_ps", "pdf"), fig.showtext = TRUE
     )
 }
 
