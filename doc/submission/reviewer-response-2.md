@@ -401,7 +401,11 @@ information on the DAGs remain but I only have the following comments:"*
     collected, n=XX diabetes cases were excluded; n=619 had 3-year data, n=XX
     incident diabetes cases were excluded..."*
     
-        This has been added to ESM Figure 1.
+        The exact number of excluded cases of diabetes is dependent on this analysis
+        and doesn't reflect the main PROMISE cohort. Since the CONSORT diagram 
+        represents the main cohort, we included the number of excluded diabetes
+        cases in the text of the Results section since the text reflects the 
+        present analysis.
 
     5. *"Please add the colour codes for DAGs (i.e.: exposure, outcome, ancestor
     of exposure, ancestor of outcome, ancestor of both, causal path, biasing
