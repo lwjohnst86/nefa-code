@@ -63,8 +63,8 @@ beta cell function; diabetes pathogenesis; fatty acid composition; insulin sensi
 
 ## Abbreviations:
 
-- AR1: Autoregressive of order 1
 - ALT: Alanine aminotransferase
+- AR1: Autoregressive of order 1
 - EPA: Eicosapentaenoic acid
 - FDR: False Discovery Rate
 - GEE: Generalized estimating equations
@@ -184,7 +184,7 @@ Basel, Switzerland) immunoassay analyser and electrochemiluminescence
 immunoassay. This assay shows 0.05% cross-reactivity to intact human pro-insulin
 and the Des 31,32 circulating split form (Linco Res. Inc, St. Charles, Missouri, USA), and has a coefficient of variation (CV) of 9.3%.
 Glucose was determined using an enzymatic hexokinase (Roche Modular, Roche
-Diagnostics, Mississauga, Ontario, Canada) with a detection range of 0.11 (2 mg/dL) to 41.6 mmol/L.  The
+Diagnostics, Mississauga, Ontario, Canada) with a detection range of 0.11 (2 mg/dl) to 41.6 mmol/l.  The
 inter-assay %CV is <1.1% and intra-assay %CV is < 1.9%.  All assays were
 performed at the Banting and Best Diabetes Centre Core Lab at Mt Sinai Hospital.
 Impaired fasting glucose (IFG), impaired glucose tolerance (IGT), and diabetes
@@ -217,7 +217,7 @@ Insulin sensitivity and beta cell function indices were computed using the OGTT
 glucose and insulin data. Insulin sensitivity was assessed using HOMA2-%S [@Levy1998a]
 and the Insulin Sensitivity Index (ISI) [@Matsuda1999]. HOMA2-%S largely
 reflects hepatic insulin sensitivity, while ISI reflects whole-body insulin
-sensitivity [@AbdulGhani2007].  beta cell function was assessed using the
+sensitivity [@AbdulGhani2007].  Beta cell function was assessed using the
 Insulinogenic Index [@Wareham1995] over HOMA-IR (IGI/IR) and the Insulin
 Secretion-Sensitivity Index-2 (ISSI-2) [@Retnakaran2009]. IGI/IR is a measure of
 the first phase of insulin secretion while ISSI-2 is analogous to the
@@ -348,7 +348,7 @@ sensitivity and beta cell function measures showed a significant median
 decline from baseline to 6-years of between `r chg_outcomes$chg` 
 (p`r chg_outcomes$p`, based on a time-adjusted GEE model) in this analysis.
 Consistent with this decline, there were `r calc_incid_dysgly("ConvertDM")`
-and `r calc_incid_dysgly("ConvertPreDM")`incident cases of diabetes and
+and `r calc_incid_dysgly("ConvertPreDM")` incident cases of diabetes and
 pre-diabetes (IFG and IGT), respectively, over the 6-years. Incident diabetes
 cases were excluded from GEE analyses (n={{num}} at 3rd year, n=
 {{num}} at 6th year). Follow-up data were included until date of
