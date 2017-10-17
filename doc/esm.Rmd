@@ -163,7 +163,6 @@ gee_results %>%
 # ESM Figures
 
 ```{r fig-captions, include=FALSE}
-knitr::opts_chunk$set(dev = "png")
 
 # Include captions below using `captioner` package via library(captioner)
 sfig <- captioner::captioner(prefix = 'ESM Fig.')
