@@ -350,8 +350,10 @@ decline from baseline to 6-years of between `r chg_outcomes$chg`
 Consistent with this decline, there were `r calc_incid_dysgly("ConvertDM")`
 and `r calc_incid_dysgly("ConvertPreDM")`incident cases of diabetes and
 pre-diabetes (IFG and IGT), respectively, over the 6-years. Incident diabetes
-cases were excluded from GEE analyses (follow-up data were included until date
-of diagnosis). Certain medications (e.g. lipid medications such as statins or
+cases were excluded from GEE analyses (n={{num}} at 3rd year, n=
+{{num}} at 6th year). Follow-up data were included until date of
+diagnosis.
+Certain medications (e.g. lipid medications such as statins or
 fibrates) could influence the association between NEFA and the outcomes.
 There were `r meds_use[1]` and `r meds_use[2]` participants who used lipid and
 cholesterol modifying medications at the baseline and 6-year visit,
