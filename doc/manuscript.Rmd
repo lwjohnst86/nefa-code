@@ -462,12 +462,19 @@ secretion and a higher risk for developing diabetes
 [@Paolisso1995a;@Salgin2012a;@Pankow2004a;@Charles1997a]. In a cross-sectional analysis of the
 RISCK cohort, total NEFA had a negative association with insulin sensitivity and
 a particularly strong negative association with beta cell function
-[@Johns2014a]. Experimentally, several potential mechanisms have been elucidated
+[@Johns2014a]. Another cross-sectional study found a null association of
+total NEFA on beta cell function [@Rebelos2015a], however they used C-peptide to
+estimate beta cell function.
+Experimentally, several potential mechanisms have been elucidated
 for the role of NEFA on beta cell function, particularly for palmitic acid.
 Prolonged exposure to elevated NEFA can induce apoptosis in the beta cells,
 possibly through endoplasmic reticulum stress, formation of ceramides, and
 generation of nitric oxide, as well as impairment of proinsulin production and
-mitochondrial function [@Cnop2008a; @Maris2013a; @Giacca2011a; @Xiao2009a]. The
+mitochondrial function [@Cnop2008a; @Maris2013a; @Giacca2011a; @Xiao2009a]. 
+One longitudinal studies also found an inverse association between total NEFA
+and beta cell function over 10 years in 77 Japanese patients with type 2
+diabetes [@Morita2012a], though they used C-peptide to estimate beta cell
+function. The
 present analysis is the first study to our knowledge to examine the longitudinal
 association of a broad spectrum of individual NEFA on beta cell function in a
 large cohort. We found that there was a strong signal of higher total NEFA,
