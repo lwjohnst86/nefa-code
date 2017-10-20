@@ -9,7 +9,7 @@ output: fost::diabetologia_manuscript
 # Title page
 
 Title: Association of non-esterified fatty acid composition with insulin
-sensitivity and beta cell dysfunction in the Prospective Metabolism and Islet Cell
+sensitivity and beta cell function in the Prospective Metabolism and Islet Cell
 Evaluation (PROMISE) cohort
 
 <!-- 47 characters + spaces -->
@@ -41,15 +41,9 @@ Corresponding author:
 - Phone number: 416.978.3616
 - Email: anthony.hanley@utoronto.ca
 
-Word count - Main text: 3869 / 4000 (with figure captions)
-
-<!-- Table and figure count: 4 / 4 -->
-
-<!-- Reference limit 49 / 50 -->
-
 # Abstract
 
-Aim: Our aim was to determine the longitudinal associations of individual non-esterified fatty acids (NEFA) on the pathogenesis of diabetes, specifically on differences in the insulin sensitivity and beta cell function over 6 years in a cohort of individuals who are at-risk for diabetes.
+Aim: Our aim was to determine the longitudinal associations of individual non-esterified fatty acids (NEFA) on the pathogenesis of diabetes, specifically on differences in insulin sensitivity and beta cell function over 6 years in a cohort of individuals who are at-risk for diabetes.
 
 Methods: In the PROMISE longitudinal cohort, 477 participants had serum NEFA (mol% and concentration) measured at the baseline visit and completed an OGTT at 3 time points over 6 years. Outcome variables were calculated using the OGTT values. Insulin sensitivity was assessed using HOMA2-%S and the Matsuda index, while beta cell function was assessed using the Insulinogenic index over HOMA-IR (IGI/IR) and the Insulin Secretion-Sensitivity Index-2 (ISSI-2). Generalized estimating equations were used, adjusting for time, waist, sex, ethnicity, baseline age, alanine aminotransferase, and physical activity. NEFA were analysed as both concentrations (nmol/ml) and proportions (mol%) of the total fraction.
 
@@ -182,7 +176,7 @@ and glucose were derived from the OGTT at fasting, 30 minute, and 2 hour time
 points. Specific insulin was measured using the Elecsys 1010 (Roche Diagnostics,
 Basel, Switzerland) immunoassay analyser and electrochemiluminescence
 immunoassay. This assay shows 0.05% cross-reactivity to intact human pro-insulin
-and the Des 31,32 circulating split form (Linco Res. Inc, St. Charles, Missouri, USA), and has a coefficient of variation (CV) of 9.3%.
+and the Des 31,32 circulating split form, and has a coefficient of variation (CV) of 9.3%.
 Glucose was determined using an enzymatic hexokinase (Roche Modular, Roche
 Diagnostics, Mississauga, Ontario, Canada) with a detection range of 0.11 (2 mg/dl) to 41.6 mmol/l.  The
 inter-assay %CV is <1.1% and intra-assay %CV is < 1.9%.  All assays were
@@ -254,7 +248,7 @@ For the primary analysis, generalized estimating equation (GEE) models
 outcome variables and the predictor variables. Given the longitudinal design an
 auto-regressive of order 1 (AR1) correlation matrix was chosen for the GEE
 models, though other matrices (eg. exchangeable) had similar fit (data not
-shown). GEE is well suited to longitudinal cohort studies given it's capacity to
+shown). GEE is well suited to longitudinal cohort studies given its capacity to
 handle any missed visits and for the correlation of variables between time points. 
 See the ESM Methods for more detail on GEE.
 The predictor variables and continuous covariates were
@@ -305,8 +299,6 @@ https://dx.doi.org/10.6084/m9.figshare.3472433. Results were considered
 statistically significance at p<0.05, after adjusting for multiple testing using
 the Benjamini-Hochberg False Discovery Rate (FDR) [@Benjamini1995a]. STROBE was used
 as a guideline for reporting [@Vandenbroucke2007b].
-The cohort datasets analysed during the current study are available from the
-corresponding author on reasonable request.
 
 # Results
 
@@ -332,6 +324,8 @@ sig_fa_adj <- gee_results %>%
     dplyr::filter(model == "Adjusted", p.value < 0.05) %>% 
     dplyr::select(Yterms, Xterms, unit) %>% 
     dplyr::mutate(Xterms = ifelse(Xterms == "Total", "total NEFA", as.character(Xterms)))
+
+dm_each_visit <- calc_dm_each_visit()
 ```
 
 ## Basic characteristics of the PROMISE cohort
@@ -350,15 +344,15 @@ decline from baseline to 6-years of between `r chg_outcomes$chg`
 Consistent with this decline, there were `r calc_incid_dysgly("ConvertDM")`
 and `r calc_incid_dysgly("ConvertPreDM")` incident cases of diabetes and
 pre-diabetes (IFG and IGT), respectively, over the 6-years. Incident diabetes
-cases were excluded from GEE analyses (n={{num}} at 3rd year, n=
-{{num}} at 6th year). Follow-up data were included until date of
-diagnosis.
+cases were excluded from GEE analyses (1, 28, and 13 cases were excluded at
+0, 3, and 6 year visits, respectively).
+Follow-up data were included until date of diagnosis.
 Certain medications (e.g. lipid medications such as statins or
 fibrates) could influence the association between NEFA and the outcomes.
-There were `r meds_use[1]` and `r meds_use[2]` participants who used lipid and
-cholesterol modifying medications at the baseline and 6-year visit,
+There were `r meds_use[1]` and `r meds_use[2]` participants who used lipid 
+modifying medications at the baseline and 6-year visit,
 respectively. Use of these medications did not influence NEFA composition, the
-outcomes, or the GEE models (data not shown).
+outcomes, or their associations as analysed from the GEE models (data not shown).
 
 `r cite_f('nefa')` shows the compositional distribution of NEFA in the study
 participants. Four individual NEFA made up the vast majority 
@@ -441,10 +435,10 @@ adipose tissue and insulin sensitivity (since adipocytes are active endocrine
 organs).
 
 We used indices of insulin sensitivity and beta cell function estimated from
-glucose and insulin values and as such could that lead to measurement bias.
-While these indices have all been validated against gold standard measures,
-it is possible our measures are not sensitivity enough to identify potential
-associations with NEFA.
+glucose and insulin values during OGTTs. While these indices have all been
+validated against gold standard measures, it is possible our measures may
+contain some degree of measurement misclassification and are thus not sensitive
+enough to identify potential associations with NEFA.
 Finally, our cohort consists of individuals at-risk for diabetes,
 who are primarily female and European-ancestry and, while sex and ethnicity did
 not influence the results presented from this cohort, our findings may not
@@ -463,17 +457,17 @@ secretion and a higher risk for developing diabetes
 RISCK cohort, total NEFA had a negative association with insulin sensitivity and
 a particularly strong negative association with beta cell function
 [@Johns2014a]. Another cross-sectional study found a null association of
-total NEFA on beta cell function [@Rebelos2015a], however they used C-peptide to
-estimate beta cell function.
+total NEFA on beta cell function [@Rebelos2015a], however C-peptide was used to
+estimate beta cell function in this study.
 Experimentally, several potential mechanisms have been elucidated
 for the role of NEFA on beta cell function, particularly for palmitic acid.
 Prolonged exposure to elevated NEFA can induce apoptosis in the beta cells,
 possibly through endoplasmic reticulum stress, formation of ceramides, and
 generation of nitric oxide, as well as impairment of proinsulin production and
 mitochondrial function [@Cnop2008a; @Maris2013a; @Giacca2011a; @Xiao2009a]. 
-One longitudinal studies also found an inverse association between total NEFA
+One longitudinal study also found an inverse association between total NEFA
 and beta cell function over 10 years in 77 Japanese patients with type 2
-diabetes [@Morita2012a], though they used C-peptide to estimate beta cell
+diabetes [@Morita2012a]; in this study C-peptide was used to estimate beta cell
 function. The
 present analysis is the first study to our knowledge to examine the longitudinal
 association of a broad spectrum of individual NEFA on beta cell function in a
@@ -557,8 +551,9 @@ assistance and dedication in their work for PROMISE.
 
 ## Funding
 
-This study was supported by grants from the Canadian Diabetes Association (CDA),
-the Canadian Institutes for Health Research, and the University of Toronto
+This study was supported by grants from the Canadian Diabetes Association (CDA;
+Grant number: OG-3-14-4574-AH), the Canadian Institutes for Health Research
+(Grant number: MOP-130458), and the University of Toronto
 Banting and Best Diabetes Centre; LWJ was supported by a CDA Doctoral Student
 Research Award; RR was supported by a Heart and Stroke Foundation of Ontario
 Mid-Career Investigator Award; SBH holds the CDA Chair in National Diabetes
@@ -566,6 +561,11 @@ Management and the Ian McWhinney Chair of Family Medicine Studies at the
 University of Western Ontario; RPB holds a Tier II Canada Research Chair in
 Brain Lipid Metabolism; AJH holds a Tier II Canada Research Chair in Diabetes
 Epidemiology.
+
+## Data availability
+
+The cohort datasets analysed during the current study are available from the
+corresponding author on request.
 
 ## Duality of interest
 
