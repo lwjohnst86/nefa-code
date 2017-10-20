@@ -1,6 +1,6 @@
 Package: nefaDiabetes
 Title: Analysis Code for NEFA and Diabetes Pathogenesis
-Version: 2.0.0.9000
+Version: 3.0.0
 Authors@R: person("Luke", "Johnston", email = "lwjohnst@gmail.com", role = c("aut", "cre"))
 Description: Contains the code used to analysis the data for the manuscript on
     NEFA composition and the role in insulin sensitivity and beta-cell function
