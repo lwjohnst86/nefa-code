@@ -56,11 +56,11 @@ DONE Do not abbreviate insulin sensitivity
 DONE List all abbreviations in alphabetical order
 DONE Use British English everywhere (labeled, glycaemia)
 DONE Include name, city, state, country for every manufacturer/supplier
-TODO Ask Tony to confirm about details of manufacturers (e.g. city)
+DONE Ask Tony to confirm about details of manufacturers (e.g. city)
 DONE Use SI units (pmol/l for insulin, mmol/l for glucose) and l for litre
 DONE Use beta cell (not beta-cell)
 DONE In acknowledgements use format Initials Surname (Affl)
-TODO Confirm funding sources for co-authors and grant numbers
+DONE Confirm funding sources for co-authors and grant numbers
     # Email Tony about this
 DONE Insert duality of interest statement
     # The authors declare that there is no duality of interest associated with
@@ -83,6 +83,7 @@ DONE Increase font size of labels in figures, be consistent in font size (mostly
 DONE Decrease line weight to be 0.75 # They were already 0.75
 DONE Use abbrev NEFA in figures
 DONE Use italics `p-value` in figures
+    # Removed p-value legend from figure
 DONE Figures 2 and 3, move outcome and unit names to over side of x/y-axis
 DONE Have ESM all in one file, in this order: ESM text, tables, figures
 DONE Expand on "GEE matrices had similar fit", but still use AR (in ESM)
@@ -101,20 +102,24 @@ DONE Confirm no participants have liver, renal, or endocrine conditions
 DONE Expand on "medication use"
 DONE Describe limitation of insulin sensitivity indices vs clamp
 DONE Include glucose and insulin values in Table 1
-TODO Find (if any) and include longitudinal data of beta cell decline (even in DM) # references
+DONE Find (if any) and include longitudinal data of beta cell decline (even in DM) # references
+    # Not many...
 DONE Make edits to wording as per Reviewer 3
 DONE Add number of participants in Table 1 (at each visit)
-TODO Add number of excluded diabetes cases in ESM fig 1 (as per R3)
+DONE Add number of excluded diabetes cases in ESM fig 1 (as per R3)
+    # Added the numbers to the text
 
 # For after generating manuscript/esm
-TODO Highlight the changes in the manuscript
-TODO Confirm that no URLs are in references
-TODO Remove DOI from references
-TODO Confirm Tables and Figures are cited in numerical (and correct) order
-TODO Confirm in Table Properties that text wrapping is turned off (in Word)
-TODO Don't include highlighting in ESM
-TODO Manuscript and table in one file
-TODO Figure legends should be included in the main text (after refs)
+DONE Highlight the changes in the manuscript
+DONE Confirm that no URLs are in references
+DONE Remove DOI from references
+DONE Confirm Tables and Figures are cited in numerical (and correct) order
+DONE Confirm in Table Properties that text wrapping is turned off (in Word)
+DONE Don't include highlighting in ESM
+DONE Manuscript and table in one file
+DONE Figure legends should be included in the main text (after refs)
+DONE Update STROBE list
+TODO Update code
 
 TODO Resubmit to Diabetologia
 >>> v3.0.0
