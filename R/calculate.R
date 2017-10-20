@@ -156,3 +156,20 @@ calc_pct_full_visits <- function() {
     pct_val <- calc_n_for_visits()[1] / sum(calc_n_for_visits())
     precise_rounding(pct_val * 100)
 }
+
+#' Calculate the number of DM cases at each clinic visit.
+#'
+calc_dm_each_visit <- function() {
+    project_data %>%
+        incid_dysgly() %>%
+        dplyr::select(SID, DetailedConvert, `0`, `1`, `2`) %>%
+        tidyr::gather(VN, Dysgly, -SID, -DetailedConvert) %>%
+        dplyr::mutate(DM = as.numeric(Dysgly == "DM")) %>%
+        dplyr::arrange(SID, VN) %>%
+        dplyr::filter(DM == 1) %>%
+        dplyr::group_by(SID) %>%
+        dplyr::mutate(DM_cumsum = cumsum(DM)) %>%
+        dplyr::ungroup() %>%
+        dplyr::filter(DM_cumsum == 1) %>%
+        dplyr::count(VN)
+}
