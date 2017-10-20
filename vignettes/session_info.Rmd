@@ -14,8 +14,11 @@ various packages, and the specific version numbers of each package for the
 analyses done for this manuscript.
 
 ```{r}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+```{r}
 devtools::load_all()
 devtools::session_info()
-knitr::opts_chunk$set(collapse = TRUE)
 ```
 
