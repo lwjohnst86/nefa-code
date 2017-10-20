@@ -107,7 +107,7 @@ plot_gee_main <- function(results) {
             xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in NEFA',
             ylab = 'NEFA'
             ) +
-        graph_theme(ticks = FALSE, legend.pos = "right") +
+        graph_theme(ticks = FALSE, legend.pos = "none") +
         ggplot2::facet_grid(unit~Yterms, switch = 'both',
                             scales = 'free_y',
                             space = 'free_y', as.table = FALSE) +
