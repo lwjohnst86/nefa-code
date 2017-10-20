@@ -27,28 +27,40 @@ incident_dysglycemia_data <- function(data) {
         dplyr::left_join(
             data %>%
                 dplyr::filter(VN == 0),
-            data %>%
-                dplyr::filter(!is.na(TotalNE)) %>%
-                dplyr::mutate_at(c("IFG", "IGT"), dplyr::funs(ifelse(is.na(.), 0, .))) %>%
-                dplyr::mutate(PreDM = as.numeric(rowSums(.[c('IFG', 'IGT')], na.rm = TRUE))) %>%
-                dplyr::mutate(FactorDysgly = ifelse(
-                    PreDM == 1, 'PreDM',
-                    ifelse(DM == 1, 'DM',
-                           'NGT')
-                )) %>%
-                dplyr::select(SID, VN, FactorDysgly) %>%
-                tidyr::spread(VN, FactorDysgly) %>%
-                dplyr::mutate(
-                    DetailedConvert = as.factor(paste0(`0`, '-', `1`, '-', `2`)),
-                    ConvertDysgly = as.numeric(!grepl('NGT$|NGT-NA$|NGT-NGT-NA$|NGT-NA-NA$',
-                                                      DetailedConvert)),
-                    ConvertDM = as.numeric(grepl('-DM$|-DM-DM$|-DM-NA$|-DM-NGT$',
-                                                 DetailedConvert)),
-                    ConvertPreDM = as.numeric(grepl('-PreDM$|-PreDM-PreDM$|-PreDM-NA$',
-                                                    DetailedConvert))
-                )
+            incid_dysgly(data)
         ) %>%
         dplyr::filter(!is.na(TotalNE))
 
     return(dysgly_data)
+}
+
+#' Incident dysglycemia at each visit
+#'
+#' @param data project data
+#'
+incid_dysgly <- function(data) {
+    data %>%
+        dplyr::filter(!is.na(TotalNE)) %>%
+        dplyr::mutate_at(c("IFG", "IGT"), dplyr::funs(ifelse(is.na(.), 0, .))) %>%
+        dplyr::mutate(PreDM = as.numeric(rowSums(.[c('IFG', 'IGT')], na.rm = TRUE))) %>%
+        dplyr::mutate(FactorDysgly = ifelse(PreDM == 1, 'PreDM',
+                                            ifelse(DM == 1, 'DM',
+                                                   'NGT'))) %>%
+        dplyr::select(SID, VN, FactorDysgly) %>%
+        tidyr::spread(VN, FactorDysgly) %>%
+        dplyr::mutate(
+            DetailedConvert = as.factor(paste0(`0`, '-', `1`, '-', `2`)),
+            ConvertDysgly = as.numeric(
+                !grepl('NGT$|NGT-NA$|NGT-NGT-NA$|NGT-NA-NA$',
+                       DetailedConvert)
+            ),
+            ConvertDM = as.numeric(grepl(
+                '-DM$|-DM-DM$|-DM-NA$|-DM-NGT$',
+                DetailedConvert
+            )),
+            ConvertPreDM = as.numeric(grepl(
+                '-PreDM$|-PreDM-PreDM$|-PreDM-NA$',
+                DetailedConvert
+            ))
+        )
 }

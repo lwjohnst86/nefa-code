@@ -24,7 +24,7 @@ fetch_data <- function() {
             ALT, CRP, FamHistDiab, dplyr::matches('meds'), Age, Sex, Ethnicity,
             IFG, IGT, DM, MET, Age, AlcoholPerWk, TobaccoUse, SelfEdu, Occupation,
             TotalNE, dplyr::matches('^ne\\d+'), Glucose0, Glucose120, TAG,
-            MonthsFromBaseline, dplyr::matches("HOMA")
+            MonthsFromBaseline, dplyr::matches("HOMA"), Insulin0, Insulin120
         ) %>%
         dplyr::mutate(
             YearsFromBaseline = MonthsFromBaseline / 12,

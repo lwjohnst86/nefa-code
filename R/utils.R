@@ -13,7 +13,7 @@ precise_rounding <- function(x, digits = 1) {
 graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legend.pos = 'bottom') {
     graph.theme <-
         ggplot2::"%+replace%"(
-            ggthemes::theme_tufte(base_size = 10, base_family = 'sans'),
+            ggthemes::theme_tufte(base_size = 11, base_family = 'Arial'),
             ggplot2::theme(
                 axis.line = ggplot2::element_line('black', size = 0.75),
                 axis.line.x = ggplot2::element_line('black', size = 0.75),
@@ -21,7 +21,7 @@ graph_theme <- function(base.plot, ticks = TRUE, minor.grid.lines = FALSE, legen
                 legend.key.width = grid::unit(0.7, "line"),
                 legend.key.height = grid::unit(0.7, "line"),
                 strip.background = ggplot2::element_blank(),
-                plot.margin = grid::unit(c(0.5, 0, 0, 0), "cm"),
+                plot.margin = grid::unit(c(0.5, 0.1, 0.1, 0.1), "cm"),
                 legend.position = legend.pos
             )
         )

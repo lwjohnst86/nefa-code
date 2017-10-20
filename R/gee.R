@@ -95,19 +95,24 @@ tidy_gee_results <- function(results) {
 #' @param results Results from the GEE modeling.
 #'
 plot_gee_main <- function(results) {
+    legend_title <- ~ atop(
+        paste("FDR-adjusted"),
+        paste(italic(p), "-value          ")
+    )
     results %>%
         seer::view_main_effect(
             graph.options = "dot.grey",
             groups = 'unit~Yterms',
-            legend.title = 'FDR-adjusted\np-value',
-            xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in fatty acid',
-            ylab = 'Non-esterified fatty acids'
+            legend.title = legend_title,
+            xlab = 'Percent difference with 95% CI in the outcomes\nfor each SD increase in NEFA',
+            ylab = 'NEFA'
             ) +
-        graph_theme(ticks = FALSE, legend.pos = "right") +
-        ggplot2::facet_grid(unit~Yterms, switch = 'y',
+        graph_theme(ticks = FALSE, legend.pos = "none") +
+        ggplot2::facet_grid(unit~Yterms, switch = 'both',
                             scales = 'free_y',
-                            space = 'free_y') +
-        ggplot2::theme(panel.spacing = grid::unit(0.6, "lines"))
+                            space = 'free_y', as.table = FALSE) +
+        ggplot2::theme(panel.spacing = grid::unit(0.6, "lines"),
+                       strip.placement = "outside")
 }
 
 #' Create a table from the GEE results.

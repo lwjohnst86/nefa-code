@@ -15,9 +15,9 @@ stab <- captioner(prefix = 'ESM Table')
 cite_st <- pryr::partial(stab, display = 'cite')
 
 tab_basic <- tab('basic', 'Basic characteristics of the PROMISE participants at each of the three clinic visits.')
-fig_dist <- fig('nefa', 'Concentrations (nmol/mL) of each NEFA in PROMISE participants at the baseline visit (2004-2006).')
-fig_gee_unadj <- fig('gee_unadj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over 6 years in the PROMISE cohort. Models are only adjusted for time. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, p<0.01, and p<0.001.')
-fig_gee_adj <- fig('gee_adj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/mL) with insulin sensitivity and beta-cell function over the 6 years in the PROMISE cohort. Generalized estimating equation models were fully adjusted. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate, with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, and p<0.01.')
+fig_dist <- fig('nefa', 'Concentrations (nmol/ml) of each NEFA in PROMISE participants at the baseline visit (2004-2006).')
+fig_gee_unadj <- fig('gee_unadj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/ml) with insulin sensitivity and beta cell function over 6 years in the PROMISE cohort. Models are only adjusted for time. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate (FDR), with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, p<0.01, and p<0.001.')
+fig_gee_adj <- fig('gee_adj', 'Longitudinal associations of individual non-esterified fatty acids (mol% and nmol/ml) with insulin sensitivity and beta cell function over the 6 years in the PROMISE cohort. Generalized estimating equation models were fully adjusted. X-axis values represent a percent difference in the outcome per SD increase in the fatty acid. P-values were adjusted for the BH false discovery rate (FDR), with each increase in dot size and blackness representing a p-value significance of p>0.05, p<0.05, and p<0.01.')
 
 ## ----inline_results------------------------------------------------------
 nefa <- calc_pct_nefa(project_data)
@@ -42,6 +42,8 @@ sig_fa_adj <- gee_results %>%
     dplyr::select(Yterms, Xterms, unit) %>% 
     dplyr::mutate(Xterms = ifelse(Xterms == "Total", "total NEFA", as.character(Xterms)))
 
+dm_each_visit <- calc_dm_each_visit()
+
 ## ----table1_basic--------------------------------------------------------
 table_basic(project_data, caption = tab_basic)
 
@@ -51,10 +53,12 @@ plot_nefa_distribution()
 ## ----figure2_gee_unadj, fig.cap=fig_gee_unadj----------------------------
 gee_results %>% 
     dplyr::filter(model == "Unadjusted") %>% 
+    dplyr::mutate(unit = ifelse(unit == "Total", " ", unit)) %>% 
     plot_gee_main()
 
 ## ----figure3_gee_adj, fig.cap=fig_gee_adj--------------------------------
 gee_results %>% 
     dplyr::filter(model == "Adjusted") %>% 
+    dplyr::mutate(unit = ifelse(unit == "Total", " ", unit)) %>% 
     plot_gee_main()
 

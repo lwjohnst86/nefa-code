@@ -17,9 +17,11 @@ analyze_corr <- function(x = c(outcomes, 'BMI', 'Waist', 'Age', 'lALT', 'lTAG', 
         mason::construct() %>%
         mason::scrub() %>%
         dplyr::mutate_at("Vars2", renaming_fa) %>%
-        dplyr::mutate_at("Vars1", function(x)
-            gsub('l(ALT|TAG|IGIIR|HOMA2_S|invHOMA|ISI|ISSI2)', '\\1', x) %>%
-                renaming_outcomes()) %>%
+        dplyr::group_by(Vars2) %>%
+        dplyr::mutate_at("Vars1", function(x) {
+            x <- gsub('l(ALT|TAG|IGIIR|HOMA2_S|invHOMA|ISI|ISSI2)', '\\1', x)
+            renaming_outcomes(x)}) %>%
+        dplyr::ungroup() %>%
         order_by_fattyacid(fa_col = 'Vars2') %>%
         dplyr::mutate(Vars2 = forcats::fct_inorder(Vars2),
                       Vars1 = forcats::fct_inorder(Vars1),
