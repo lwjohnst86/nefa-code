@@ -44,7 +44,7 @@ more efficient under a particular correlation structure."*
     for using GEE in both the Methods and the ESM Methods sections. We chose the GEE
     technique for a variety of reasons. As the reviewer states, GEE is able to
     handle visit dates that differ between participants (e.g. some participants
-    come exactly 3 years later for a followup while others come some months
+    come exactly 3 years later for a follow up while others come some months
     before or after 3 years) and for dealing with the inherent correlational
     structure underlying longitudinal data. Because of these features, among
     others, GEE can compute robust standard errors of the estimates that more
@@ -146,7 +146,7 @@ ideal."*
     the methods.
     
     The reason we did not include all NEFA variables (as proportion or as
-    concentration) into a single GEE model is because GEE can not handle this
+    concentration) into a single GEE model is because GEE cannot handle this
     level of complexity particular due to the collinearity between NEFA leading
     to biased estimates and model instability. How the reviewer
     described setting the variables in the regression equation may be useful for
@@ -165,7 +165,7 @@ ideal."*
     believe, is a major strength of our study since previous literature using other
     fatty acid fractions (e.g. phospholipid) generally only investigate
     proportions but do not report on or measure the concentration. Concentration
-    data ara more technically challenging to quantify in the lab and so it is understandable
+    data are more technically challenging to quantify in the lab and so it is understandable
     why large cohort studies do not measure these data. Using both concentration
     and proportion, we can identify what specific role the absolute size and
     specific proportion of individual NEFA have on the risk for diabetes.
@@ -271,7 +271,7 @@ mean post-incidence here?"*
         is correct that QIC is specific to GEE-type models. Because GEE uses
         quasi-likelihood rather than maximum likelihood estimation (as other
         techniques use such as mixed effects models), information criteria such
-        as AIC can not be used since they rely on maximum likelihood. We agree
+        as AIC cannot be used since they rely on maximum likelihood. We agree
         that the wording surrounding 'fit' and 'complex' could be clearer.
         However, we disagree that it should be omitted since techniques such as
         QIC *do* select models that have both a good fit and are less complex.
@@ -404,8 +404,8 @@ information on the DAGs remain but I only have the following comments:"*
         The exact number of excluded cases of diabetes is dependent on this analysis
         and doesn't reflect the main PROMISE cohort. Since the CONSORT diagram 
         represents the main cohort, we included the number of excluded diabetes
-        cases in the text of the Results section since the text reflects the 
-        present analysis.
+        cases in the text of the Results section as the text reflects the 
+        present analysis. (See first paragraph of Results section.)
 
     5. *"Please add the colour codes for DAGs (i.e.: exposure, outcome, ancestor
     of exposure, ancestor of outcome, ancestor of both, causal path, biasing
@@ -440,7 +440,11 @@ hard to interpret these findings with respect to biological significance:"*
         would not have been publishable given current journal word and figure
         count limits. This was the reason we decided to publish the fractions in
         separate manuscripts, to maintain a clear and focused narrative within
-        the constraints of the journals limits.
+        the constraints of the journals limits. If interested, the reference is:
+        
+        Johnston LW, Harris SB, Retnakaran R, et al (2016) Longitudinal
+        associations of phospholipid and cholesteryl ester fatty acids with
+        disorders underlying diabetes. J Clin Endocrinol Metab 101:2536–2544.
 
     - *"some discussion on what determines plasma fatty acid profile may be
     useful, beside spillover also (selective) release by endogenous lipolysis.
